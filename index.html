@@ -3,80 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phystalk</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(ellipse at center, #0a0f2c 0%, #000000 100%);
-      color: #f0f0f0;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      padding: 30px 0;
-    }
-    h1 {
-      font-size: 3em;
-      color: #00f5ff;
-      text-shadow: 0 0 10px #00f5ff;
-    }
-    section {
-      max-width: 1000px;
-      margin: auto;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #2d2d2d;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-    }
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 10px;
-    }
-    .equation, .chat, .desmos, .calendar, .meet {
-      margin-bottom: 30px;
-    }
-    a {
-      color: #6cf;
-    }
-  </style>
-
-  <!-- MathJax -->
-  <script>
-    MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <title>PhysTalk</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <header>
-    <h1>Phystalk</h1>
-    <p>Where Physics Meets the Cosmos</p>
-  </header>
 
-  <section class="equation">
-    <h2>📐 Equation Rendering</h2>
-    <button onclick="window.location.href='calculator.html'">Calculator</button>
-  </section>
+  <div class="sidebar">
+    <h2>🌌 PhysTalk</h2>
+    <a href="index.html">🏠 Home</a>
+    <a href="desmos.html">📊 Desmos</a>
+    <a href="discord.html">💬 Discord</a>
+    <a href="log.html">📚 Physics Log</a>
+    <a href="https://calendar.google.com/calendar/embed?src=en.indian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FKolkata" target="_blank">📅 Calendar</a>
+    <a href="https://meet.google.com/" target="_blank">📹 Google Meet</a>
+  </div>
 
-  <section class="chat">
-    <h2>Discord Server</h2>
-      <button onclick="window.location.href='discord.html'">Discord Server</button>
-  </section>
+  <div class="main">
+    <h1>Welcome to PhysTalk</h1>
+    <p>A student-led space to research, discuss and explore physics collaboratively.</p>
 
-  <section class="desmos">
-    <button onclick="window.location.href='desmos.html'">Desmos</button>
-  </section>
+    <h2>⚛️ Sample Equations</h2>
+    <p>$E = mc^2$</p>
+    <p>$$i\hbar \frac{\partial}{\partial t} \Psi = \hat{H} \Psi$$</p>
 
-  <section class="Physics LOG">
-    <button onclick="window.location.href='log.html'">LOG</button>
-  </section>
+    <script>
+      MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+        svg: { fontCache: 'global' }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  </div>
+
 </body>
 </html>
 
