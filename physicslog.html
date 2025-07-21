@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Physics Log</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>PhyStalk</h2>
+    <a href="index.html">Home</a>
+    <a href="desmos.html">Graphing Tool</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="discord.html">Discord</a>
+    <a href="physicslog.html" class="active">Physics Log</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="googlemeet.html">Google Meet</a>
+  </div>
+
+  <div class="main">
+    <h1>Physics Log</h1>
+    <p>Write your notes in Markdown with LaTeX support!</p>
+    <textarea id="markdown" placeholder="Type your physics notes using **Markdown** and \\( LaTeX \\) here..."></textarea>
+    <div id="preview"></div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById("markdown");
+    const preview = document.getElementById("preview");
+
+    textarea.addEventListener("input", () => {
+      preview.innerHTML = marked.parse(textarea.value);
+      MathJax.typesetPromise();
+    });
+  </script>
+
+  <style>
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+      padding: 10px;
+      font-size: 1rem;
+      font-family: monospace;
+    }
+    #preview {
+      padding: 20px;
+      background: #f4f4f4;
+      border: 1px solid #ccc;
+    }
+  </style>
+</body>
+</html>
