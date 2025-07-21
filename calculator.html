@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown + LaTeX Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #editorSection {
+      display: none;
+      margin-top: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+    }
+    #output {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Marked.js for Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- MathJax for LaTeX -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+  <h1>Markdown + LaTeX Editor</h1>
+  <button onclick="toggleEditor()">Toggle Editor</button>
+
+  <div id="editorSection">
+    <textarea id="markdownInput" placeholder="Write Markdown with LaTeX..."></textarea>
+    <br />
+    <button onclick="renderOutput()">Render</button>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function toggleEditor() {
+      const section = document.getElementById('editorSection');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function renderOutput() {
+      const input = document.getElementById('markdownInput').value;
+      const html = marked.parse(input);
+      document.getElementById('output').innerHTML = html;
+      MathJax.typeset(); // Trigger MathJax to render LaTeX
+    }
+  </script>
+</body>
+</html>
