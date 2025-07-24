@@ -352,16 +352,7 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true
-      },
-      svg: {
-        fontCache: 'global'
-      }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+        inlineMath: [['
 </head>
 
 <body>
@@ -506,19 +497,515 @@ F = ma
 
       <div class="content-section">
         <h2 class="section-title">Graphing Calculator</h2>
-        <iframe class="embedded-frame" src="https://www.desmos.com/calculator?embed" title="Desmos Graphing Calculator" allowfullscreen></iframe>
+        <div id="calculator" style="width: 100%; height: 600px; border: 1px solid #2d2d2d; border-radius: 15px; background: white;"></div>
         <div style="text-align: center; margin-top: 15px;">
-          <p style="color: #ccc; font-size: 0.9em;">If the calculator doesn't load, <a href="https://www.desmos.com/calculator" target="_blank" style="color: #00f5ff;">click here to open in a new tab</a></p>
+          <button class="calc-btn" onclick="addExpression('y = x^2')">Add y = x²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(x)')">Add y = sin(x)</button>
+          <button class="calc-btn" onclick="addExpression('y = cos(x)')">Add y = cos(x)</button>
+          <button class="calc-btn" onclick="clearGraph()">Clear All</button>
         </div>
       </div>
 
       <div class="content-section">
-        <h2 class="section-title">Quick Tips</h2>
+        <h2 class="section-title">Quick Add Equations</h2>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; align-items: center;">
+          <input type="text" id="customEquation" placeholder="Enter equation (e.g., y = 2x + 3)" 
+                 style="background: rgba(0, 0, 0, 0.3); border: 1px solid #2d2d2d; border-radius: 8px; padding: 12px; color: #f0f0f0; font-size: 1em;">
+          <button class="calc-btn" onclick="addCustomExpression()">Add to Graph</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Physics Examples</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+          <button class="calc-btn" onclick="addExpression('y = 0.5*9.8*x^2')">Free Fall: y = ½gt²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(2*pi*x)')">Wave: y = sin(2πx)</button>
+          <button class="calc-btn" onclick="addExpression('y = e^(-x^2)')">Gaussian: y = e^(-x²)</button>
+          <button class="calc-btn" onclick="addExpression('y = 1/x')">Inverse: y = 1/x</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Usage Tips</h2>
         <ul style="line-height: 1.8;">
           <li>Use <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> for trigonometric functions</li>
           <li>Type <code>x^2</code> for x squared, <code>sqrt(x)</code> for square root</li>
-          <li>Use sliders with variables like <code>y = a*x + b</code></li>
-          <li>Create lists with <code>[1, 2, 3, 4]</code> for data points</li>
+          <li>Use <code>pi</code> for π and <code>e</code> for Euler's number</li>
+          <li>Create parametric equations with <code>x = t*cos(t), y = t*sin(t)</code></li>
+          <li>Add sliders by using variables like <code>y = a*x + b</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Calendar Page -->
+    <div class="page" id="calendar">
+      <div class="page-header">
+        <h1 class="page-title">Event Calendar</h1>
+        <p class="page-subtitle">Physics events and community meetings</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Community Calendar</h2>
+        <iframe class="embedded-frame" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23AD1457" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no" title="Physics Events Calendar"></iframe>
+        <div style="text-align: center; margin-top: 15px;">
+          <p style="color: #ccc; font-size: 0.9em;">If the calendar doesn't load, <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" style="color: #00f5ff;">click here to open Google Calendar</a></p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Meeting Links</h2>
+        <p>Join our regular physics discussions and study sessions:</p>
+        <a href="https://meet.google.com/" target="_blank" class="docs-btn">🎥 Google Meet</a>
+        <p style="margin-top: 15px; color: #ccc;">Meeting times are posted in the calendar above and announced in our Discord server.</p>
+      </div>
+    </div>
+
+    <!-- Docs Page -->
+    <div class="page" id="docs">
+      <div class="page-header">
+        <h1 class="page-title">Physics Research Log</h1>
+        <p class="page-subtitle">Collaborative research and documentation</p>
+      </div>
+
+      <div class="docs-container">
+        <h2 class="section-title">Research Documents</h2>
+        <p>Access our collaborative physics research log, experiment notes, and study materials. Contribute your own findings and learn from the community.</p>
+        
+        <div style="margin: 20px 0;">
+          <a href="#" target="_blank" class="docs-btn">📄 Main Research Log</a>
+          <a href="#" target="_blank" class="docs-btn">🧪 Experiment Notes</a>
+          <a href="#" target="_blank" class="docs-btn">📚 Study Materials</a>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin-top: 20px;">
+          <h3 style="color: #00f5ff; margin-bottom: 15px;">How to Contribute:</h3>
+          <ol style="line-height: 1.8;">
+            <li>Request access to our Google Docs through Discord</li>
+            <li>Follow the document formatting guidelines</li>
+            <li>Share your research, solutions, or interesting findings</li>
+            <li>Collaborate with other community members</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discord Page -->
+    <div class="page" id="discord">
+      <div class="page-header">
+        <h1 class="page-title">Discord Community</h1>
+        <p class="page-subtitle">Real-time physics discussions</p>
+      </div>
+
+      <div class="discord-widget">
+        <h2 class="section-title">Join Our Discord Server</h2>
+        <p>Connect with fellow physics enthusiasts, get homework help, discuss recent discoveries, and participate in live study sessions.</p>
+        
+        <a href="#" target="_blank" class="discord-btn">🚀 Join Discord Server</a>
+
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin-top: 25px;">
+          <h3 style="color: #5865f2; margin-bottom: 15px;">What You'll Find:</h3>
+          <ul style="line-height: 1.8; text-align: left;">
+            <li><strong>#general-physics</strong> - General physics discussions</li>
+            <li><strong>#homework-help</strong> - Get help with physics problems</li>
+            <li><strong>#research-share</strong> - Share interesting research</li>
+            <li><strong>#study-groups</strong> - Organize study sessions</li>
+            <li><strong>#resources</strong> - Share useful physics resources</li>
+            <li><strong>#voice-study</strong> - Voice channels for collaborative study</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Desmos calculator instance
+    let calculator = null;
+
+    // Navigation functionality
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+      
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+      
+      // Update active nav item
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Initialize Desmos calculator when Desmos page is shown
+      if (pageId === 'desmos' && !calculator) {
+        initializeDesmos();
+      }
+      
+      // Hide sidebar on mobile after selection
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('show');
+      }
+    }
+
+    // Initialize Desmos Calculator
+    function initializeDesmos() {
+      const elt = document.getElementById('calculator');
+      if (elt && typeof Desmos !== 'undefined') {
+        calculator = Desmos.GraphingCalculator(elt, {
+          keypad: true,
+          expressions: true,
+          settingsMenu: true,
+          zoomButtons: true,
+          expressionsTopbar: true,
+          pointsOfInterest: true,
+          trace: true,
+          border: false,
+          lockViewport: false
+        });
+        
+        // Add a welcome equation
+        calculator.setExpression({
+          id: 'welcome',
+          latex: 'y = \\sin(x)',
+          color: '#00f5ff'
+        });
+      }
+    }
+
+    // Add expression to Desmos
+    function addExpression(latex) {
+      if (calculator) {
+        calculator.setExpression({
+          id: 'expr_' + Date.now(),
+          latex: latex,
+          color: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+      }
+    }
+
+    // Add custom expression
+    function addCustomExpression() {
+      const input = document.getElementById('customEquation');
+      if (input.value.trim() && calculator) {
+        calculator.setExpression({
+          id: 'custom_' + Date.now(),
+          latex: input.value.trim(),
+          color: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+        input.value = '';
+      }
+    }
+
+    // Clear all expressions
+    function clearGraph() {
+      if (calculator) {
+        calculator.setBlank();
+      }
+    }
+
+    // Handle Enter key in custom equation input
+    document.addEventListener('DOMContentLoaded', function() {
+      const customInput = document.getElementById('customEquation');
+      if (customInput) {
+        customInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            addCustomExpression();
+          }
+        });
+      }
+    });
+
+    // Toggle sidebar for mobile
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
+    }
+
+    // Calculator functionality
+    function renderLatex() {
+      const input = document.getElementById('latexInput').value;
+      const output = document.getElementById('renderedEquation');
+      
+      if (input.trim()) {
+        // Check if input contains display math delimiters
+        if (input.includes('$$') || input.includes('\\[')) {
+          output.innerHTML = input;
+        } else {
+          // Wrap in display math delimiters
+          output.innerHTML = '$$' + input + '$$';
+        }
+        
+        // Re-render MathJax
+        if (window.MathJax) {
+          MathJax.typesetPromise([output]);
+        }
+      }
+    }
+
+    function clearInput() {
+      document.getElementById('latexInput').value = '';
+      document.getElementById('renderedEquation').innerHTML = 'Enter an equation and click "Render Equation"';
+    }
+
+    function insertTemplate(type) {
+      const input = document.getElementById('latexInput');
+      const cursorPos = input.selectionStart;
+      const currentValue = input.value;
+      
+      let template = '';
+      switch(type) {
+        case 'integral':
+          template = '\\int_{a}^{b} f(x) dx';
+          break;
+        case 'derivative':
+          template = '\\frac{d}{dx} f(x)';
+          break;
+        case 'fraction':
+          template = '\\frac{numerator}{denominator}';
+          break;
+        case 'sqrt':
+          template = '\\sqrt{x}';
+          break;
+      }
+      
+      const newValue = currentValue.substring(0, cursorPos) + template + currentValue.substring(cursorPos);
+      input.value = newValue;
+      input.focus();
+    }
+
+    function loadTemplate(subject) {
+      const input = document.getElementById('latexInput');
+      let template = '';
+      
+      switch(subject) {
+        case 'kinematics':
+          template = 'v = v_0 + at\n\\\\x = x_0 + v_0 t + \\frac{1}{2}at^2\n\\\\v^2 = v_0^2 + 2a(x - x_0)';
+          break;
+        case 'thermodynamics':
+          template = 'PV = nRT\n\\\\\\Delta U = Q - W\n\\\\S = k \\ln \\Omega';
+          break;
+        case 'electromagnetism':
+          template = '\\vec{F} = q(\\vec{E} + \\vec{v} \\times \\vec{B})\n\\\\\\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon_0}\n\\\\\\nabla \\times \\vec{B} = \\mu_0 \\vec{J}';
+          break;
+        case 'quantum':
+          template = 'i\\hbar \\frac{\\partial}{\\partial t} \\Psi = \\hat{H} \\Psi\n\\\\[\\hat{x}, \\hat{p}] = i\\hbar\n\\\\E = h\\nu';
+          break;
+      }
+      
+      input.value = template;
+    }
+
+    // Handle responsive sidebar
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+      
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('show');
+        sidebar.classList.remove('hidden');
+      }
+    });
+
+    // Initialize MathJax rendering on page load
+    window.addEventListener('load', function() {
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    });
+
+    // Add click handlers to nav items
+    document.addEventListener('DOMContentLoaded', function() {
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          navItems.forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>, '
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">🌌 Phystalk</div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a class="nav-item active" onclick="showPage('home')">
+      <span>🏠 Home</span>
+    </a>
+    <a class="nav-item" onclick="showPage('calculator')">
+      <span>🧮 Calculator</span>
+    </a>
+    <a class="nav-item" onclick="showPage('desmos')">
+      <span>📊 Desmos Graph</span>
+    </a>
+    <a class="nav-item" onclick="showPage('calendar')">
+      <span>📅 Calendar</span>
+    </a>
+    <a class="nav-item" onclick="showPage('docs')">
+      <span>📝 Physics Log</span>
+    </a>
+    <a class="nav-item" onclick="showPage('discord')">
+      <span>💬 Discord</span>
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    
+    <!-- Home Page -->
+    <div class="page active" id="home">
+      <div class="page-header">
+        <h1 class="page-title">Welcome to Phystalk</h1>
+        <p class="page-subtitle">Where Physics Meets the Cosmos 🌌</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">About Our Community</h2>
+        <p>Welcome to Phystalk, a comprehensive physics forum designed for students, researchers, and enthusiasts. Our platform integrates powerful tools to help you explore, calculate, and collaborate on physics concepts.</p>
+      </div>
+
+      <div class="welcome-grid">
+        <div class="feature-card" onclick="showPage('calculator')">
+          <div class="feature-icon">🧮</div>
+          <div class="feature-title">LaTeX Calculator</div>
+          <p>Advanced equation rendering with MathJax support for complex physics formulas.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('desmos')">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Desmos Graphing</div>
+          <p>Interactive graphing calculator for visualizing mathematical functions and physics concepts.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('calendar')">
+          <div class="feature-icon">📅</div>
+          <div class="feature-title">Event Calendar</div>
+          <p>Stay updated with physics events, study sessions, and community meetings.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('docs')">
+          <div class="feature-icon">📝</div>
+          <div class="feature-title">Research Log</div>
+          <p>Collaborative document space for sharing research, notes, and physics discoveries.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('discord')">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title">Discord Community</div>
+          <p>Join our active Discord server for real-time discussions and help.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Quick Physics Examples</h2>
+        <p>Here are some fundamental physics equations rendered with LaTeX:</p>
+        <div style="margin: 20px 0; text-align: center;">
+          <p><strong>Einstein's Mass-Energy Equivalence:</strong> $E = mc^2$</p>
+          <p><strong>Schrödinger's Equation:</strong> $$i\hbar \frac{\partial}{\partial t} \Psi = \hat{H} \Psi$$</p>
+          <p><strong>Newton's Second Law:</strong> $\vec{F} = m\vec{a}$</p>
+          <p><strong>Maxwell's First Equation:</strong> $$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$$</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculator Page -->
+    <div class="page" id="calculator">
+      <div class="page-header">
+        <h1 class="page-title">LaTeX Calculator</h1>
+        <p class="page-subtitle">Advanced equation rendering and calculation</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Equation Input</h2>
+        <div class="calc-container">
+          <div>
+            <textarea class="calc-input" id="latexInput" placeholder="Enter your LaTeX equation here...
+Examples:
+E = mc^2
+F = ma
+\frac{d^2x}{dt^2} = -\omega^2 x
+\int_0^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}">E = mc^2</textarea>
+          </div>
+          <div class="calc-controls">
+            <button class="calc-btn" onclick="renderLatex()">Render Equation</button>
+            <button class="calc-btn" onclick="clearInput()">Clear</button>
+            <button class="calc-btn" onclick="insertTemplate('integral')">∫ Integral</button>
+            <button class="calc-btn" onclick="insertTemplate('derivative')">d/dx Derivative</button>
+            <button class="calc-btn" onclick="insertTemplate('fraction')">Fraction</button>
+            <button class="calc-btn" onclick="insertTemplate('sqrt')">√ Square Root</button>
+          </div>
+        </div>
+
+        <div class="calc-output" id="latexOutput">
+          <h3 style="color: #00f5ff; margin-bottom: 15px;">Rendered Equation:</h3>
+          <div id="renderedEquation">$$E = mc^2$$</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Common Physics Templates</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <button class="calc-btn" onclick="loadTemplate('kinematics')">Kinematics</button>
+          <button class="calc-btn" onclick="loadTemplate('thermodynamics')">Thermodynamics</button>
+          <button class="calc-btn" onclick="loadTemplate('electromagnetism')">E&M</button>
+          <button class="calc-btn" onclick="loadTemplate('quantum')">Quantum</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desmos Page -->
+    <div class="page" id="desmos">
+      <div class="page-header">
+        <h1 class="page-title">Desmos Graphing Calculator</h1>
+        <p class="page-subtitle">Interactive mathematical visualization</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Graphing Calculator</h2>
+        <div id="calculator" style="width: 100%; height: 600px; border: 1px solid #2d2d2d; border-radius: 15px; background: white;"></div>
+        <div style="text-align: center; margin-top: 15px;">
+          <button class="calc-btn" onclick="addExpression('y = x^2')">Add y = x²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(x)')">Add y = sin(x)</button>
+          <button class="calc-btn" onclick="addExpression('y = cos(x)')">Add y = cos(x)</button>
+          <button class="calc-btn" onclick="clearGraph()">Clear All</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Quick Add Equations</h2>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; align-items: center;">
+          <input type="text" id="customEquation" placeholder="Enter equation (e.g., y = 2x + 3)" 
+                 style="background: rgba(0, 0, 0, 0.3); border: 1px solid #2d2d2d; border-radius: 8px; padding: 12px; color: #f0f0f0; font-size: 1em;">
+          <button class="calc-btn" onclick="addCustomExpression()">Add to Graph</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Physics Examples</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+          <button class="calc-btn" onclick="addExpression('y = 0.5*9.8*x^2')">Free Fall: y = ½gt²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(2*pi*x)')">Wave: y = sin(2πx)</button>
+          <button class="calc-btn" onclick="addExpression('y = e^(-x^2)')">Gaussian: y = e^(-x²)</button>
+          <button class="calc-btn" onclick="addExpression('y = 1/x')">Inverse: y = 1/x</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Usage Tips</h2>
+        <ul style="line-height: 1.8;">
+          <li>Use <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> for trigonometric functions</li>
+          <li>Type <code>x^2</code> for x squared, <code>sqrt(x)</code> for square root</li>
+          <li>Use <code>pi</code> for π and <code>e</code> for Euler's number</li>
+          <li>Create parametric equations with <code>x = t*cos(t), y = t*sin(t)</code></li>
+          <li>Add sliders by using variables like <code>y = a*x + b</code></li>
         </ul>
       </div>
     </div>
@@ -734,5 +1221,416 @@ F = ma
       });
     });
   </script>
+</body>
+</html>], ['\\(', '\\)']],
+        displayMath: [['$', '$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  
+  <!-- Desmos API -->
+  <script src="https://www.desmos.com/api/v1.7/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">🌌 Phystalk</div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a class="nav-item active" onclick="showPage('home')">
+      <span>🏠 Home</span>
+    </a>
+    <a class="nav-item" onclick="showPage('calculator')">
+      <span>🧮 Calculator</span>
+    </a>
+    <a class="nav-item" onclick="showPage('desmos')">
+      <span>📊 Desmos Graph</span>
+    </a>
+    <a class="nav-item" onclick="showPage('calendar')">
+      <span>📅 Calendar</span>
+    </a>
+    <a class="nav-item" onclick="showPage('docs')">
+      <span>📝 Physics Log</span>
+    </a>
+    <a class="nav-item" onclick="showPage('discord')">
+      <span>💬 Discord</span>
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    
+    <!-- Home Page -->
+    <div class="page active" id="home">
+      <div class="page-header">
+        <h1 class="page-title">Welcome to Phystalk</h1>
+        <p class="page-subtitle">Where Physics Meets the Cosmos 🌌</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">About Our Community</h2>
+        <p>Welcome to Phystalk, a comprehensive physics forum designed for students, researchers, and enthusiasts. Our platform integrates powerful tools to help you explore, calculate, and collaborate on physics concepts.</p>
+      </div>
+
+      <div class="welcome-grid">
+        <div class="feature-card" onclick="showPage('calculator')">
+          <div class="feature-icon">🧮</div>
+          <div class="feature-title">LaTeX Calculator</div>
+          <p>Advanced equation rendering with MathJax support for complex physics formulas.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('desmos')">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Desmos Graphing</div>
+          <p>Interactive graphing calculator for visualizing mathematical functions and physics concepts.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('calendar')">
+          <div class="feature-icon">📅</div>
+          <div class="feature-title">Event Calendar</div>
+          <p>Stay updated with physics events, study sessions, and community meetings.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('docs')">
+          <div class="feature-icon">📝</div>
+          <div class="feature-title">Research Log</div>
+          <p>Collaborative document space for sharing research, notes, and physics discoveries.</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('discord')">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title">Discord Community</div>
+          <p>Join our active Discord server for real-time discussions and help.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Quick Physics Examples</h2>
+        <p>Here are some fundamental physics equations rendered with LaTeX:</p>
+        <div style="margin: 20px 0; text-align: center;">
+          <p><strong>Einstein's Mass-Energy Equivalence:</strong> $E = mc^2$</p>
+          <p><strong>Schrödinger's Equation:</strong> $$i\hbar \frac{\partial}{\partial t} \Psi = \hat{H} \Psi$$</p>
+          <p><strong>Newton's Second Law:</strong> $\vec{F} = m\vec{a}$</p>
+          <p><strong>Maxwell's First Equation:</strong> $$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$$</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculator Page -->
+    <div class="page" id="calculator">
+      <div class="page-header">
+        <h1 class="page-title">LaTeX Calculator</h1>
+        <p class="page-subtitle">Advanced equation rendering and calculation</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Equation Input</h2>
+        <div class="calc-container">
+          <div>
+            <textarea class="calc-input" id="latexInput" placeholder="Enter your LaTeX equation here...
+Examples:
+E = mc^2
+F = ma
+\frac{d^2x}{dt^2} = -\omega^2 x
+\int_0^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}">E = mc^2</textarea>
+          </div>
+          <div class="calc-controls">
+            <button class="calc-btn" onclick="renderLatex()">Render Equation</button>
+            <button class="calc-btn" onclick="clearInput()">Clear</button>
+            <button class="calc-btn" onclick="insertTemplate('integral')">∫ Integral</button>
+            <button class="calc-btn" onclick="insertTemplate('derivative')">d/dx Derivative</button>
+            <button class="calc-btn" onclick="insertTemplate('fraction')">Fraction</button>
+            <button class="calc-btn" onclick="insertTemplate('sqrt')">√ Square Root</button>
+          </div>
+        </div>
+
+        <div class="calc-output" id="latexOutput">
+          <h3 style="color: #00f5ff; margin-bottom: 15px;">Rendered Equation:</h3>
+          <div id="renderedEquation">$$E = mc^2$$</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Common Physics Templates</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <button class="calc-btn" onclick="loadTemplate('kinematics')">Kinematics</button>
+          <button class="calc-btn" onclick="loadTemplate('thermodynamics')">Thermodynamics</button>
+          <button class="calc-btn" onclick="loadTemplate('electromagnetism')">E&M</button>
+          <button class="calc-btn" onclick="loadTemplate('quantum')">Quantum</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desmos Page -->
+    <div class="page" id="desmos">
+      <div class="page-header">
+        <h1 class="page-title">Desmos Graphing Calculator</h1>
+        <p class="page-subtitle">Interactive mathematical visualization</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Graphing Calculator</h2>
+        <div id="calculator" style="width: 100%; height: 600px; border: 1px solid #2d2d2d; border-radius: 15px; background: white;"></div>
+        <div style="text-align: center; margin-top: 15px;">
+          <button class="calc-btn" onclick="addExpression('y = x^2')">Add y = x²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(x)')">Add y = sin(x)</button>
+          <button class="calc-btn" onclick="addExpression('y = cos(x)')">Add y = cos(x)</button>
+          <button class="calc-btn" onclick="clearGraph()">Clear All</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Quick Add Equations</h2>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; align-items: center;">
+          <input type="text" id="customEquation" placeholder="Enter equation (e.g., y = 2x + 3)" 
+                 style="background: rgba(0, 0, 0, 0.3); border: 1px solid #2d2d2d; border-radius: 8px; padding: 12px; color: #f0f0f0; font-size: 1em;">
+          <button class="calc-btn" onclick="addCustomExpression()">Add to Graph</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Physics Examples</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+          <button class="calc-btn" onclick="addExpression('y = 0.5*9.8*x^2')">Free Fall: y = ½gt²</button>
+          <button class="calc-btn" onclick="addExpression('y = sin(2*pi*x)')">Wave: y = sin(2πx)</button>
+          <button class="calc-btn" onclick="addExpression('y = e^(-x^2)')">Gaussian: y = e^(-x²)</button>
+          <button class="calc-btn" onclick="addExpression('y = 1/x')">Inverse: y = 1/x</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Usage Tips</h2>
+        <ul style="line-height: 1.8;">
+          <li>Use <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> for trigonometric functions</li>
+          <li>Type <code>x^2</code> for x squared, <code>sqrt(x)</code> for square root</li>
+          <li>Use <code>pi</code> for π and <code>e</code> for Euler's number</li>
+          <li>Create parametric equations with <code>x = t*cos(t), y = t*sin(t)</code></li>
+          <li>Add sliders by using variables like <code>y = a*x + b</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Calendar Page -->
+    <div class="page" id="calendar">
+      <div class="page-header">
+        <h1 class="page-title">Event Calendar</h1>
+        <p class="page-subtitle">Physics events and community meetings</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Community Calendar</h2>
+        <iframe class="embedded-frame" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23AD1457" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no" title="Physics Events Calendar"></iframe>
+        <div style="text-align: center; margin-top: 15px;">
+          <p style="color: #ccc; font-size: 0.9em;">If the calendar doesn't load, <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" style="color: #00f5ff;">click here to open Google Calendar</a></p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Meeting Links</h2>
+        <p>Join our regular physics discussions and study sessions:</p>
+        <a href="https://meet.google.com/" target="_blank" class="docs-btn">🎥 Google Meet</a>
+        <p style="margin-top: 15px; color: #ccc;">Meeting times are posted in the calendar above and announced in our Discord server.</p>
+      </div>
+    </div>
+
+    <!-- Docs Page -->
+    <div class="page" id="docs">
+      <div class="page-header">
+        <h1 class="page-title">Physics Research Log</h1>
+        <p class="page-subtitle">Collaborative research and documentation</p>
+      </div>
+
+      <div class="docs-container">
+        <h2 class="section-title">Research Documents</h2>
+        <p>Access our collaborative physics research log, experiment notes, and study materials. Contribute your own findings and learn from the community.</p>
+        
+        <div style="margin: 20px 0;">
+          <a href="#" target="_blank" class="docs-btn">📄 Main Research Log</a>
+          <a href="#" target="_blank" class="docs-btn">🧪 Experiment Notes</a>
+          <a href="#" target="_blank" class="docs-btn">📚 Study Materials</a>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin-top: 20px;">
+          <h3 style="color: #00f5ff; margin-bottom: 15px;">How to Contribute:</h3>
+          <ol style="line-height: 1.8;">
+            <li>Request access to our Google Docs through Discord</li>
+            <li>Follow the document formatting guidelines</li>
+            <li>Share your research, solutions, or interesting findings</li>
+            <li>Collaborate with other community members</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discord Page -->
+    <div class="page" id="discord">
+      <div class="page-header">
+        <h1 class="page-title">Discord Community</h1>
+        <p class="page-subtitle">Real-time physics discussions</p>
+      </div>
+
+      <div class="discord-widget">
+        <h2 class="section-title">Join Our Discord Server</h2>
+        <p>Connect with fellow physics enthusiasts, get homework help, discuss recent discoveries, and participate in live study sessions.</p>
+        
+        <a href="#" target="_blank" class="discord-btn">🚀 Join Discord Server</a>
+
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin-top: 25px;">
+          <h3 style="color: #5865f2; margin-bottom: 15px;">What You'll Find:</h3>
+          <ul style="line-height: 1.8; text-align: left;">
+            <li><strong>#general-physics</strong> - General physics discussions</li>
+            <li><strong>#homework-help</strong> - Get help with physics problems</li>
+            <li><strong>#research-share</strong> - Share interesting research</li>
+            <li><strong>#study-groups</strong> - Organize study sessions</li>
+            <li><strong>#resources</strong> - Share useful physics resources</li>
+            <li><strong>#voice-study</strong> - Voice channels for collaborative study</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Navigation functionality
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+      
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+      
+      // Update active nav item
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Hide sidebar on mobile after selection
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('show');
+      }
+    }
+
+    // Toggle sidebar for mobile
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
+    }
+
+    // Calculator functionality
+    function renderLatex() {
+      const input = document.getElementById('latexInput').value;
+      const output = document.getElementById('renderedEquation');
+      
+      if (input.trim()) {
+        // Check if input contains display math delimiters
+        if (input.includes('$$') || input.includes('\\[')) {
+          output.innerHTML = input;
+        } else {
+          // Wrap in display math delimiters
+          output.innerHTML = '$$' + input + '$$';
+        }
+        
+        // Re-render MathJax
+        if (window.MathJax) {
+          MathJax.typesetPromise([output]);
+        }
+      }
+    }
+
+    function clearInput() {
+      document.getElementById('latexInput').value = '';
+      document.getElementById('renderedEquation').innerHTML = 'Enter an equation and click "Render Equation"';
+    }
+
+    function insertTemplate(type) {
+      const input = document.getElementById('latexInput');
+      const cursorPos = input.selectionStart;
+      const currentValue = input.value;
+      
+      let template = '';
+      switch(type) {
+        case 'integral':
+          template = '\\int_{a}^{b} f(x) dx';
+          break;
+        case 'derivative':
+          template = '\\frac{d}{dx} f(x)';
+          break;
+        case 'fraction':
+          template = '\\frac{numerator}{denominator}';
+          break;
+        case 'sqrt':
+          template = '\\sqrt{x}';
+          break;
+      }
+      
+      const newValue = currentValue.substring(0, cursorPos) + template + currentValue.substring(cursorPos);
+      input.value = newValue;
+      input.focus();
+    }
+
+    function loadTemplate(subject) {
+      const input = document.getElementById('latexInput');
+      let template = '';
+      
+      switch(subject) {
+        case 'kinematics':
+          template = 'v = v_0 + at\n\\\\x = x_0 + v_0 t + \\frac{1}{2}at^2\n\\\\v^2 = v_0^2 + 2a(x - x_0)';
+          break;
+        case 'thermodynamics':
+          template = 'PV = nRT\n\\\\\\Delta U = Q - W\n\\\\S = k \\ln \\Omega';
+          break;
+        case 'electromagnetism':
+          template = '\\vec{F} = q(\\vec{E} + \\vec{v} \\times \\vec{B})\n\\\\\\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon_0}\n\\\\\\nabla \\times \\vec{B} = \\mu_0 \\vec{J}';
+          break;
+        case 'quantum':
+          template = 'i\\hbar \\frac{\\partial}{\\partial t} \\Psi = \\hat{H} \\Psi\n\\\\[\\hat{x}, \\hat{p}] = i\\hbar\n\\\\E = h\\nu';
+          break;
+      }
+      
+      input.value = template;
+    }
+
+    // Handle responsive sidebar
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+      
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('show');
+        sidebar.classList.remove('hidden');
+      }
+    });
+
+    // Initialize MathJax rendering on page load
+    window.addEventListener('load', function() {
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    });
+
+    // Add click handlers to nav items
+    document.addEventListener('DOMContentLoaded', function() {
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          navItems.forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
 </body>
 </html>
