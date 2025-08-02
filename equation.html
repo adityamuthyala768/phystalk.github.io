@@ -457,7 +457,480 @@ F = ma
             
             let template = '';
             switch(type) {
-                case 'integral':
+                case 'dynamics':
+                    template = 'F = ma\n\\\\F = \\frac{dp}{dt}\n\\\\p = mv';
+                    break;
+                case 'energy':
+                    template = 'E_k = \\frac{1}{2}mv^2\n\\\\E_p = mgh\n\\\\W = F \\cdot d';
+                    break;
+                case 'thermodynamics':
+                    template = 'PV = nRT\n\\\\\\Delta U = Q - W\n\\\\S = k \\ln \\Omega';
+                    break;
+                case 'entropy':
+                    template = 'dS = \\frac{dQ}{T}\n\\\\\\Delta S = \\int \\frac{dQ}{T}';
+                    break;
+                case 'statistical':
+                    template = 'f(v) = 4\\pi n \\left(\\frac{m}{2\\pi kT}\\right)^{3/2} v^2 e^{-mv^2/2kT}';
+                    break;
+                case 'electromagnetism':
+                    template = '\\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon_0}\n\\\\\\nabla \\cdot \\vec{B} = 0\n\\\\\\nabla \\times \\vec{E} = -\\frac{\\partial \\vec{B}}{\\partial t}\n\\\\\\nabla \\times \\vec{B} = \\mu_0 \\vec{J} + \\mu_0 \\epsilon_0 \\frac{\\partial \\vec{E}}{\\partial t}';
+                    break;
+                case 'circuits':
+                    template = 'V = IR\n\\\\P = IV = I^2R = \\frac{V^2}{R}\n\\\\Q = CV';
+                    break;
+                case 'waves':
+                    template = 'c = \\lambda f\n\\\\E = \\frac{1}{2}\\epsilon_0 E^2 + \\frac{1}{2\\mu_0} B^2';
+                    break;
+                case 'quantum':
+                    template = 'i\\hbar \\frac{\\partial \\Psi}{\\partial t} = \\hat{H} \\Psi\n\\\\[\\hat{x}, \\hat{p}] = i\\hbar\n\\\\E = h\\nu';
+                    break;
+                case 'operators':
+                    template = '\\hat{p} = -i\\hbar \\nabla\n\\\\\\hat{H} = \\frac{\\hat{p}^2}{2m} + V(\\hat{x})\n\\\\\\langle A \\rangle = \\langle \\Psi | \\hat{A} | \\Psi \\rangle';
+                    break;
+                case 'atomic':
+                    template = 'E_n = -\\frac{13.6 \\text{ eV}}{n^2}\n\\\\r_n = n^2 a_0\n\\\\a_0 = \\frac{\\hbar^2}{m_e e^2}';
+                    break;
+            }
+            
+            input.value = template;
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Notification system
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--gradient-primary);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--border-radius);
+                z-index: 1001;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Auto-render on input
+        document.getElementById('latexInput').addEventListener('input', function() {
+            clearTimeout(this.renderTimeout);
+            this.renderTimeout = setTimeout(renderLatex, 1000);
+        });
+
+        // Mobile navigation toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Initialize MathJax rendering on page load
+        window.addEventListener('load', function() {
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        });
+    </script>
+
+    <style>
+        /* Calculator-specific styles */
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-section, .templates-section {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .input-header, .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .input-header h3, .output-header h3, .templates-section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .input-controls, .output-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .control-btn {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .latex-input {
+            width: 100%;
+            height: 250px;
+            background: var(--primary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        .latex-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .template-btn {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 0.75rem 0.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .template-btn:hover, .physics-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .control-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .template-btn i {
+            font-size: 1.2rem;
+        }
+
+        .output-section {
+            grid-column: 1 / -1;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .equation-output {
+            background: var(--primary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow-x: auto;
+        }
+
+        .physics-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .template-category {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .template-category h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .template-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .physics-btn {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .physics-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .reference-tabs {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: var(--accent-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .symbol-item {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .symbol-item:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .symbol-item .symbol {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .symbol-item code {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .symbol-item:hover code {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .function-list, .formatting-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .function-item, .format-item {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            transition: var(--transition);
+        }
+
+        .function-item:hover, .format-item:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .example-item {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .example-code {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--light-blue);
+            margin-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .example-desc {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .template-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .physics-templates {
+                grid-template-columns: 1fr;
+            }
+
+            .symbol-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .function-list, .formatting-list {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                min-width: 50%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .template-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .symbol-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .latex-input {
+                height: 150px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</body>
+</html> 'integral':
                     template = '\\int_{a}^{b} f(x) dx';
                     break;
                 case 'derivative':
