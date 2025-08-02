@@ -53,13 +53,7 @@
                 </h2>
                 
                 <!-- 🎯 DESMOS EMBED LOCATION: Replace the div below with your Desmos embed code -->
-               <iframe 
-                       src="https://www.desmos.com/calculator/zb1pi1bduj"
-                       width="100%" 
-                       height="600" 
-                       frameborder="0"
-                       style="border-radius: 12px;">
-             </iframe>
+                <div id="calculator" class="desmos-calculator"></div>
                 
                 <!-- Quick Actions -->
                 <div class="calculator-controls">
@@ -225,53 +219,105 @@
 
         // Initialize Desmos Calculator when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            initializeDesmos();
+            console.log('DOM loaded, initializing Desmos...');
+            
+            // Check if Desmos is already loaded
+            if (typeof Desmos !== 'undefined') {
+                initializeDesmos();
+            } else {
+                // Wait for Desmos script to load
+                const checkDesmos = setInterval(() => {
+                    if (typeof Desmos !== 'undefined') {
+                        clearInterval(checkDesmos);
+                        initializeDesmos();
+                    }
+                }, 100);
+                
+                // Stop checking after 10 seconds
+                setTimeout(() => {
+                    clearInterval(checkDesmos);
+                    const elt = document.getElementById('calculator');
+                    if (elt && !calculator) {
+                        elt.innerHTML = '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.2rem; text-align: center;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>Failed to load Desmos Calculator<br><small style="color: #94a3b8; margin-top: 0.5rem;">Please refresh the page or check your internet connection</small></div>';
+                    }
+                }, 10000);
+            }
         });
 
         // 🎯 DESMOS INITIALIZATION: This is where the calculator gets created
         function initializeDesmos() {
             const elt = document.getElementById('calculator');
-            if (elt && typeof Desmos !== 'undefined') {
-                try {
-                    calculator = Desmos.GraphingCalculator(elt, {
-                        keypad: true,
-                        expressions: true,
-                        settingsMenu: true,
-                        zoomButtons: true,
-                        expressionsTopbar: true,
-                        pointsOfInterest: true,
-                        trace: true,
-                        border: false,
-                        lockViewport: false,
-                        expressionsCollapsed: false
-                    });
+            console.log('Calculator element found:', elt);
+            console.log('Desmos available:', typeof Desmos !== 'undefined');
+            
+            if (elt) {
+                if (typeof Desmos !== 'undefined') {
+                    try {
+                        calculator = Desmos.GraphingCalculator(elt, {
+                            keypad: true,
+                            expressions: true,
+                            settingsMenu: true,
+                            zoomButtons: true,
+                            expressionsTopbar: true,
+                            pointsOfInterest: true,
+                            trace: true,
+                            border: false,
+                            lockViewport: false,
+                            expressionsCollapsed: false
+                        });
+                        
+                        // Add a welcome equation after a small delay
+                        setTimeout(() => {
+                            if (calculator) {
+                                calculator.setExpression({
+                                    id: 'welcome',
+                                    latex: 'y = \\sin(x)',
+                                    color: '#3b82f6'
+                                });
+                            }
+                        }, 500);
+                        
+                        console.log('Desmos calculator initialized successfully');
+                    } catch (error) {
+                        console.error('Error initializing Desmos calculator:', error);
+                        // Fallback: Show error message in the calculator div
+                        elt.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b; font-size: 1.2rem;">Desmos Calculator Loading...</div>';
+                    }
+                } else {
+                    console.error('Desmos API not loaded');
+                    // Show loading message and retry
+                    elt.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b; font-size: 1.2rem;">Loading Desmos Calculator...</div>';
                     
-                    // Add a welcome equation
-                    calculator.setExpression({
-                        id: 'welcome',
-                        latex: 'y = \\sin(x)',
-                        color: '#3b82f6'
-                    });
-                    
-                    console.log('Desmos calculator initialized successfully');
-                } catch (error) {
-                    console.error('Error initializing Desmos calculator:', error);
+                    // Retry after 2 seconds
+                    setTimeout(() => {
+                        if (typeof Desmos !== 'undefined') {
+                            initializeDesmos();
+                        } else {
+                            elt.innerHTML = '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.2rem; text-align: center;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>Failed to load Desmos Calculator<br><small style="color: #94a3b8; margin-top: 0.5rem;">Please refresh the page or check your internet connection</small></div>';
+                        }
+                    }, 2000);
                 }
             } else {
-                console.error('Desmos API not loaded or calculator element not found');
+                console.error('Calculator element not found');
             }
         }
 
         // Add expression to Desmos
         function addExpression(latex) {
             if (calculator) {
-                calculator.setExpression({
-                    id: 'expr_' + Date.now(),
-                    latex: latex,
-                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
-                });
+                try {
+                    calculator.setExpression({
+                        id: 'expr_' + Date.now(),
+                        latex: latex,
+                        color: '#' + Math.floor(Math.random()*16777215).toString(16)
+                    });
+                } catch (error) {
+                    console.error('Error adding expression:', error);
+                    showNotification('Error adding expression. Please try again.', 'error');
+                }
             } else {
                 console.error('Calculator not initialized');
+                showNotification('Calculator not ready. Please wait for it to load.', 'error');
             }
         }
 
@@ -279,20 +325,72 @@
         function addCustomExpression() {
             const input = document.getElementById('customEquation');
             if (input.value.trim() && calculator) {
-                calculator.setExpression({
-                    id: 'custom_' + Date.now(),
-                    latex: input.value.trim(),
-                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
-                });
-                input.value = '';
+                try {
+                    calculator.setExpression({
+                        id: 'custom_' + Date.now(),
+                        latex: input.value.trim(),
+                        color: '#' + Math.floor(Math.random()*16777215).toString(16)
+                    });
+                    input.value = '';
+                    showNotification('Expression added successfully!');
+                } catch (error) {
+                    console.error('Error adding custom expression:', error);
+                    showNotification('Error adding expression. Please check your syntax.', 'error');
+                }
+            } else if (!calculator) {
+                showNotification('Calculator not ready. Please wait for it to load.', 'error');
             }
         }
 
         // Clear all expressions
         function clearGraph() {
             if (calculator) {
-                calculator.setBlank();
+                try {
+                    calculator.setBlank();
+                    showNotification('Graph cleared!');
+                } catch (error) {
+                    console.error('Error clearing graph:', error);
+                }
+            } else {
+                showNotification('Calculator not ready. Please wait for it to load.', 'error');
             }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'error' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                z-index: 1001;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            requestAnimationFrame(() => {
+                notification.style.transform = 'translateX(0)';
+            });
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
         }
 
         // Handle Enter key in custom equation input
