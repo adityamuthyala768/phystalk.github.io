@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <div class="info-section">
+    <div class="section-title">Meeting Links</div>
+    <p>Join our regular physics discussions and study sessions:</p>
+    
+    <div class="meeting-links">
+      <a href="https://meet.google.com/" target="_blank" class="meet-btn">🎥 Google Meet</a>
+      <a href="https://zoom.us/" target="_blank" class="meet-btn">📹 Zoom Meeting</a>
+      <a href="#" target="_blank" class="meet-btn">💬 Discord Voice Chat</a>
+    </div>
+    
+    <p style="margin-top: 15px; color: #64748b;">
+      Meeting times are posted in the calendar above and announced in our Discord server.
+    </p>
+  </div>
 
+  <div class="info-section">
+    <div class="section-title">How to Add Your Calendar</div>
+    <ol style="line-height: 1.8;">
+      <li>Go to your Google Calendar settings</li>
+      <li>Click on the calendar you want to embed</li>
+      <li>Scroll down to "Integrate calendar"</li>
+      <li>Copy the embed code</li>
+      <li>Replace the iframe src URL in line 68 of this HTML file</li>
+    </ol>
+    
+    <div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px;">
+      <strong>📍 Calendar Embed Location:</strong><br>
+      Look for the comment "CALENDAR EMBED LINE" in the HTML file around line 68.
+    </div>
+  </div>
+
+</body>
+</html><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Calendar - Phystalk</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+      color: #e2e8f0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-size: 2.5em;
+      color: #3b82f6;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 1.1em;
+    }
+
+    .calendar-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.4em;
+      color: #3b82f6;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .calendar-frame {
+      width: 100%;
+      height: 600px;
+      border: 2px solid rgba(203, 213, 225, 0.3);
+      border-radius: 16px;
+      background: white;
+    }
+
+    .info-section {
+      background: rgba(241, 245, 249, 0.9);
+      border-radius: 16px;
+      padding: 25px;
+      color: #1e293b;
+      margin-bottom: 20px;
+    }
+
+    .meeting-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .meet-btn {
+      background: #4285f4;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 30px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .meet-btn:hover {
+      background: #3367d6;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(30, 41, 59, 0.9);
+      color: #3b82f6;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(30, 41, 59, 1);
+      transform: translateY(-2px);
+    }
+
+    .fallback-text {
+      text-align: center;
+      margin-top: 15px;
+      color: #64748b;
+      font-size: 0.9em;
+    }
+
+    .fallback-text a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .fallback-text a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .meeting-links {
+        flex-direction: column;
+      }
+      
+      .calendar-frame {
+        height: 500px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
+  <div class="header">
+    <h1 class="title">Event Calendar</h1>
+    <p class="subtitle">Physics events and community meetings</p>
+  </div>
+
+  <div class="calendar-container">
+    <div class="section-title">Community Calendar</div>
+    
+    <!-- CALENDAR EMBED LINE: Replace the src URL below with your Google Calendar embed link -->
+    <iframe class="calendar-frame" 
+            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23AD1457" 
+            frameborder="0" 
+            scrolling="no" 
+            title="Physics Events Calendar">
+    </iframe>
+    
+    <div class="fallback-text">
+      If the calendar doesn't load, <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">click here to open Google Calendar</a>
+    </div>
+  </div>
