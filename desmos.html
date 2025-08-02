@@ -53,12 +53,7 @@
                 </h2>
                 
                 <!-- 🎯 DESMOS EMBED LOCATION: Replace the div below with your Desmos embed code -->
-               <iframe 
-                         src="https://www.desmos.com/calculator/zb1pi1bduj"
-                         class="desmos-calculator"
-                         frameborder="0"
-                         style="border-radius: 12px;">
-               </iframe>
+                <div id="calculator" class="desmos-calculator"></div>
                 
                 <!-- Quick Actions -->
                 <div class="calculator-controls">
@@ -71,3 +66,433 @@
                             <button class="calc-btn" onclick="addExpression('y = \\sin(x)')">
                                 <i class="fas fa-wave-square"></i> y = sin(x)
                             </button>
+                            <button class="calc-btn" onclick="addExpression('y = \\cos(x)')">
+                                <i class="fas fa-wave-square"></i> y = cos(x)
+                            </button>
+                            <button class="calc-btn" onclick="clearGraph()">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Physics Examples</h3>
+                        <div class="button-grid">
+                            <button class="calc-btn physics-btn" onclick="addExpression('y = 0.5*9.8*x^2')">
+                                <i class="fas fa-arrow-down"></i> Free Fall: y = ½gt²
+                            </button>
+                            <button class="calc-btn physics-btn" onclick="addExpression('y = \\sin(2\\pi x)')">
+                                <i class="fas fa-broadcast-tower"></i> Wave: y = sin(2πx)
+                            </button>
+                            <button class="calc-btn physics-btn" onclick="addExpression('y = e^{-x^2}')">
+                                <i class="fas fa-bell"></i> Gaussian: y = e^(-x²)
+                            </button>
+                            <button class="calc-btn physics-btn" onclick="addExpression('y = 1/x')">
+                                <i class="fas fa-divide"></i> Inverse: y = 1/x
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Custom Equation</h3>
+                        <div class="input-group">
+                            <input type="text" id="customEquation" placeholder="Enter equation (e.g., y = 2x + 3)" class="equation-input">
+                            <button class="calc-btn add-btn" onclick="addCustomExpression()">
+                                <i class="fas fa-plus"></i> Add to Graph
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Usage Tips Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Usage Tips & Functions
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4><i class="fas fa-function"></i> Trigonometric Functions</h4>
+                        <p>Use <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> for trigonometric functions</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-superscript"></i> Powers & Roots</h4>
+                        <p>Type <code>x^2</code> for x squared, <code>sqrt(x)</code> for square root</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-pi"></i> Constants</h4>
+                        <p>Use <code>pi</code> for π and <code>e</code> for Euler's number</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-project-diagram"></i> Parametric Equations</h4>
+                        <p>Create parametric equations with <code>x = t*cos(t), y = t*sin(t)</code></p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-sliders-h"></i> Interactive Variables</h4>
+                        <p>Add sliders by using variables like <code>y = a*x + b</code></p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-calculator"></i> Advanced Functions</h4>
+                        <p>Use <code>log(x)</code>, <code>ln(x)</code>, <code>abs(x)</code> for advanced operations</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physics Applications Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-atom"></i>
+                    Physics Applications
+                </h2>
+                <div class="physics-examples">
+                    <div class="example-card">
+                        <h4>Kinematics</h4>
+                        <p>Visualize motion equations:</p>
+                        <ul>
+                            <li><code>y = v₀t + ½at²</code> - Position vs time</li>
+                            <li><code>v = v₀ + at</code> - Velocity vs time</li>
+                            <li><code>x = x₀ + v₀t + ½at²</code> - Displacement</li>
+                        </ul>
+                    </div>
+                    <div class="example-card">
+                        <h4>Wave Physics</h4>
+                        <p>Explore wave properties:</p>
+                        <ul>
+                            <li><code>y = A sin(kx - ωt)</code> - Traveling wave</li>
+                            <li><code>y = A sin(kx) cos(ωt)</code> - Standing wave</li>
+                            <li><code>I = I₀ cos²(θ)</code> - Malus's law</li>
+                        </ul>
+                    </div>
+                    <div class="example-card">
+                        <h4>Quantum Mechanics</h4>
+                        <p>Visualize quantum phenomena:</p>
+                        <ul>
+                            <li><code>ψ = A e^(-x²/2σ²)</code> - Gaussian wave packet</li>
+                            <li><code>P = |ψ|²</code> - Probability density</li>
+                            <li><code>E = ℏω(n + ½)</code> - Harmonic oscillator energy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <span class="logo-text">Phystalk</span>
+                    </div>
+                    <p>Advancing physics education through collaboration and innovation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="equation.html">Calculator</a></li>
+                        <li><a href="desmos.html">Graphing</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="discord.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Phystalk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Desmos calculator instance
+        let calculator = null;
+
+        // Initialize Desmos Calculator when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDesmos();
+        });
+
+        // 🎯 DESMOS INITIALIZATION: This is where the calculator gets created
+        function initializeDesmos() {
+            const elt = document.getElementById('calculator');
+            if (elt && typeof Desmos !== 'undefined') {
+                try {
+                    calculator = Desmos.GraphingCalculator(elt, {
+                        keypad: true,
+                        expressions: true,
+                        settingsMenu: true,
+                        zoomButtons: true,
+                        expressionsTopbar: true,
+                        pointsOfInterest: true,
+                        trace: true,
+                        border: false,
+                        lockViewport: false,
+                        expressionsCollapsed: false
+                    });
+                    
+                    // Add a welcome equation
+                    calculator.setExpression({
+                        id: 'welcome',
+                        latex: 'y = \\sin(x)',
+                        color: '#3b82f6'
+                    });
+                    
+                    console.log('Desmos calculator initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Desmos calculator:', error);
+                }
+            } else {
+                console.error('Desmos API not loaded or calculator element not found');
+            }
+        }
+
+        // Add expression to Desmos
+        function addExpression(latex) {
+            if (calculator) {
+                calculator.setExpression({
+                    id: 'expr_' + Date.now(),
+                    latex: latex,
+                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
+                });
+            } else {
+                console.error('Calculator not initialized');
+            }
+        }
+
+        // Add custom expression
+        function addCustomExpression() {
+            const input = document.getElementById('customEquation');
+            if (input.value.trim() && calculator) {
+                calculator.setExpression({
+                    id: 'custom_' + Date.now(),
+                    latex: input.value.trim(),
+                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
+                });
+                input.value = '';
+            }
+        }
+
+        // Clear all expressions
+        function clearGraph() {
+            if (calculator) {
+                calculator.setBlank();
+            }
+        }
+
+        // Handle Enter key in custom equation input
+        document.addEventListener('DOMContentLoaded', function() {
+            const customInput = document.getElementById('customEquation');
+            if (customInput) {
+                customInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        addCustomExpression();
+                    }
+                });
+            }
+        });
+
+        // Mobile navigation toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+    </script>
+
+    <style>
+        /* Desmos-specific styles */
+        .desmos-calculator {
+            width: 100%;
+            height: 800px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: white;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-controls {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .control-group h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .calc-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            background: var(--hover-blue);
+        }
+
+        .physics-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+
+        .physics-btn:hover {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .equation-input {
+            flex: 1;
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+        }
+
+        .equation-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .tip-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-card code {
+            background: var(--accent-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--light-blue);
+        }
+
+        .physics-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .example-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .example-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .example-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .example-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .example-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .desmos-calculator {
+                height: 400px;
+            }
+        }
+    </style>
+</body>
+</html>
