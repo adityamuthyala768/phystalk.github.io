@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Calculator - Phystalk</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            options: {
+                renderActions: {
+                    addMenu: [0, '', '']
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <span class="logo-text">Phystalk</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="equation.html" class="nav-link active">Calculator</a></li>
+                <li><a href="desmos.html" class="nav-link">Graphing</a></li>
+                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="discord.html" class="nav-link">Community</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">LaTeX Equation Calculator</h1>
+                <p class="page-subtitle">Advanced equation rendering and mathematical visualization</p>
+            </div>
+
+            <!-- Main Calculator Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calculator"></i>
+                    Equation Input & Rendering
+                </h2>
+                
+                <div class="calculator-layout">
+                    <!-- Input Area -->
+                    <div class="input-section">
+                        <div class="input-header">
+                            <h3>LaTeX Input</h3>
+                            <div class="input-controls">
+                                <button class="control-btn" onclick="renderLatex()" title="Render Equation">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="control-btn" onclick="clearInput()" title="Clear Input">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="control-btn" onclick="copyInput()" title="Copy Input">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <textarea 
+                            id="latexInput" 
+                            class="latex-input" 
+                            placeholder="Enter your LaTeX equation here...
+
+Examples:
+E = mc^2
+F = ma
+\frac{d^2x}{dt^2} = -\omega^2 x
+\int_0^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}">E = mc^2</textarea>
+                    </div>
+
+                    <!-- Quick Templates -->
+                    <div class="templates-section">
+                        <h3>Quick Templates</h3>
+                        <div class="template-grid">
+                            <button class="template-btn" onclick="insertTemplate('integral')" title="Integral">
+                                <i class="fas fa-integral"></i>
+                                <span>∫ Integral</span>
+                            </button>
+                            <button class="template-btn" onclick="insertTemplate('derivative')" title="Derivative">
+                                <i class="fas fa-divide"></i>
+                                <span>d/dx</span>
+                            </button>
+                            <button class="template-btn" onclick="insertTemplate('fraction')" title="Fraction">
+                                <i class="fas fa-fraction"></i>
+                                <span>Fraction</span>
+                            </button>
+                            <button class="template-btn" onclick="insertTemplate('sqrt')" title="Square Root">
+                                <i class="fas fa-square-root-alt"></i>
+                                <span>√</span>
+                            </button>
+                            <button class="template-btn" onclick="insertTemplate('sum')" title="Summation">
+                                <i class="fas fa-sigma"></i>
+                                <span>Σ Sum</span>
+                            </button>
+                            <button class="template-btn" onclick="insertTemplate('matrix')" title="Matrix">
+                                <i class="fas fa-th"></i>
+                                <span>Matrix</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Area -->
+                <div class="output-section">
+                    <div class="output-header">
+                        <h3>Rendered Equation</h3>
+                        <div class="output-controls">
+                            <button class="control-btn" onclick="copyOutput()" title="Copy Rendered HTML">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="control-btn" onclick="downloadImage()" title="Download as Image">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="renderedEquation" class="equation-output">$$E = mc^2$$</div>
+                </div>
+            </div>
+
+            <!-- Physics Templates Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-atom"></i>
+                    Physics Equation Templates
+                </h2>
+                <div class="physics-templates">
+                    <div class="template-category">
+                        <h3>Classical Mechanics</h3>
+                        <div class="template-buttons">
+                            <button class="physics-btn" onclick="loadTemplate('kinematics')">
+                                Kinematics Equations
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('dynamics')">
+                                Force & Motion
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('energy')">
+                                Energy & Work
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="template-category">
+                        <h3>Thermodynamics</h3>
+                        <div class="template-buttons">
+                            <button class="physics-btn" onclick="loadTemplate('thermodynamics')">
+                                Gas Laws
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('entropy')">
+                                Entropy & Heat
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('statistical')">
+                                Statistical Mechanics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="template-category">
+                        <h3>Electromagnetism</h3>
+                        <div class="template-buttons">
+                            <button class="physics-btn" onclick="loadTemplate('electromagnetism')">
+                                Maxwell's Equations
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('circuits')">
+                                Circuit Analysis
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('waves')">
+                                Electromagnetic Waves
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="template-category">
+                        <h3>Quantum Mechanics</h3>
+                        <div class="template-buttons">
+                            <button class="physics-btn" onclick="loadTemplate('quantum')">
+                                Schrödinger Equation
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('operators')">
+                                Quantum Operators
+                            </button>
+                            <button class="physics-btn" onclick="loadTemplate('atomic')">
+                                Atomic Physics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LaTeX Reference Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-book"></i>
+                    LaTeX Reference Guide
+                </h2>
+                <div class="reference-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="showTab('symbols')">Symbols</button>
+                        <button class="tab-btn" onclick="showTab('functions')">Functions</button>
+                        <button class="tab-btn" onclick="showTab('formatting')">Formatting</button>
+                        <button class="tab-btn" onclick="showTab('examples')">Examples</button>
+                    </div>
+
+                    <div id="symbols" class="tab-content active">
+                        <div class="symbol-grid">
+                            <div class="symbol-item" onclick="insertSymbol('\\alpha')">
+                                <span class="symbol">α</span>
+                                <code>\\alpha</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\beta')">
+                                <span class="symbol">β</span>
+                                <code>\\beta</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\gamma')">
+                                <span class="symbol">γ</span>
+                                <code>\\gamma</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\delta')">
+                                <span class="symbol">δ</span>
+                                <code>\\delta</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\epsilon')">
+                                <span class="symbol">ε</span>
+                                <code>\\epsilon</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\theta')">
+                                <span class="symbol">θ</span>
+                                <code>\\theta</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\lambda')">
+                                <span class="symbol">λ</span>
+                                <code>\\lambda</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\mu')">
+                                <span class="symbol">μ</span>
+                                <code>\\mu</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\pi')">
+                                <span class="symbol">π</span>
+                                <code>\\pi</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\sigma')">
+                                <span class="symbol">σ</span>
+                                <code>\\sigma</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\phi')">
+                                <span class="symbol">φ</span>
+                                <code>\\phi</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\psi')">
+                                <span class="symbol">ψ</span>
+                                <code>\\psi</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\omega')">
+                                <span class="symbol">ω</span>
+                                <code>\\omega</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\infty')">
+                                <span class="symbol">∞</span>
+                                <code>\\infty</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\nabla')">
+                                <span class="symbol">∇</span>
+                                <code>\\nabla</code>
+                            </div>
+                            <div class="symbol-item" onclick="insertSymbol('\\partial')">
+                                <span class="symbol">∂</span>
+                                <code>\\partial</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="functions" class="tab-content">
+                        <div class="function-list">
+                            <div class="function-item">
+                                <code>\\sin(x)</code> - Sine function
+                            </div>
+                            <div class="function-item">
+                                <code>\\cos(x)</code> - Cosine function
+                            </div>
+                            <div class="function-item">
+                                <code>\\tan(x)</code> - Tangent function
+                            </div>
+                            <div class="function-item">
+                                <code>\\log(x)</code> - Logarithm
+                            </div>
+                            <div class="function-item">
+                                <code>\\ln(x)</code> - Natural logarithm
+                            </div>
+                            <div class="function-item">
+                                <code>\\exp(x)</code> - Exponential function
+                            </div>
+                            <div class="function-item">
+                                <code>\\lim_{x \\to a}</code> - Limit
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="formatting" class="tab-content">
+                        <div class="formatting-list">
+                            <div class="format-item">
+                                <code>x^2</code> - Superscript (x²)
+                            </div>
+                            <div class="format-item">
+                                <code>x_1</code> - Subscript (x₁)
+                            </div>
+                            <div class="format-item">
+                                <code>\\frac{a}{b}</code> - Fraction (a/b)
+                            </div>
+                            <div class="format-item">
+                                <code>\\sqrt{x}</code> - Square root (√x)
+                            </div>
+                            <div class="format-item">
+                                <code>\\vec{v}</code> - Vector notation
+                            </div>
+                            <div class="format-item">
+                                <code>\\hat{i}</code> - Unit vector
+                            </div>
+                            <div class="format-item">
+                                <code>\\overline{x}</code> - Overline
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="examples" class="tab-content">
+                        <div class="examples-list">
+                            <div class="example-item">
+                                <div class="example-code">\\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}</div>
+                                <div class="example-desc">Quadratic formula</div>
+                            </div>
+                            <div class="example-item">
+                                <div class="example-code">\\oint \\vec{E} \\cdot d\\vec{A} = \\frac{Q_{\\text{enc}}}{\\epsilon_0}</div>
+                                <div class="example-desc">Gauss's law</div>
+                            </div>
+                            <div class="example-item">
+                                <div class="example-code">i\\hbar \\frac{\\partial \\Psi}{\\partial t} = \\hat{H} \\Psi</div>
+                                <div class="example-desc">Time-dependent Schrödinger equation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <span class="logo-text">Phystalk</span>
+                    </div>
+                    <p>Advancing physics education through collaboration and innovation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="equation.html">Calculator</a></li>
+                        <li><a href="desmos.html">Graphing</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="discord.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Phystalk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        function renderLatex() {
+            const input = document.getElementById('latexInput').value;
+            const output = document.getElementById('renderedEquation');
+            
+            if (input.trim()) {
+                // Check if input contains display math delimiters
+                if (input.includes('$$') || input.includes('\\[')) {
+                    output.innerHTML = input;
+                } else {
+                    // Wrap in display math delimiters
+                    output.innerHTML = '$$' + input + '$$';
+                }
+                
+                // Re-render MathJax
+                if (window.MathJax) {
+                    MathJax.typesetPromise([output]).catch((err) => console.log(err.message));
+                }
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('latexInput').value = '';
+            document.getElementById('renderedEquation').innerHTML = 'Enter an equation and click render';
+        }
+
+        function copyInput() {
+            const input = document.getElementById('latexInput');
+            input.select();
+            document.execCommand('copy');
+            showNotification('Input copied to clipboard!');
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('renderedEquation').innerHTML;
+            navigator.clipboard.writeText(output).then(() => {
+                showNotification('Rendered equation copied to clipboard!');
+            });
+        }
+
+        function insertTemplate(type) {
+            const input = document.getElementById('latexInput');
+            const cursorPos = input.selectionStart;
+            const currentValue = input.value;
+            
+            let template = '';
+            switch(type) {
+                case 'integral':
+                    template = '\\int_{a}^{b} f(x) dx';
+                    break;
+                case 'derivative':
+                    template = '\\frac{d}{dx} f(x)';
+                    break;
+                case 'fraction':
+                    template = '\\frac{numerator}{denominator}';
+                    break;
+                case 'sqrt':
+                    template = '\\sqrt{x}';
+                    break;
+                case 'sum':
+                    template = '\\sum_{i=1}^{n} a_i';
+                    break;
+                case 'matrix':
+                    template = '\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}';
+                    break;
+            }
+            
+            const newValue = currentValue.substring(0, cursorPos) + template + currentValue.substring(cursorPos);
+            input.value = newValue;
+            input.focus();
+        }
+
+        function insertSymbol(symbol) {
+            const input = document.getElementById('latexInput');
+            const cursorPos = input.selectionStart;
+            const currentValue = input.value;
+            
+            const newValue = currentValue.substring(0, cursorPos) + symbol + currentValue.substring(cursorPos);
+            input.value = newValue;
+            input.focus();
+        }
+
+        function loadTemplate(subject) {
+            const input = document.getElementById('latexInput');
+            let template = '';
+            
+            switch(subject) {
+                case 'kinematics':
+                    template = 'v = v_0 + at\n\\\\x = x_0 + v_0 t + \\frac{1}{2}at^2\n\\\\v^2 = v_0^2 + 2a(x - x_0)';
+                    break;
+                case
