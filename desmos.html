@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desmos Graphing Calculator - Phystalk</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Desmos API -->
+    <script src="https://www.desmos.com/api/v1.7/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <span class="logo-text">Phystalk</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="equation.html" class="nav-link">Calculator</a></li>
+                <li><a href="desmos.html" class="nav-link active">Graphing</a></li>
+                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="discord.html" class="nav-link">Community</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Interactive Graphing Calculator</h1>
+                <p class="page-subtitle">Visualize mathematical functions and physics concepts with Desmos</p>
+            </div>
+
+            <!-- Desmos Calculator Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Graphing Calculator
+                </h2>
+                
+                <!-- 🎯 DESMOS EMBED LOCATION: Replace the div below with your Desmos embed code -->
+                <div id="calculator" class="desmos-calculator"></div>
+                
+                <!-- Quick Actions -->
+                <div class="calculator-controls">
+                    <div class="control-group">
+                        <h3>Quick Add Functions</h3>
+                        <div class="button-grid">
+                            <button class="calc-btn" onclick="addExpression('y = x^2')">
+                                <i class="fas fa-square-root-alt"></i> y = x²
+                            </button>
+                            <button class="calc-btn" onclick="addExpression('y = \\sin(x)')">
+                                <i class="fas fa-wave-square"></i> y = sin(x)
+                            </button>
