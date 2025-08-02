@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar - Phystalk</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <span class="logo-text">Phystalk</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="equation.html" class="nav-link">Calculator</a></li>
+                <li><a href="desmos.html" class="nav-link">Graphing</a></li>
+                <li><a href="calendar.html" class="nav-link active">Calendar</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="discord.html" class="nav-link">Community</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Event Calendar</h1>
+                <p class="page-subtitle">Stay updated with physics events, study sessions, and community meetings</p>
+            </div>
+
+            <!-- Quick Info Cards -->
+            <div class="calendar-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Study Sessions</h3>
+                        <p>Weekly collaborative study sessions covering various physics topics</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Lectures & Seminars</h3>
+                        <p>Guest lectures and seminars from leading physicists and researchers</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Lab Sessions</h3>
+                        <p>Virtual and in-person laboratory experiments and demonstrations</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Competitions</h3>
+                        <p>Physics olympiads, problem-solving contests, and academic challenges</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Calendar Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Community Calendar
+                </h2>
+                
+                <!-- 📅 GOOGLE CALENDAR EMBED LOCATION: Replace the src URL below with your Google Calendar embed -->
+                <!-- To set dark theme: Add &color=%23000000 to the URL parameters -->
+                <div class="calendar-container">
+                    <iframe 
+                        src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23000000&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%234285F4" 
+                        class="embedded-calendar"
+                        frameborder="0" 
+                        scrolling="no" 
+                        title="Physics Events Calendar">
+                    </iframe>
+                </div>
+                
+                <div class="calendar-note">
+                    <p><i class="fas fa-info-circle"></i> 
+                    If the calendar doesn't load properly, 
+                    <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">click here to open Google Calendar directly</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Meeting Links Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-video"></i>
+                    Meeting & Conference Links
+                </h2>
+                <div class="meeting-links">
+                    <div class="meeting-card">
+                        <div class="meeting-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="meeting-content">
+                            <h3>Google Meet</h3>
+                            <p>Primary platform for study sessions and group discussions</p>
+                            <a href="https://meet.google.com/" target="_blank" class="meeting-btn">
+                                <i class="fas fa-external-link-alt"></i> Join Meeting
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="meeting-content">
+                            <h3>Zoom Webinars</h3>
+                            <p>Large-scale lectures and guest speaker presentations</p>
+                            <a href="https://zoom.us/" target="_blank" class="meeting-btn">
+                                <i class="fas fa-external-link-alt"></i> Join Webinar
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-icon">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="meeting-content">
+                            <h3>Discord Voice Channels</h3>
+                            <p>Casual discussions and study group coordination</p>
+                            <a href="discord.html" class="meeting-btn">
+                                <i class="fas fa-external-link-alt"></i> Join Voice Chat
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    Upcoming Events
+                </h2>
+                <div class="events-timeline">
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="date-day">15</span>
+                            <span class="date-month">Aug</span>
+                        </div>
+                        <div class="event-content">
+                            <h4>Quantum Mechanics Study Session</h4>
+                            <p><i class="fas fa-clock"></i> 7:00 PM - 9:00 PM</p>
+                            <p>Deep dive into Schrödinger equation and wave functions</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="date-day">18</span>
+                            <span class="date-month">Aug</span>
+                        </div>
+                        <div class="event-content">
+                            <h4>Astrophysics Guest Lecture</h4>
+                            <p><i class="fas fa-clock"></i> 6:00 PM - 7:30 PM</p>
+                            <p>Dr. Sarah Chen on "Black Holes and Event Horizons"</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="date-day">22</span>
+                            <span class="date-month">Aug</span>
+                        </div>
+                        <div class="event-content">
+                            <h4>Physics Problem Solving Contest</h4>
+                            <p><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</p>
+                            <p>Monthly competition with prizes for top performers</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="date-day">25</span>
+                            <span class="date-month">Aug</span>
+                        </div>
+                        <div class="event-content">
+                            <h4>Thermodynamics Workshop</h4>
+                            <p><i class="fas fa-clock"></i> 4:00 PM - 6:00 PM</p>
+                            <p>Hands-on workshop covering entropy and statistical mechanics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Notifications Section -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <i class="fas fa-bell"></i>
+                    Event Notifications
+                </h2>
+                <div class="notification-info">
+                    <div class="notification-card">
+                        <h3><i class="fab fa-discord"></i> Discord Announcements</h3>
+                        <p>All event announcements and last-minute changes are posted in our Discord server. Make sure to join and enable notifications for the #announcements channel.</p>
+                        <a href="discord.html" class="btn btn-primary">Join Discord</a>
+                    </div>
+
+                    <div class="notification-card">
+                        <h3><i class="fas fa-envelope"></i> Email Reminders</h3>
+                        <p>Subscribe to our mailing list to receive weekly event summaries and important updates directly in your inbox.</p>
+                        <a href="#" class="btn btn-secondary">Subscribe to Newsletter</a>
+                    </div>
+
+                    <div class="notification-card">
+                        <h3><i class="fas fa-mobile-alt"></i> Calendar Sync</h3>
+                        <p>Add our calendar to your personal Google Calendar or other calendar apps to never miss an event.</p>
+                        <button class="btn btn-secondary" onclick="copyCalendarLink()">Copy Calendar Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <span class="logo-text">Phystalk</span>
+                    </div>
+                    <p>Advancing physics education through collaboration and innovation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="equation.html">Calculator</a></li>
+                        <li><a href="desmos.html">Graphing</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="discord.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Phystalk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Copy calendar link function
+        function copyCalendarLink() {
+            const calendarUrl = "https://calendar.google.com/calendar/embed?src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t";
+            
+            navigator.clipboard.writeText(calendarUrl).then(function() {
+                // Success feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = "✓ Copied!";
+                button.style.background = "var(--gradient-primary)
