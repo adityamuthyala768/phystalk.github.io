@@ -1,1 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desmos Calculator - Phystalk</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+      color: #e2e8f0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-size: 2.5em;
+      color: #3b82f6;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 1.1em;
+    }
+
+    .calculator-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .calculator-wrapper {
+      width: 100%;
+      height: 600px;
+      border: 2px solid rgba(203, 213, 225, 0.3);
+      border-radius: 16px;
+      background: white;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+    }
+
+    .input-section {
+      background: rgba(241, 245, 249, 0.9);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 30px;
+      color: #1e293b;
+    }
+
+    .section-title {
+      font-size: 1.4em;
+      color: #3b82f6;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .equation-input {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .custom-input {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(203, 213, 225, 0.5);
+      border-radius: 12px;
+      padding: 12px;
+      color: #1e293b;
+      font-size: 1em;
+      width: 100%;
+    }
+
+    .custom-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .physics-examples {
+      background: rgba(241, 245, 249, 0.9);
+      border-radius: 16px;
+      padding: 25px;
+      color: #1e293b;
+    }
+
+    .physics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(30, 41, 59, 0.9);
+      color: #3b82f6;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(30, 41, 59, 1);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .equation-input {
+        grid-template-columns: 1fr;
+      }
+      
+      .physics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+  
+  <!-- Desmos API -->
+  <script src="https://www.desmos.com/api/v1.7/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+</head>
+
+<body>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
+  <div class="header">
+    <h1 class="title">Desmos Graphing Calculator</h1>
+    <p class="subtitle">Interactive mathematical visualization for physics</p>
+  </div>
+
+  <div class="calculator-container">
+    <div class="section-title">Interactive Calculator</div>
+    
+    <!-- DESMOS EMBED LINE: This is where the Desmos calculator will load -->
+    <div id="calculator" class="calculator-wrapper"></div>
+    
+    <div class="controls">
+      <button class="btn" onclick="addExpression('y = x^2')">Add y = x²</button>
+      <button class="btn" onclick="addExpression('y = sin(x)')">Add y = sin(x)</button>
+      <button class="btn" onclick="addExpression('y = cos(x)')">Add y = cos(x)</button>
+      <button class="btn" onclick="clearGraph()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="input-section">
+    <div class="section-title">Quick Add Equations</div>
+    <div class="equation-input">
+      <input type="text" id="customEquation" class="custom-input" placeholder="Enter equation (e.g., y = 2x + 3)">
+      <button class="btn" onclick="addCustomExpression()">Add to Graph</button>
+    </div>
+  </div>
+
+  <div class="physics-examples">
+    <div class="section-title">Physics Examples</div>
+    <div class="physics-grid">
+      <button class="btn" onclick="addExpression('y = 0.5*9.8*x^2')">Free Fall: y = ½gt²</button>
+      <button class="btn" onclick="addExpression('y = sin(2*pi*x)')">Wave: y = sin(2πx)</button>
+      <button class="btn" onclick="addExpression('y = e^(-x^2)')">Gaussian: y = e^(-x²)</button>
+      <button class="btn" onclick="addExpression('y = 1/x')">Inverse: y = 1/x</button>
+      <button class="btn" onclick="addExpression('x^2 + y^2 = 25')">Circle: x² + y² = 25</button>
+      <button class="btn" onclick="addExpression('y = x^3 - 3*x')">Cubic: y = x³ - 3x</button>
+    </div>
+  </div>
+
+  <script>
+    let calculator = null;
+
+    // Initialize Desmos Calculator
+    function initializeDesmos() {
+      const elt = document.getElementById('calculator');
+      
+      if (!elt) {
+        console.error('Calculator element not found');
+        return;
+      }
+
+      // Check if Desmos API is loaded
+      if (typeof Desmos === 'undefined') {
+        console.log('Desmos API not loaded yet, retrying...');
+        setTimeout(initializeDesmos, 500);
+        return;
+      }
+
+      try {
+        // Initialize the calculator
+        calculator = Desmos.GraphingCalculator(elt, {
+          keypad: true,
+          expressions: true,
+          settingsMenu: true,
+          zoomButtons: true,
+          expressionsTopbar: true,
+          pointsOfInterest: true,
+          trace: true,
+          border: false,
+          lockViewport: false,
+          expressionsCollapsed: false,
+          pasteGraphLink: true
+        });
+        
+        // Add a welcome equation
+        calculator.setExpression({
+          id: 'welcome',
+          latex: 'y = \\sin(x)',
+          color: '#3b82f6'
+        });
+        
+        console.log('Desmos calculator initialized successfully');
+        
+        // Remove loading message if any
+        const loadingMsg = elt.querySelector('.loading-message');
+        if (loadingMsg) {
+          loadingMsg.remove();
+        }
+        
+      } catch (error) {
+        console.error('Error initializing Desmos:', error);
+        elt.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #f8fafc; color: #64748b; text-align: center; padding: 20px;">
+            <div style="font-size: 1.2em; margin-bottom: 15px;">Unable to load Desmos Calculator</div>
+            <div style="font-size: 0.9em; margin-bottom: 20px;">Please try refreshing the page or check your internet connection.</div>
+            <button onclick="initializeDesmos()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Retry</button>
+          </div>
+        `;
+      }
+    }
+
+    // Add expression to Desmos
+    function addExpression(latex) {
+      if (!calculator) {
+        console.error('Calculator not initialized');
+        return;
+      }
+      
+      try {
+        calculator.setExpression({
+          id: 'expr_' + Date.now(),
+          latex: latex,
+          color: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+      } catch (error) {
+        console.error('Error adding expression:', error);
+      }
+    }
+
+    // Add custom expression
+    function addCustomExpression() {
+      const input = document.getElementById('customEquation');
+      if (!input.value.trim()) {
+        alert('Please enter an equation first!');
+        return;
+      }
+      
+      if (!calculator) {
+        console.error('Calculator not initialized');
+        return;
+      }
+      
+      try {
+        calculator.setExpression({
+          id: 'custom_' + Date.now(),
+          latex: input.value.trim(),
+          color: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+        input.value = '';
+      } catch (error) {
+        console.error('Error adding custom expression:', error);
+        alert('Invalid equation format. Please check your syntax.');
+      }
+    }
+
+    // Clear all expressions
+    function clearGraph() {
+      if (!calculator) {
+        console.error('Calculator not initialized');
+        return;
+      }
+      
+      try {
+        calculator.setBlank();
+      } catch (error) {
+        console.error('Error clearing graph:', error);
+      }
+    }
+
+    // Handle Enter key for custom input
+    document.addEventListener('DOMContentLoaded', function() {
+      const customInput = document.getElementById('customEquation');
+      if (customInput) {
+        customInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            addCustomExpression();
+          }
+        });
+      }
+      
+      // Initialize Desmos when page loads
+      initializeDesmos();
+    });
+
+    // Show loading message initially
+    document.getElementById('calculator').innerHTML = `
+      <div class="loading-message" style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f8fafc; color: #64748b; font-size: 1.1em;">
+        <div>Loading Desmos Calculator...</div>
+      </div>
+    `;
+  </script>
+</body>
+</html>
