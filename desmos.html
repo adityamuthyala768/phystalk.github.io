@@ -51,15 +51,22 @@
                     Graphing Calculator
                 </h2>
                 
-                <!-- 🎯 DESMOS EMBED LOCATION: Full calculator with expressions panel -->
+                <!-- 🎯 DESMOS EMBED LOCATION: Simple embed that works -->
                 <iframe 
-                    src="https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false"
+                    src="https://www.desmos.com/calculator"
                     width="100%" 
                     height="800" 
                     frameborder="0"
                     style="border-radius: 12px;"
                     class="desmos-calculator">
                 </iframe>
+                
+                <div class="embed-note">
+                    <p><i class="fas fa-info-circle"></i> 
+                    <strong>Note:</strong> Click the buttons below to open equations in the calculator above, or 
+                    <a href="https://www.desmos.com/calculator" target="_blank">open Desmos in a new tab</a> for full functionality.
+                    </p>
+                </div>
                 
                 <!-- Quick Actions -->
                 <div class="calculator-controls">
@@ -223,24 +230,18 @@
         // Since we're using iframe, we can't directly control Desmos
         // But we can provide helpful actions for users
 
-        // Open Desmos with pre-filled equations in new tab
+        // Open Desmos with equations in new tab (more reliable)
         window.addExpression = function(latex) {
             console.log('Opening Desmos with expression:', latex);
             
-            // Create Desmos URL with the equation and full interface
-            const encodedLatex = encodeURIComponent(latex);
-            const desmosUrl = `https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false&expression=${encodedLatex}`;
+            // Create shareable Desmos URL with the equation
+            const desmosUrl = `https://www.desmos.com/calculator/${latex}`;
             
-            // Update the iframe source
-            const iframe = document.querySelector('.desmos-calculator');
-            if (iframe) {
-                iframe.src = desmosUrl;
-                showNotification('Loading: ' + latex);
-            } else {
-                // Fallback: open in new tab
-                window.open(desmosUrl, '_blank');
-                showNotification('Opening in new tab: ' + latex);
-            }
+            // Copy equation to clipboard AND open in new tab
+            copyEquation(latex);
+            window.open('https://www.desmos.com/calculator', '_blank');
+            
+            showNotification(`Equation copied: ${latex}\nOpening Desmos in new tab - paste the equation there!`);
         };
 
         // Open custom expression
@@ -255,31 +256,21 @@
             console.log('Opening Desmos with custom expression:', equation);
             
             if (equation) {
-                const encodedLatex = encodeURIComponent(equation);
-                const desmosUrl = `https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false&expression=${encodedLatex}`;
-                
-                const iframe = document.querySelector('.desmos-calculator');
-                if (iframe) {
-                    iframe.src = desmosUrl;
-                    input.value = '';
-                    showNotification('Loading: ' + equation);
-                } else {
-                    window.open(desmosUrl, '_blank');
-                    showNotification('Opening in new tab: ' + equation);
-                }
+                // Copy equation and open Desmos
+                copyEquation(equation);
+                window.open('https://www.desmos.com/calculator', '_blank');
+                input.value = '';
+                showNotification(`Equation copied: ${equation}\nOpening Desmos in new tab - paste the equation there!`);
             } else {
                 showNotification('Please enter an equation', 'error');
             }
         };
 
-        // Clear graph by resetting iframe
+        // Clear graph - just open fresh Desmos
         window.clearGraph = function() {
-            console.log('Clearing graph');
-            const iframe = document.querySelector('.desmos-calculator');
-            if (iframe) {
-                iframe.src = 'https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false';
-                showNotification('Graph cleared!');
-            }
+            console.log('Opening fresh Desmos calculator');
+            window.open('https://www.desmos.com/calculator', '_blank');
+            showNotification('Opening fresh Desmos calculator in new tab!');
         };
 
         // Alternative: Open full Desmos calculator in new tab
@@ -391,7 +382,29 @@
     </script>
 
     <style>
-        /* Desmos-specific styles */
+        .embed-note {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .embed-note p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .embed-note a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .embed-note a:hover {
+            text-decoration: underline;
+        }
         .desmos-calculator {
             width: 100%;
             height: 800px;
@@ -566,9 +579,6 @@
                 height: 400px;
             }
         }
-    </style>
-</body>
-</html>
     </style>
 </body>
 </html>
