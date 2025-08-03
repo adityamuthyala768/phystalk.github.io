@@ -51,141 +51,20 @@
                     Graphing Calculator
                 </h2>
                 
-                <!-- 🎯 DESMOS EMBED LOCATION: Simple embed that works -->
+                <!-- 🎯 PURE DESMOS EMBED - Works exactly like the website -->
                 <iframe 
                     src="https://www.desmos.com/calculator"
                     width="100%" 
                     height="800" 
                     frameborder="0"
-                    style="border-radius: 12px;"
+                    style="border-radius: 12px; border: 2px solid var(--border-color);"
                     class="desmos-calculator">
                 </iframe>
                 
-                <div class="embed-note">
+                <div class="calculator-info">
                     <p><i class="fas fa-info-circle"></i> 
-                    <strong>Note:</strong> Click the buttons below to open equations in the calculator above, or 
-                    <a href="https://www.desmos.com/calculator" target="_blank">open Desmos in a new tab</a> for full functionality.
+                    This is the full Desmos calculator - type equations in the left panel to see them graphed on the right.
                     </p>
-                </div>
-                
-                <!-- Quick Actions -->
-                <div class="calculator-controls">
-                    <div class="control-group">
-                        <h3>Quick Add Functions</h3>
-                        <div class="button-grid">
-                            <button class="calc-btn" onclick="addExpression('y = x^2')">
-                                <i class="fas fa-square-root-alt"></i> y = x²
-                            </button>
-                            <button class="calc-btn" onclick="addExpression('y = \\sin(x)')">
-                                <i class="fas fa-wave-square"></i> y = sin(x)
-                            </button>
-                            <button class="calc-btn" onclick="addExpression('y = \\cos(x)')">
-                                <i class="fas fa-wave-square"></i> y = cos(x)
-                            </button>
-                            <button class="calc-btn" onclick="clearGraph()">
-                                <i class="fas fa-trash"></i> Clear All
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <h3>Physics Examples</h3>
-                        <div class="button-grid">
-                            <button class="calc-btn physics-btn" onclick="addExpression('y = 0.5*9.8*x^2')">
-                                <i class="fas fa-arrow-down"></i> Free Fall: y = ½gt²
-                            </button>
-                            <button class="calc-btn physics-btn" onclick="addExpression('y = \\sin(2\\pi x)')">
-                                <i class="fas fa-broadcast-tower"></i> Wave: y = sin(2πx)
-                            </button>
-                            <button class="calc-btn physics-btn" onclick="addExpression('y = e^{-x^2}')">
-                                <i class="fas fa-bell"></i> Gaussian: y = e^(-x²)
-                            </button>
-                            <button class="calc-btn physics-btn" onclick="addExpression('y = 1/x')">
-                                <i class="fas fa-divide"></i> Inverse: y = 1/x
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <h3>Custom Equation</h3>
-                        <div class="input-group">
-                            <input type="text" id="customEquation" placeholder="Enter equation (e.g., y = 2x + 3)" class="equation-input">
-                            <button class="calc-btn add-btn" onclick="addCustomExpression()">
-                                <i class="fas fa-plus"></i> Add to Graph
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Usage Tips Section -->
-            <div class="content-section">
-                <h2 class="section-title">
-                    <i class="fas fa-lightbulb"></i>
-                    Usage Tips & Functions
-                </h2>
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <h4><i class="fas fa-function"></i> Trigonometric Functions</h4>
-                        <p>Use <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> for trigonometric functions</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-superscript"></i> Powers & Roots</h4>
-                        <p>Type <code>x^2</code> for x squared, <code>sqrt(x)</code> for square root</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-pi"></i> Constants</h4>
-                        <p>Use <code>pi</code> for π and <code>e</code> for Euler's number</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-project-diagram"></i> Parametric Equations</h4>
-                        <p>Create parametric equations with <code>x = t*cos(t), y = t*sin(t)</code></p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-sliders-h"></i> Interactive Variables</h4>
-                        <p>Add sliders by using variables like <code>y = a*x + b</code></p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-calculator"></i> Advanced Functions</h4>
-                        <p>Use <code>log(x)</code>, <code>ln(x)</code>, <code>abs(x)</code> for advanced operations</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Physics Applications Section -->
-            <div class="content-section">
-                <h2 class="section-title">
-                    <i class="fas fa-atom"></i>
-                    Physics Applications
-                </h2>
-                <div class="physics-examples">
-                    <div class="example-card">
-                        <h4>Kinematics</h4>
-                        <p>Visualize motion equations:</p>
-                        <ul>
-                            <li><code>y = v₀t + ½at²</code> - Position vs time</li>
-                            <li><code>v = v₀ + at</code> - Velocity vs time</li>
-                            <li><code>x = x₀ + v₀t + ½at²</code> - Displacement</li>
-                        </ul>
-                    </div>
-                    <div class="example-card">
-                        <h4>Wave Physics</h4>
-                        <p>Explore wave properties:</p>
-                        <ul>
-                            <li><code>y = A sin(kx - ωt)</code> - Traveling wave</li>
-                            <li><code>y = A sin(kx) cos(ωt)</code> - Standing wave</li>
-                            <li><code>I = I₀ cos²(θ)</code> - Malus's law</li>
-                        </ul>
-                    </div>
-                    <div class="example-card">
-                        <h4>Quantum Mechanics</h4>
-                        <p>Visualize quantum phenomena:</p>
-                        <ul>
-                            <li><code>ψ = A e^(-x²/2σ²)</code> - Gaussian wave packet</li>
-                            <li><code>P = |ψ|²</code> - Probability density</li>
-                            <li><code>E = ℏω(n + ½)</code> - Harmonic oscillator energy</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -227,135 +106,6 @@
     </footer>
 
     <script>
-        // Since we're using iframe, we can't directly control Desmos
-        // But we can provide helpful actions for users
-
-        // Open Desmos with equations in new tab (more reliable)
-        window.addExpression = function(latex) {
-            console.log('Opening Desmos with expression:', latex);
-            
-            // Create shareable Desmos URL with the equation
-            const desmosUrl = `https://www.desmos.com/calculator/${latex}`;
-            
-            // Copy equation to clipboard AND open in new tab
-            copyEquation(latex);
-            window.open('https://www.desmos.com/calculator', '_blank');
-            
-            showNotification(`Equation copied: ${latex}\nOpening Desmos in new tab - paste the equation there!`);
-        };
-
-        // Open custom expression
-        window.addCustomExpression = function() {
-            const input = document.getElementById('customEquation');
-            if (!input) {
-                console.error('Custom equation input not found');
-                return;
-            }
-            
-            const equation = input.value.trim();
-            console.log('Opening Desmos with custom expression:', equation);
-            
-            if (equation) {
-                // Copy equation and open Desmos
-                copyEquation(equation);
-                window.open('https://www.desmos.com/calculator', '_blank');
-                input.value = '';
-                showNotification(`Equation copied: ${equation}\nOpening Desmos in new tab - paste the equation there!`);
-            } else {
-                showNotification('Please enter an equation', 'error');
-            }
-        };
-
-        // Clear graph - just open fresh Desmos
-        window.clearGraph = function() {
-            console.log('Opening fresh Desmos calculator');
-            window.open('https://www.desmos.com/calculator', '_blank');
-            showNotification('Opening fresh Desmos calculator in new tab!');
-        };
-
-        // Alternative: Open full Desmos calculator in new tab
-        window.openDesmosNewTab = function() {
-            window.open('https://www.desmos.com/calculator', '_blank');
-            showNotification('Opening Desmos in new tab');
-        };
-
-        // Copy equation to clipboard for manual entry
-        window.copyEquation = function(latex) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(latex).then(() => {
-                    showNotification('Equation copied: ' + latex + '\nPaste it into the calculator!');
-                }).catch(err => {
-                    console.error('Copy failed:', err);
-                    showNotification('Copy failed', 'error');
-                });
-            } else {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = latex;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showNotification('Equation copied: ' + latex);
-            }
-        };
-
-        // Handle Enter key in custom equation input
-        document.addEventListener('DOMContentLoaded', function() {
-            const customInput = document.getElementById('customEquation');
-            if (customInput) {
-                customInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        addCustomExpression();
-                    }
-                });
-            }
-        });
-
-        // Notification system
-        function showNotification(message, type = 'success') {
-            // Remove existing notifications
-            const existing = document.querySelectorAll('.notification');
-            existing.forEach(n => n.remove());
-            
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = message.replace(/\n/g, '<br>');
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                z-index: 1001;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                max-width: 350px;
-                font-weight: 500;
-                line-height: 1.4;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            requestAnimationFrame(() => {
-                notification.style.transform = 'translateX(0)';
-            });
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 4000);
-        }
-
         // Mobile navigation toggle
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
@@ -372,13 +122,6 @@
                 navMenu.classList.remove('active');
             }));
         }
-
-        // Debug: Log when buttons are clicked
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('calc-btn')) {
-                console.log('Calc button clicked:', e.target.textContent);
-            }
-        });
     </script>
 
     <style>
