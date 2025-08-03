@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Desmos API -->
-    <script src="https://www.desmos.com/api/v1.7/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <!-- Remove Desmos API script since we're using iframe -->
 </head>
 <body>
     <!-- Header -->
@@ -52,14 +51,15 @@
                     Graphing Calculator
                 </h2>
                 
-                <!-- 🎯 DESMOS EMBED LOCATION: Replace the div below with your Desmos embed code -->
-               <iframe 
-                      src="https://www.desmos.com/calculator/8xymjp62yz"
-                      width="100%" 
-                      height="600" 
-                      frameborder="0"
-                      style="border-radius: 12px;">
-             </iframe>
+                <!-- 🎯 DESMOS EMBED LOCATION: Replace the src URL below with your Desmos classroom URL -->
+                <iframe 
+                    src="https://www.desmos.com/calculator?embed&invertedColors&expressionsCollapsed=false&settingsMenu=false&zoomButtons=false"
+                    width="100%" 
+                    height="800" 
+                    frameborder="0"
+                    style="border-radius: 12px;"
+                    class="desmos-calculator">
+                </iframe>
                 
                 <!-- Quick Actions -->
                 <div class="calculator-controls">
@@ -220,80 +220,94 @@
     </footer>
 
     <script>
-        // Desmos calculator instance
-        let calculator = null;
+        // Since we're using iframe, we can't directly control Desmos
+        // But we can provide helpful actions for users
 
-        // Initialize Desmos Calculator when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeDesmos();
-        });
+        // Open Desmos with pre-filled equations in new tab
+        window.addExpression = function(latex) {
+            console.log('Opening Desmos with expression:', latex);
+            
+            // Create Desmos URL with the equation
+            const encodedLatex = encodeURIComponent(latex);
+            const desmosUrl = `https://www.desmos.com/calculator?embed&invertedColors&expressions=${encodedLatex}`;
+            
+            // Update the iframe source
+            const iframe = document.querySelector('.desmos-calculator');
+            if (iframe) {
+                iframe.src = desmosUrl;
+                showNotification('Loading: ' + latex);
+            } else {
+                // Fallback: open in new tab
+                window.open(desmosUrl, '_blank');
+                showNotification('Opening in new tab: ' + latex);
+            }
+        };
 
-        // 🎯 DESMOS INITIALIZATION: This is where the calculator gets created
-        function initializeDesmos() {
-            const elt = document.getElementById('calculator');
-            if (elt && typeof Desmos !== 'undefined') {
-                try {
-                    calculator = Desmos.GraphingCalculator(elt, {
-                        keypad: true,
-                        expressions: true,
-                        settingsMenu: true,
-                        zoomButtons: true,
-                        expressionsTopbar: true,
-                        pointsOfInterest: true,
-                        trace: true,
-                        border: false,
-                        lockViewport: false,
-                        expressionsCollapsed: false
-                    });
-                    
-                    // Add a welcome equation
-                    calculator.setExpression({
-                        id: 'welcome',
-                        latex: 'y = \\sin(x)',
-                        color: '#3b82f6'
-                    });
-                    
-                    console.log('Desmos calculator initialized successfully');
-                } catch (error) {
-                    console.error('Error initializing Desmos calculator:', error);
+        // Open custom expression
+        window.addCustomExpression = function() {
+            const input = document.getElementById('customEquation');
+            if (!input) {
+                console.error('Custom equation input not found');
+                return;
+            }
+            
+            const equation = input.value.trim();
+            console.log('Opening Desmos with custom expression:', equation);
+            
+            if (equation) {
+                const encodedLatex = encodeURIComponent(equation);
+                const desmosUrl = `https://www.desmos.com/calculator?embed&invertedColors&expressions=${encodedLatex}`;
+                
+                const iframe = document.querySelector('.desmos-calculator');
+                if (iframe) {
+                    iframe.src = desmosUrl;
+                    input.value = '';
+                    showNotification('Loading: ' + equation);
+                } else {
+                    window.open(desmosUrl, '_blank');
+                    showNotification('Opening in new tab: ' + equation);
                 }
             } else {
-                console.error('Desmos API not loaded or calculator element not found');
+                showNotification('Please enter an equation', 'error');
             }
-        }
+        };
 
-        // Add expression to Desmos
-        function addExpression(latex) {
-            if (calculator) {
-                calculator.setExpression({
-                    id: 'expr_' + Date.now(),
-                    latex: latex,
-                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
+        // Clear graph by resetting iframe
+        window.clearGraph = function() {
+            console.log('Clearing graph');
+            const iframe = document.querySelector('.desmos-calculator');
+            if (iframe) {
+                iframe.src = 'https://www.desmos.com/calculator?embed&invertedColors';
+                showNotification('Graph cleared!');
+            }
+        };
+
+        // Alternative: Open full Desmos calculator in new tab
+        window.openDesmosNewTab = function() {
+            window.open('https://www.desmos.com/calculator', '_blank');
+            showNotification('Opening Desmos in new tab');
+        };
+
+        // Copy equation to clipboard for manual entry
+        window.copyEquation = function(latex) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(latex).then(() => {
+                    showNotification('Equation copied: ' + latex + '\nPaste it into the calculator!');
+                }).catch(err => {
+                    console.error('Copy failed:', err);
+                    showNotification('Copy failed', 'error');
                 });
             } else {
-                console.error('Calculator not initialized');
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = latex;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Equation copied: ' + latex);
             }
-        }
-
-        // Add custom expression
-        function addCustomExpression() {
-            const input = document.getElementById('customEquation');
-            if (input.value.trim() && calculator) {
-                calculator.setExpression({
-                    id: 'custom_' + Date.now(),
-                    latex: input.value.trim(),
-                    color: '#' + Math.floor(Math.random()*16777215).toString(16)
-                });
-                input.value = '';
-            }
-        }
-
-        // Clear all expressions
-        function clearGraph() {
-            if (calculator) {
-                calculator.setBlank();
-            }
-        }
+        };
 
         // Handle Enter key in custom equation input
         document.addEventListener('DOMContentLoaded', function() {
@@ -301,33 +315,86 @@
             if (customInput) {
                 customInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
+                        e.preventDefault();
                         addCustomExpression();
                     }
                 });
             }
         });
 
+        // Notification system
+        function showNotification(message, type = 'success') {
+            // Remove existing notifications
+            const existing = document.querySelectorAll('.notification');
+            existing.forEach(n => n.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = message.replace(/\n/g, '<br>');
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'error' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                z-index: 1001;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 350px;
+                font-weight: 500;
+                line-height: 1.4;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            requestAnimationFrame(() => {
+                notification.style.transform = 'translateX(0)';
+            });
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
         // Mobile navigation toggle
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
 
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }));
+        }
+
+        // Debug: Log when buttons are clicked
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('calc-btn')) {
+                console.log('Calc button clicked:', e.target.textContent);
+            }
+        });
     </script>
 
     <style>
         /* Desmos-specific styles */
         .desmos-calculator {
             width: 100%;
-            height: 600px;
+            height: 800px;
             border: 2px solid var(--border-color);
             border-radius: var(--border-radius);
             background: white;
@@ -370,14 +437,23 @@
         .calc-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            background: var(--hover-blue);
         }
 
         .physics-btn {
             background: linear-gradient(135deg, #8b5cf6, #6d28d9);
         }
 
+        .physics-btn:hover {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        }
+
         .add-btn {
             background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
         }
 
         .input-group {
