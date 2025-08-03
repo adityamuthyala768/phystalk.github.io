@@ -51,9 +51,9 @@
                     Graphing Calculator
                 </h2>
                 
-                <!-- 🎯 DESMOS EMBED LOCATION: Replace the src URL below with your Desmos classroom URL -->
+                <!-- 🎯 DESMOS EMBED LOCATION: Full calculator with expressions panel -->
                 <iframe 
-                    src="https://www.desmos.com/calculator?embed&invertedColors&expressionsCollapsed=false&settingsMenu=false&zoomButtons=false"
+                    src="https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false"
                     width="100%" 
                     height="800" 
                     frameborder="0"
@@ -227,9 +227,9 @@
         window.addExpression = function(latex) {
             console.log('Opening Desmos with expression:', latex);
             
-            // Create Desmos URL with the equation
+            // Create Desmos URL with the equation and full interface
             const encodedLatex = encodeURIComponent(latex);
-            const desmosUrl = `https://www.desmos.com/calculator?embed&invertedColors&expressions=${encodedLatex}`;
+            const desmosUrl = `https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false&expression=${encodedLatex}`;
             
             // Update the iframe source
             const iframe = document.querySelector('.desmos-calculator');
@@ -256,7 +256,7 @@
             
             if (equation) {
                 const encodedLatex = encodeURIComponent(equation);
-                const desmosUrl = `https://www.desmos.com/calculator?embed&invertedColors&expressions=${encodedLatex}`;
+                const desmosUrl = `https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false&expression=${encodedLatex}`;
                 
                 const iframe = document.querySelector('.desmos-calculator');
                 if (iframe) {
@@ -277,7 +277,7 @@
             console.log('Clearing graph');
             const iframe = document.querySelector('.desmos-calculator');
             if (iframe) {
-                iframe.src = 'https://www.desmos.com/calculator?embed&invertedColors';
+                iframe.src = 'https://www.desmos.com/calculator?embed&keypad=true&expressions=true&settingsMenu=true&zoomButtons=true&expressionsTopbar=true&pointsOfInterest=true&trace=true&border=false&lockViewport=false&expressionsCollapsed=false';
                 showNotification('Graph cleared!');
             }
         };
@@ -566,6 +566,9 @@
                 height: 400px;
             }
         }
+    </style>
+</body>
+</html>
     </style>
 </body>
 </html>
