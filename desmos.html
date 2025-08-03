@@ -9,8 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Desmos API -->
-    <script src="https://www.desmos.com/api/v1.7/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <!-- Desmos API - Multiple CDN fallbacks -->
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apikey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <script>
+        // Fallback CDN if primary fails
+        if (typeof Desmos === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/desmos@1.9.0/dist/calculator.js"><\/script>');
+        }
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -230,11 +236,20 @@
             
             if (elt) {
                 // Show loading message first
-                elt.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b; font-size: 1.2rem;">Loading Desmos Calculator...</div>';
+                elt.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b; font-size: 1.2rem;"><i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Loading Desmos Calculator...</div>';
                 
-                // Wait a bit for Desmos to load, then initialize
-                setTimeout(() => {
+                // Check multiple times for Desmos API
+                let attempts = 0;
+                const maxAttempts = 10;
+                
+                const checkDesmos = setInterval(() => {
+                    attempts++;
+                    console.log(`Checking for Desmos API, attempt ${attempts}`);
+                    
                     if (typeof Desmos !== 'undefined') {
+                        clearInterval(checkDesmos);
+                        console.log('Desmos API found, initializing...');
+                        
                         try {
                             calculator = Desmos.GraphingCalculator(elt, {
                                 keypad: true,
@@ -261,17 +276,50 @@
                             }, 500);
                             
                             console.log('Desmos calculator initialized successfully');
+                            showNotification('Desmos calculator loaded successfully!');
+                            
                         } catch (error) {
                             console.error('Error initializing Desmos calculator:', error);
-                            elt.innerHTML = '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.2rem; text-align: center;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>Failed to load Desmos Calculator<br><small style="color: #94a3b8; margin-top: 0.5rem;">Please refresh the page</small></div>';
+                            elt.innerHTML = '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.2rem; text-align: center;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>Error initializing calculator<br><small style="color: #94a3b8; margin-top: 0.5rem;">Please refresh the page</small></div>';
                         }
-                    } else {
-                        console.error('Desmos API not loaded');
-                        elt.innerHTML = '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.2rem; text-align: center;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>Desmos API failed to load<br><small style="color: #94a3b8; margin-top: 0.5rem;">Please check your internet connection</small></div>';
+                    } else if (attempts >= maxAttempts) {
+                        clearInterval(checkDesmos);
+                        console.error('Desmos API failed to load after', maxAttempts, 'attempts');
+                        
+                        // Offer iframe fallback
+                        elt.innerHTML = `
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #ef4444; font-size: 1.1rem; text-align: center; padding: 2rem;">
+                                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                                <h3 style="color: #ef4444; margin-bottom: 1rem;">Desmos API Failed to Load</h3>
+                                <p style="color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.5;">
+                                    The Desmos calculator couldn't load due to network issues.<br>
+                                    Click below to use the web version instead:
+                                </p>
+                                <button onclick="loadWebCalculator()" style="
+                                    background: #3b82f6; 
+                                    color: white; 
+                                    border: none; 
+                                    padding: 0.75rem 1.5rem; 
+                                    border-radius: 8px; 
+                                    cursor: pointer;
+                                    font-weight: 500;
+                                ">
+                                    <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>
+                                    Open Desmos Calculator
+                                </button>
+                            </div>
+                        `;
                     }
-                }, 1000);
+                }, 500);
             }
         }
+
+        // Fallback: Load web calculator in iframe
+        window.loadWebCalculator = function() {
+            const elt = document.getElementById('calculator');
+            elt.innerHTML = '<iframe src="https://www.desmos.com/calculator?embed&invertedColors" width="100%" height="100%" frameborder="0" style="border-radius: 12px;"></iframe>';
+            showNotification('Loading web calculator...');
+        };
 
         // Add expression to Desmos - FIXED FUNCTION
         window.addExpression = function(latex) {
