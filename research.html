@@ -43,6 +43,43 @@
                 <p class="page-subtitle">Collaborative research documents, experiments, and physics resources</p>
             </div>
 
+            <!-- Current Research Topic Section -->
+            <div class="content-section current-research">
+                <h2 class="section-title">
+                    <i class="fas fa-microscope"></i>
+                    Current Research Topic
+                </h2>
+                <div class="research-topic-container">
+                    <div class="topic-input-group">
+                        <input 
+                            type="text" 
+                            id="researchTopic" 
+                            class="topic-input" 
+                            placeholder="Enter the current research topic..."
+                            maxlength="200"
+                        >
+                        <button class="topic-save-btn" onclick="saveResearchTopic()">
+                            <i class="fas fa-save"></i>
+                            Save Topic
+                        </button>
+                    </div>
+                    <div class="topic-display" id="topicDisplay">
+                        <span class="topic-text">No research topic set yet</span>
+                    </div>
+                    <div class="topic-links">
+                        <!-- 📚 SHARED GOOGLE DOC LINK: Replace with your shared Google Doc URL -->
+                        <a href="https://docs.google.com/document/d/1V5bIyM00HeLeLMN8QJ1i-wfAYpoiGPikJ9Lx5IYgERA/edit?usp=sharing" target="_blank" class="topic-link">
+                            <i class="fab fa-google-drive"></i>
+                            Collaborate on Current Topic
+                        </a>
+                        <span class="link-note">
+                            <i class="fas fa-info-circle"></i>
+                            Anyone can contribute, owner approves changes
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Quick Access Section -->
             <div class="content-section">
                 <h2 class="section-title">
