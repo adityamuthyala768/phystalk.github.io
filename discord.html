@@ -15,7 +15,7 @@
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <span class="logo-psi">Ψ</span>
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
                 <span class="logo-text">Phystalk</span>
             </div>
             <ul class="nav-menu">
@@ -24,6 +24,7 @@
                 <li><a href="desmos.html" class="nav-link">Graphing</a></li>
                 <li><a href="calendar.html" class="nav-link">Calendar</a></li>
                 <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
                 <li><a href="discord.html" class="nav-link active">Community</a></li>
             </ul>
             <div class="hamburger">
@@ -53,16 +54,16 @@
                         <h2>Join Our Physics Discord Server</h2>
                         <p>Connect with fellow physics enthusiasts, get homework help, discuss recent discoveries, and participate in live study sessions. Our active community is here to support your physics journey.</p>
                         
-                        <!-- 💬 DISCORD INVITE LINK: Replace the href with your Discord invite link -->
+                        <!-- Discord Invite Link -->
                         <a href="https://discord.gg/thzYJTQr" target="_blank" class="discord-btn-large">
                             <i class="fab fa-discord"></i>
                             Join Discord Server
-                            <span class="btn-subtitle">1000+ Members Online</span>
+                            <span class="btn-subtitle">Active Community</span>
                         </a>
                         
                         <div class="server-stats">
                             <div class="stat-item">
-                                <div class="stat-number">2,500+</div>
+                                <div class="stat-number">Growing</div>
                                 <div class="stat-label">Members</div>
                             </div>
                             <div class="stat-item">
@@ -76,17 +77,72 @@
                         </div>
                     </div>
                     
-                    <!-- Discord Widget Embed (Optional) -->
+                    <!-- Discord Widget -->
                     <div class="discord-widget">
-                        <!-- 💬 DISCORD WIDGET: Replace src with your Discord server widget -->
-                        <iframe 
-                            src="https://discord.com/widget?id=1396568836035051682&theme=dark" 
-                            width="350" 
-                            height="500" 
-                            allowtransparency="true" 
-                            frameborder="0" 
-                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-                        </iframe>
+                        <div class="widget-container">
+                            <h3>Live Server Activity</h3>
+                            <!-- Fixed Discord Widget with proper server ID -->
+                            <iframe 
+                                src="https://discord.com/widget?id=1396568836035051682&theme=dark" 
+                                width="100%" 
+                                height="400" 
+                                allowtransparency="true" 
+                                frameborder="0" 
+                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                            </iframe>
+                            <p class="widget-note">
+                                <i class="fas fa-info-circle"></i>
+                                Widget shows online members and recent activity
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Meet Section -->
+            <div class="content-section meet-section">
+                <h2 class="section-title">
+                    <i class="fas fa-video"></i>
+                    Weekly Research Presentations
+                </h2>
+                <div class="meet-container">
+                    <div class="meet-info">
+                        <h3>Join Our Weekly Google Meet</h3>
+                        <p>Every 2 weeks, we present our research findings in a collaborative Google Meet session. Share discoveries, discuss methodologies, and learn from fellow researchers.</p>
+                        <div class="meet-schedule">
+                            <div class="schedule-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Every other Sunday</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-clock"></i>
+                                <span>7:00 PM IST</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-users"></i>
+                                <span>All community members</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meet-actions">
+                        <!-- Replace this URL with your actual Google Meet link -->
+                        <a href="https://meet.google.com/new" target="_blank" class="meet-btn-large" id="meetButton">
+                            <i class="fab fa-google"></i>
+                            Join Google Meet
+                            <span class="meet-subtitle">Research Presentation</span>
+                        </a>
+                        <div class="meet-setup">
+                            <h4>Setup Instructions:</h4>
+                            <ol>
+                                <li>Create a recurring Google Meet for your presentations</li>
+                                <li>Copy the meeting link</li>
+                                <li>Replace the href in the "Join Google Meet" button above</li>
+                                <li>Share the link with your community!</li>
+                            </ol>
+                            <div class="current-link">
+                                <strong>Current Link:</strong> <code>https://meet.google.com/new</code> (Demo - Replace with your actual meet link)
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,8 +188,8 @@
                                 <span class="channel-desc">Study tips and exam preparation strategies</span>
                             </div>
                             <div class="channel-item">
-                                <span class="channel-name"># textbook-solutions</span>
-                                <span class="channel-desc">Discuss textbook problems and solutions</span>
+                                <span class="channel-name"># research-discussion</span>
+                                <span class="channel-desc">Discuss current research topics and findings</span>
                             </div>
                             <div class="channel-item">
                                 <span class="channel-name"># career-advice</span>
@@ -161,32 +217,6 @@
                                 <span class="channel-name"># thermodynamics</span>
                                 <span class="channel-desc">Heat, entropy, and statistical mechanics</span>
                             </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># astrophysics</span>
-                                <span class="channel-desc">Cosmology and space physics</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="channel-category">
-                        <h3><i class="fas fa-flask"></i> Research & Labs</h3>
-                        <div class="channel-list">
-                            <div class="channel-item">
-                                <span class="channel-name"># research-share</span>
-                                <span class="channel-desc">Share and discuss physics research</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># lab-experiments</span>
-                                <span class="channel-desc">Laboratory work and experimental physics</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># paper-reviews</span>
-                                <span class="channel-desc">Academic paper discussions and reviews</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># coding-physics</span>
-                                <span class="channel-desc">Computational physics and simulations</span>
-                            </div>
                         </div>
                     </div>
 
@@ -198,12 +228,8 @@
                                 <span class="channel-desc">Collaborative study sessions</span>
                             </div>
                             <div class="channel-item">
-                                <span class="channel-name">🔊 Office Hours</span>
-                                <span class="channel-desc">Live help from experienced members</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name">🔊 Lecture Room</span>
-                                <span class="channel-desc">Community lectures and presentations</span>
+                                <span class="channel-name">🔊 Research Presentations</span>
+                                <span class="channel-desc">Weekly research sharing sessions</span>
                             </div>
                             <div class="channel-item">
                                 <span class="channel-name">🔊 Casual Chat</span>
@@ -211,85 +237,10 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="channel-category">
-                        <h3><i class="fas fa-tools"></i> Resources</h3>
-                        <div class="channel-list">
-                            <div class="channel-item">
-                                <span class="channel-name"># resources</span>
-                                <span class="channel-desc">Useful physics resources and links</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># tools-bots</span>
-                                <span class="channel-desc">Calculator bots and utility commands</span>
-                            </div>
-                            <div class="channel-item">
-                                <span class="channel-name"># events</span>
-                                <span class="channel-desc">Community events and competitions</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Community Features Section -->
-            <div class="content-section">
-                <h2 class="section-title">
-                    <i class="fas fa-star"></i>
-                    Community Features
-                </h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3>Physics Bots</h3>
-                        <p>Specialized bots for LaTeX rendering, unit conversions, and physics calculations right in Discord.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <h3>Weekly Challenges</h3>
-                        <p>Participate in physics problem-solving challenges with rewards and recognition for top performers.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <h3>Study Groups</h3>
-                        <p>Join or create study groups for specific topics, exams, or courses with dedicated voice channels.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <h3>Role System</h3>
-                        <p>Earn roles based on your expertise level, contributions, and areas of specialization in physics.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-week"></i>
-                        </div>
-                        <h3>Live Events</h3>
-                        <p>Regular guest lectures, AMAs with physicists, and collaborative problem-solving sessions.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Mentorship</h3>
-                        <p>Connect with experienced physics students and professionals for guidance and career advice.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Server Rules Section -->
+            <!-- Community Guidelines Section -->
             <div class="content-section">
                 <h2 class="section-title">
                     <i class="fas fa-gavel"></i>
@@ -315,8 +266,8 @@
                     <div class="rule-card">
                         <div class="rule-number">3</div>
                         <div class="rule-content">
-                            <h4>No Plagiarism</h4>
-                            <p>Don't copy homework or ask others to complete assignments for you. We help you learn, not cheat.</p>
+                            <h4>Share Knowledge</h4>
+                            <p>Help others learn by sharing resources and explaining concepts clearly.</p>
                         </div>
                     </div>
 
@@ -324,115 +275,8 @@
                         <div class="rule-number">4</div>
                         <div class="rule-content">
                             <h4>Quality Content</h4>
-                            <p>Share high-quality content and resources. Avoid spam, low-effort posts, or repetitive questions.</p>
+                            <p>Share high-quality content and resources. Avoid spam or repetitive questions.</p>
                         </div>
-                    </div>
-
-                    <div class="rule-card">
-                        <div class="rule-number">5</div>
-                        <div class="rule-content">
-                            <h4>Use Search</h4>
-                            <p>Search previous messages before asking questions. Many common questions have been answered.</p>
-                        </div>
-                    </div>
-
-                    <div class="rule-card">
-                        <div class="rule-number">6</div>
-                        <div class="rule-content">
-                            <h4>Constructive Help</h4>
-                            <p>When helping others, guide them to understand rather than just giving answers.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Getting Started Section -->
-            <div class="content-section">
-                <h2 class="section-title">
-                    <i class="fas fa-rocket"></i>
-                    Getting Started
-                </h2>
-                <div class="getting-started">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Join the Server</h4>
-                            <p>Click the Discord invite link above to join our physics community server.</p>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Read the Rules</h4>
-                            <p>Familiarize yourself with our community guidelines in the #rules channel.</p>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Introduce Yourself</h4>
-                            <p>Head to #introductions and tell us about your physics background and interests.</p>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h4>Choose Your Roles</h4>
-                            <p>React to messages in #role-selection to get access to specialized channels.</p>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">5</div>
-                        <div class="step-content">
-                            <h4>Start Participating</h4>
-                            <p>Join discussions, ask questions, and share your knowledge with the community!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Alternative Contact Section -->
-            <div class="content-section">
-                <h2 class="section-title">
-                    <i class="fas fa-envelope"></i>
-                    Other Ways to Connect
-                </h2>
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email Support</h3>
-                        <p>For general inquiries and support</p>
-                        <a href="mailto:support@phystalk.com" class="contact-btn">
-                            support@phystalk.com
-                        </a>
-                    </div>
-
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3>GitHub</h3>
-                        <p>Contribute to our open-source tools</p>
-                        <a href="https://github.com/phystalk" target="_blank" class="contact-btn">
-                            View Repository
-                        </a>
-                    </div>
-
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-question-circle"></i>
-                        </div>
-                        <h3>Help Center</h3>
-                        <p>Frequently asked questions</p>
-                        <a href="#" class="contact-btn">
-                            Browse FAQ
-                        </a>
                     </div>
                 </div>
             </div>
@@ -456,7 +300,7 @@
                         <li><a href="equation.html">Calculator</a></li>
                         <li><a href="desmos.html">Graphing</a></li>
                         <li><a href="research.html">Research</a></li>
-                        <li><a href="discord.html">Community</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -476,61 +320,62 @@
 
     <script>
         // Mobile navigation toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
 
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
+                document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }));
+            }
 
-        // Animate server stats on scroll
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumbers = entry.target.querySelectorAll('.stat-number');
-                    statNumbers.forEach(stat => {
-                        const finalValue = stat.textContent;
-                        const isNumeric = !isNaN(parseInt(finalValue));
-                        
-                        if (isNumeric) {
-                            const target = parseInt(finalValue);
-                            let current = 0;
-                            const increment = target / 50;
-                            
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= target) {
-                                    stat.textContent = finalValue;
-                                    clearInterval(timer);
-                                } else {
-                                    stat.textContent = Math.floor(current) + '+';
-                                }
-                            }, 30);
-                        }
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const serverStats = document.querySelector('.server-stats');
-            if (serverStats) {
-                statsObserver.observe(serverStats);
+            // Check if Discord widget loads properly
+            const widget = document.querySelector('.discord-widget iframe');
+            if (widget) {
+                widget.addEventListener('load', function() {
+                    console.log('Discord widget loaded successfully');
+                });
+                
+                widget.addEventListener('error', function() {
+                    console.error('Discord widget failed to load');
+                    showWidgetError();
+                });
             }
         });
+
+        function showWidgetError() {
+            const widgetContainer = document.querySelector('.widget-container');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'widget-error';
+            errorMessage.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <h4>Widget Unavailable</h4>
+                <p>The Discord widget couldn't load. This might be because:</p>
+                <ul>
+                    <li>The server widget is disabled</li>
+                    <li>Network connectivity issues</li>
+                    <li>Browser blocking the iframe</li>
+                </ul>
+                <p>You can still join the server using the invite link above!</p>
+            `;
+            errorMessage.style.cssText = `
+                background: rgba(239, 68, 68, 0.1);
+                border: 1px solid #ef4444;
+                border-radius: 8px;
+                padding: 1rem;
+                text-align: center;
+                color: var(--text-secondary);
+                margin-top: 1rem;
+            `;
+            widgetContainer.appendChild(errorMessage);
+        }
     </script>
 
     <style>
@@ -544,9 +389,9 @@
 
         .discord-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1.5fr 1fr;
             gap: 3rem;
-            align-items: center;
+            align-items: start;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -632,17 +477,162 @@
         .discord-widget {
             display: flex;
             justify-content: center;
+            align-items: flex-start;
+        }
+
+        .widget-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 1rem;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .widget-container h3 {
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .widget-container iframe {
+            width: 100%;
+            border-radius: 10px;
+            background: #2f3136;
+        }
+
+        .widget-note {
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .meet-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 2px solid #10b981;
+        }
+
+        .meet-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .meet-info h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .meet-info p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .meet-schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .schedule-item i {
+            color: #10b981;
+            width: 20px;
+        }
+
+        .meet-actions {
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .discord-widget iframe {
+        .meet-btn-large {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            padding: 2rem 3rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .meet-btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .meet-btn-large i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .meet-subtitle {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .meet-setup {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            width: 100%;
+        }
+
+        .meet-setup h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .meet-setup ol {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .meet-setup li {
+            margin-bottom: 0.5rem;
+        }
+
+        .current-link {
+            background: var(--primary-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            border-left: 4px solid #10b981;
+        }
+
+        .current-link code {
+            background: var(--secondary-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--light-blue);
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .channels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -702,47 +692,9 @@
             line-height: 1.4;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .feature-card:hover {
-            border-color: var(--primary-blue);
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
         .rules-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
@@ -788,109 +740,6 @@
             line-height: 1.5;
         }
 
-        .getting-started {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .step-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .step-card:hover {
-            border-color: var(--primary-blue);
-            transform: translateX(10px);
-        }
-
-        .step-number {
-            background: var(--gradient-primary);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .step-content h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .step-content p {
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .contact-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .contact-card:hover {
-            border-color: var(--primary-blue);
-            transform: translateY(-5px);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .contact-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .contact-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .discord-content {
@@ -907,6 +756,10 @@
                 gap: 1rem;
             }
 
+            .meet-container {
+                grid-template-columns: 1fr;
+            }
+
             .channels-grid {
                 grid-template-columns: 1fr;
             }
@@ -915,18 +768,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .step-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .discord-widget iframe {
-                width: 100%;
-                max-width: 350px;
+            .widget-container {
+                max-width: 100%;
             }
         }
 
@@ -935,7 +778,7 @@
                 font-size: 2rem;
             }
 
-            .discord-btn-large {
+            .discord-btn-large, .meet-btn-large {
                 width: 100%;
                 padding: 1.2rem 2rem;
             }
