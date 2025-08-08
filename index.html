@@ -3,45 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phystalk - Physics Forum</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Phystalk - Physics Forum | LaTeX Calculator, Research Hub & Community</title>
+    <meta name="description" content="Join Phystalk - A comprehensive physics forum with LaTeX equation calculator, interactive graphing, research collaboration, and active Discord community for physics enthusiasts.">
+    <meta name="keywords" content="physics forum, LaTeX calculator, physics research, Desmos graphing, physics community, quantum mechanics, physics equations">
+    <meta name="author" content="Phystalk Team">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Phystalk - Physics Forum & Research Community">
+    <meta property="og:description" content="Advanced physics tools, collaborative research, and active community for physics enthusiasts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adityamuthyala768.github.io/phystalk-github.io/">
+    <meta property="og:image" content="https://adityamuthyala768.github.io/phystalk-github.io/logo-psi.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Phystalk - Physics Forum">
+    <meta name="twitter:description" content="Advanced physics tools and collaborative research community.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo-psi.png">
+    <link rel="apple-touch-icon" href="logo-psi.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#3b82f6">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Phystalk",
+        "description": "Physics forum with advanced tools and collaborative research community",
+        "url": "https://adityamuthyala768.github.io/phystalk-github.io/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://adityamuthyala768.github.io/phystalk-github.io/resources.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading Phystalk...</p>
+    </div>
+
     <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <!-- Updated logo placement for tilted Psi symbol -->
+    <header class="header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
             <div class="logo">
-                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <img src="logo-psi.png" alt="Phystalk Logo - Tilted Psi Symbol" class="logo-img" loading="eager">
                 <span class="logo-text">Phystalk</span>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="equation.html" class="nav-link">Calculator</a></li>
-                <li><a href="desmos.html" class="nav-link">Graphing</a></li>
-                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
-                <li><a href="research.html" class="nav-link">Research</a></li>
-                <li><a href="resources.html" class="nav-link">Resources</a></li>
-                <li><a href="discord.html" class="nav-link">Community</a></li>
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="index.html" class="nav-link active" role="menuitem" aria-current="page">Home</a></li>
+                <li role="none"><a href="equation.html" class="nav-link" role="menuitem">Calculator</a></li>
+                <li role="none"><a href="desmos.html" class="nav-link" role="menuitem">Graphing</a></li>
+                <li role="none"><a href="calendar.html" class="nav-link" role="menuitem">Calendar</a></li>
+                <li role="none"><a href="research.html" class="nav-link" role="menuitem">Research</a></li>
+                <li role="none"><a href="resources.html" class="nav-link" role="menuitem">Resources</a></li>
+                <li role="none"><a href="discord.html" class="nav-link" role="menuitem">Community</a></li>
             </ul>
-            <div class="hamburger">
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="cosmic-background">
-                <!-- Animated cosmic elements -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="cosmic-background" aria-hidden="true">
                 <div class="star-field"></div>
                 <div class="planet planet-1"></div>
                 <div class="planet planet-2"></div>
@@ -50,116 +101,192 @@
             </div>
             
             <div class="hero-content">
-                <h1 class="hero-title">Welcome to Phystalk</h1>
+                <h1 class="hero-title" id="hero-title">Welcome to Phystalk</h1>
                 <p class="hero-subtitle">A comprehensive physics forum for students, researchers, and enthusiasts</p>
                 <div class="cta-buttons">
-                    <a href="discord.html" class="btn btn-primary">Join Community</a>
-                    <a href="equation.html" class="btn btn-secondary">Start Calculating</a>
+                    <a href="discord.html" class="btn btn-primary" role="button">
+                        <i class="fab fa-discord" aria-hidden="true"></i>
+                        Join Community
+                    </a>
+                    <a href="equation.html" class="btn btn-secondary" role="button">
+                        <i class="fas fa-calculator" aria-hidden="true"></i>
+                        Start Calculating
+                    </a>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="hero-stats" aria-label="Community statistics">
+                    <div class="stat-badge">
+                        <span class="stat-number" data-count="500">0</span>
+                        <span class="stat-label">Tools Used Daily</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-number" data-count="1000">0</span>
+                        <span class="stat-label">Equations Solved</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-number" data-count="50">0</span>
+                        <span class="stat-label">Research Topics</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Grid -->
-        <section class="features">
+        <section class="features" aria-labelledby="features-title">
             <div class="container">
-                <h2 class="section-title">Explore Our Tools</h2>
+                <h2 class="section-title" id="features-title">Explore Our Tools</h2>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="calculator">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fas fa-calculator"></i>
                         </div>
                         <h3 class="feature-title">LaTeX Calculator</h3>
                         <p class="feature-description">Render complex physics equations with advanced LaTeX support and real-time visualization.</p>
-                        <a href="equation.html" class="feature-link">Explore Calculator</a>
-                    </div>
+                        <a href="equation.html" class="feature-link" aria-label="Explore LaTeX Calculator">
+                            Explore Calculator
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <div class="feature-badge">Popular</div>
+                    </article>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="graphing">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <h3 class="feature-title">Interactive Graphing</h3>
                         <p class="feature-description">Visualize mathematical functions and physics concepts with Desmos integration.</p>
-                        <a href="desmos.html" class="feature-link">Open Graphing Tool</a>
-                    </div>
+                        <a href="desmos.html" class="feature-link" aria-label="Open Graphing Tool">
+                            Open Graphing Tool
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="calendar">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <h3 class="feature-title">Event Calendar</h3>
                         <p class="feature-description">Stay updated with physics events, study sessions, and community meetings.</p>
-                        <a href="calendar.html" class="feature-link">View Calendar</a>
-                    </div>
+                        <a href="calendar.html" class="feature-link" aria-label="View Event Calendar">
+                            View Calendar
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="research">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fas fa-flask"></i>
                         </div>
                         <h3 class="feature-title">Research Hub</h3>
                         <p class="feature-description">Access collaborative research documents, experiment notes, and study materials.</p>
-                        <a href="research.html" class="feature-link">Browse Research</a>
-                    </div>
+                        <a href="research.html" class="feature-link" aria-label="Browse Research Hub">
+                            Browse Research
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <div class="feature-badge new">New</div>
+                    </article>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="community">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fab fa-discord"></i>
                         </div>
                         <h3 class="feature-title">Discord Community</h3>
                         <p class="feature-description">Join real-time discussions, get homework help, and collaborate with fellow physicists.</p>
-                        <a href="discord.html" class="feature-link">Join Discord</a>
-                    </div>
+                        <a href="discord.html" class="feature-link" aria-label="Join Discord Community">
+                            Join Discord
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">
+                    <article class="feature-card" data-category="resources">
+                        <div class="feature-icon" aria-hidden="true">
                             <i class="fas fa-book-open"></i>
                         </div>
                         <h3 class="feature-title">Physics Resources</h3>
                         <p class="feature-description">Access curated physics resources, research papers, articles, and reference materials.</p>
-                        <a href="resources.html" class="feature-link">Explore Resources</a>
-                    </div>
+                        <a href="resources.html" class="feature-link" aria-label="Explore Physics Resources">
+                            Explore Resources
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section class="about">
+        <section class="about" aria-labelledby="about-title">
             <div class="container">
                 <div class="about-content">
-                    <h2 class="section-title">About Our Community</h2>
+                    <h2 class="section-title" id="about-title">About Our Community</h2>
                     <p class="about-text">
                         Phystalk is designed to bridge the gap between theoretical physics and practical application. 
                         Our platform provides powerful computational tools, collaborative spaces, and an active community 
                         to help you explore the fundamental laws that govern our universe.
                     </p>
-                    <div class="stats">
+                    
+                    <!-- Enhanced Stats -->
+                    <div class="stats" role="group" aria-label="Community achievements">
                         <div class="stat">
-                            <h3>Growing</h3>
+                            <h3 aria-label="Growing community">Growing</h3>
                             <p>Active Members</p>
                         </div>
                         <div class="stat">
-                            <h3>1000+</h3>
+                            <h3 aria-label="1000+ equations solved">1000+</h3>
                             <p>Equations Solved</p>
                         </div>
                         <div class="stat">
-                            <h3>Research</h3>
+                            <h3 aria-label="Research driven community">Research</h3>
                             <p>Driven Community</p>
                         </div>
                     </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="about-cta">
+                        <h3>Ready to dive into physics?</h3>
+                        <p>Join our community and start exploring the universe of physics today.</p>
+                        <a href="discord.html" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Signup -->
+        <section class="newsletter" aria-labelledby="newsletter-title">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2 id="newsletter-title">Stay Updated</h2>
+                    <p>Get notified about new research topics, community events, and tool updates.</p>
+                    <form class="newsletter-form" id="newsletter-form" novalidate>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required aria-describedby="email-error">
+                            <button type="submit" class="btn btn-primary">
+                                <span>Subscribe</span>
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div id="email-error" class="error-message" role="alert" aria-live="polite"></div>
+                        <div id="success-message" class="success-message" role="alert" aria-live="polite"></div>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="logo">
-                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img" loading="lazy">
                         <span class="logo-text">Phystalk</span>
                     </div>
                     <p>Advancing physics education through collaboration and innovation.</p>
+                    <div class="footer-stats">
+                        <small>Built with ❤️ for the physics community</small>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -174,18 +301,149 @@
                 <div class="footer-section">
                     <h4>Connect</h4>
                     <div class="social-links">
-                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="discord.html" class="social-link" aria-label="Join our Discord community">
+                            <i class="fab fa-discord" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://github.com/adityamuthyala768/phystalk-github.io" class="social-link" aria-label="View source code on GitHub" target="_blank" rel="noopener">
+                            <i class="fab fa-github" aria-hidden="true"></i>
+                        </a>
+                        <a href="mailto:contact@phystalk.com" class="social-link" aria-label="Send us an email">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Phystalk. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a>
+                    <a href="#" onclick="showTerms()">Terms of Service</a>
+                    <a href="#" onclick="showAccessibility()">Accessibility</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    
+    <script>
+        // Enhanced loading and performance
+        window.addEventListener('load', function() {
+            document.getElementById('loading-spinner').style.display = 'none';
+            document.body.classList.add('loaded');
+            
+            // Animate stats
+            animateStats();
+            
+            // Initialize scroll effects
+            initScrollEffects();
+        });
+
+        // Animate counting stats
+        function animateStats() {
+            const stats = document.querySelectorAll('[data-count]');
+            stats.forEach(stat => {
+                const target = parseInt(stat.dataset.count);
+                let current = 0;
+                const increment = target / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + '+';
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Enhanced scroll effects
+        function initScrollEffects() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Newsletter form handling
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const errorEl = document.getElementById('email-error');
+            const successEl = document.getElementById('success-message');
+            
+            // Basic email validation
+            if (!email || !email.includes('@')) {
+                errorEl.textContent = 'Please enter a valid email address';
+                errorEl.style.display = 'block';
+                successEl.style.display = 'none';
+                return;
+            }
+            
+            // Simulate subscription (replace with actual service)
+            errorEl.style.display = 'none';
+            successEl.textContent = 'Thanks for subscribing! We\'ll keep you updated.';
+            successEl.style.display = 'block';
+            document.getElementById('email').value = '';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successEl.style.display = 'none';
+            }, 5000);
+        });
+
+        // Placeholder functions for footer links
+        function showPrivacyPolicy() {
+            alert('Privacy Policy: We respect your privacy and don\'t collect personal data without consent.');
+        }
+        
+        function showTerms() {
+            alert('Terms of Service: Use our tools responsibly and respect the community guidelines.');
+        }
+        
+        function showAccessibility() {
+            alert('Accessibility: We strive to make our site accessible to all users. Contact us if you encounter any barriers.');
+        }
+
+        // Enhanced hamburger menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+                    hamburger.setAttribute('aria-expanded', !isExpanded);
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
