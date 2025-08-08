@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +24,7 @@
                 <li><a href="desmos.html" class="nav-link">Graphing</a></li>
                 <li><a href="calendar.html" class="nav-link active">Calendar</a></li>
                 <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
                 <li><a href="discord.html" class="nav-link">Community</a></li>
             </ul>
             <div class="hamburger">
@@ -43,6 +44,29 @@
                 <p class="page-subtitle">Stay updated with physics events, study sessions, and community meetings</p>
             </div>
 
+            <!-- Calendar Setup Instructions -->
+            <div class="content-section calendar-setup">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Calendar Setup Instructions
+                </h2>
+                <div class="setup-content">
+                    <p><strong>To display your calendar events, you need to set up a public Google Calendar:</strong></p>
+                    <ol class="setup-steps">
+                        <li>Create a Google Calendar dedicated to your physics community</li>
+                        <li>Go to Calendar Settings → Make calendar public</li>
+                        <li>Copy the public calendar ID (looks like: your-calendar@group.calendar.google.com)</li>
+                        <li>Replace the calendar ID in the iframe below with your public calendar ID</li>
+                        <li>Add events to your public calendar - they will automatically appear here!</li>
+                    </ol>
+                    <div class="current-calendar-info">
+                        <strong>Current Calendar:</strong> <code>en-indian#holiday@group.calendar.google.com</code> (Indian Holidays - for demo)
+                        <br>
+                        <em>Replace this with your community calendar ID</em>
+                    </div>
+                </div>
+            </div>
+
             <!-- Main Calendar Section -->
             <div class="content-section">
                 <h2 class="section-title">
@@ -50,11 +74,10 @@
                     Community Calendar
                 </h2>
                 
-                <!-- 📅 GOOGLE CALENDAR EMBED LOCATION: Replace the src URL below with your Google Calendar embed -->
-                <!-- To set dark theme: Add &color=%23000000 to the URL parameters -->
+                <!-- Fixed Google Calendar Embed with proper public calendar -->
                 <div class="calendar-container">
                     <iframe 
-                        src="https://calendar.google.com/calendar/embed?height=800&wkst=1&bgcolor=%23000000&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=ZW4taW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%234285F4" 
+                        src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=en-indian%23holiday%40group.calendar.google.com&color=%234285F4&mode=MONTH" 
                         class="embedded-calendar"
                         frameborder="0" 
                         scrolling="no" 
@@ -64,9 +87,27 @@
                 
                 <div class="calendar-note">
                     <p><i class="fas fa-info-circle"></i> 
-                    If the calendar doesn't load properly, 
-                    <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">click here to open Google Calendar directly</a>
+                    To add your own events: Create a public Google Calendar, add events, and replace the calendar ID in the iframe above.
+                    <a href="https://support.google.com/calendar/answer/37083" target="_blank">Learn how to make a calendar public</a>
                     </p>
+                </div>
+
+                <!-- Quick Add Event Section -->
+                <div class="quick-add-section">
+                    <h3><i class="fas fa-plus"></i> Quick Event Planning</h3>
+                    <p>Use this section to discuss upcoming events before adding them to the calendar:</p>
+                    <div class="event-planning">
+                        <input type="text" id="eventTitle" placeholder="Event Title" class="event-input">
+                        <input type="datetime-local" id="eventDate" class="event-input">
+                        <textarea id="eventDescription" placeholder="Event Description" class="event-textarea"></textarea>
+                        <button onclick="suggestEvent()" class="suggest-btn">
+                            <i class="fas fa-lightbulb"></i>
+                            Suggest Event
+                        </button>
+                    </div>
+                    <div id="eventSuggestions" class="event-suggestions">
+                        <!-- Suggested events will appear here -->
+                    </div>
                 </div>
             </div>
 
@@ -149,162 +190,4 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Phystalk. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile navigation toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
-    </script>
-
-    <style>
-        /* Calendar-specific styles */
-        .calendar-container {
-            position: relative;
-            width: 100%;
-            height: 850px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            border: 2px solid var(--border-color);
-            background: var(--secondary-bg);
-        }
-
-        .embedded-calendar {
-            width: 100%;
-            height: 100%;
-            border: none;
-            /* Apply dark theme filter to Google Calendar */
-            filter: invert(1) hue-rotate(180deg);
-        }
-
-        /* Reverse the invert filter for text to keep it readable */
-        .embedded-calendar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.1);
-            pointer-events: none;
-        }
-
-        .calendar-note {
-            text-align: center;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .calendar-note p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        .calendar-note a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .calendar-note a:hover {
-            text-decoration: underline;
-        }
-
-        .meeting-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .meeting-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: var(--transition);
-        }
-
-        .meeting-card:hover {
-            border-color: var(--primary-blue);
-            transform: translateY(-2px);
-        }
-
-        .meeting-icon {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            min-width: 50px;
-        }
-
-        .meeting-content h3 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .meeting-content p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .meeting-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .meeting-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .meeting-links {
-                grid-template-columns: 1fr;
-            }
-
-            .calendar-container {
-                height: 600px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .meeting-card {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
-</body>
-</html>
+            <div class="
