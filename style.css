@@ -83,9 +83,15 @@ body {
 .logo-img {
     width: 32px;
     height: 32px;
-    /* Add transform for tilted effect */
-    transform: rotate(-15deg);
+    /* Remove rotation since your image is already tilted */
+    transform: none;
     filter: drop-shadow(0 0 8px var(--primary-blue));
+    transition: var(--transition);
+}
+
+.logo-img:hover {
+    filter: drop-shadow(0 0 12px var(--primary-blue)) brightness(1.1);
+    transform: scale(1.05);
 }
 
 .logo-text {
