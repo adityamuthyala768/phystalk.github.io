@@ -1,0 +1,7 @@
+# Security - Never commit these files
+config.js
+
+# Other common files to ignore
+.DS_Store
+*.log
+node_modules/
