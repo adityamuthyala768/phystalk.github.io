@@ -54,52 +54,7 @@
             <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Physics Resources</h1>
-                <p class="page-subtitle">Community-curated collection of physics articles, papers, and reference materials</p>
-            </div>
-
-            <!-- Add Resource Section -->
-            <div class="content-section add-resource">
-                <h2 class="section-title">
-                    <i class="fas fa-plus-circle"></i>
-                    Add New Resource
-                </h2>
-                <div class="resource-form">
-                    <div class="form-group">
-                        <input type="text" id="resourceTitle" class="form-input" placeholder="Resource Title">
-                    </div>
-                    <div class="form-group">
-                        <input type="url" id="resourceUrl" class="form-input" placeholder="https://example.com/resource or Drive Upload">
-                    </div>
-                    <div class="form-group">
-                        <select id="resourceCategory" class="form-select">
-                            <option value="">Select Category</option>
-                            <option value="research-papers">Research Papers</option>
-                            <option value="articles">Articles</option>
-                            <option value="videos">Videos</option>
-                            <option value="websites">General Websites</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="resourceDescription" class="form-textarea" placeholder="Brief description of the resource..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="submitterName" class="form-input" placeholder="Your name (optional)">
-                    </div>
-                    <div class="form-actions">
-                        <button class="add-resource-btn" onclick="submitResource()">
-                            <i class="fas fa-paper-plane"></i>
-                            Submit Resource
-                        </button>
-                        <button class="upload-drive-btn" onclick="openDriveUpload()">
-                            <i class="fab fa-google-drive"></i>
-                            Upload to Drive
-                        </button>
-                    </div>
-                    <p class="submit-note">
-                        <i class="fas fa-info-circle"></i>
-                        Submit links via the form or upload files directly to Google Drive. Both will appear below.
-                    </p>
-                </div>
+                <p class="page-subtitle">Community collection of research papers, articles, videos, and useful websites</p>
             </div>
 
             <!-- Filter Section -->
@@ -109,71 +64,150 @@
                     Browse Resources
                 </h2>
                 <div class="filter-tabs">
-                    <button class="filter-btn active" onclick="filterResources('all')">All</button>
+                    <button class="filter-btn active" onclick="filterResources('all')">All Resources</button>
                     <button class="filter-btn" onclick="filterResources('research-papers')">Research Papers</button>
                     <button class="filter-btn" onclick="filterResources('articles')">Articles</button>
                     <button class="filter-btn" onclick="filterResources('videos')">Videos</button>
                     <button class="filter-btn" onclick="filterResources('websites')">General Websites</button>
                 </div>
-                
-                <div class="view-toggle">
-                    <button class="view-btn active" onclick="setView('list')" data-view="list">
-                        <i class="fas fa-list"></i>
-                        List View
-                    </button>
-                    <button class="view-btn" onclick="setView('drive')" data-view="drive">
-                        <i class="fab fa-google-drive"></i>
-                        Drive View
-                    </button>
-                </div>
             </div>
 
-            <!-- Resources Display -->
-            <div class="resources-display">
-                
-                <!-- Custom List View (Your Original Style) -->
-                <div class="list-view active" id="listView">
-                    <div class="loading-message" id="loadingMessage">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        Loading resources...
-                    </div>
-                    
-                    <div id="resourcesList" class="resources-grid" style="display: none;">
-                        <!-- Resources will be loaded here -->
-                    </div>
-                    
-                    <div id="emptyState" class="empty-state" style="display: none;">
-                        <i class="fas fa-folder-open"></i>
-                        <h3>No resources yet</h3>
-                        <p>Be the first to submit a resource!</p>
+            <!-- Styled Google Drive Section -->
+            <div class="content-section drive-section">
+                <div class="drive-header">
+                    <div class="drive-header-content">
+                        <div class="drive-info">
+                            <h2 class="drive-title">
+                                <i class="fab fa-google-drive"></i>
+                                Physics Resources Library
+                            </h2>
+                            <p class="drive-description">Browse through our organized collection of resources. Navigate folders to find research papers, articles, videos, and useful websites.</p>
+                        </div>
+                        <div class="drive-controls">
+                            <a href="https://drive.google.com/drive/folders/1A9Ho_M3g0sEHrbgWebm7B7kC7JAudp4T" target="_blank" class="drive-btn primary">
+                                <i class="fab fa-google-drive"></i>
+                                Open in Drive
+                            </a>
+                            <button class="drive-btn secondary" onclick="refreshDrive()">
+                                <i class="fas fa-sync-alt"></i>
+                                Refresh
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Google Drive View -->
-                <div class="drive-view" id="driveView">
-                    <div class="drive-container">
-                        <!-- 📝 REPLACE 'YOUR_MAIN_FOLDER_ID' with your actual Google Drive folder ID -->
+                
+                <div class="drive-embed-wrapper">
+                    <div class="drive-embed-container">
                         <iframe 
                             src="https://drive.google.com/embeddedfolderview?id=1A9Ho_M3g0sEHrbgWebm7B7kC7JAudp4T#grid"
-                            class="embedded-drive"
+                            class="drive-iframe"
                             frameborder="0" 
                             title="Physics Resources Google Drive">
                         </iframe>
+                        <div class="drive-overlay" id="driveOverlay">
+                            <div class="drive-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading Google Drive...</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="drive-actions">
-                        <!-- 📝 REPLACE 'YOUR_MAIN_FOLDER_ID' with your actual Google Drive folder ID -->
-                        <a href="https://drive.google.com/drive/folders/1A9Ho_M3g0sEHrbgWebm7B7kC7JAudp4T" target="_blank" class="drive-action-btn">
-                            <i class="fab fa-google-drive"></i>
-                            Open in Google Drive
-                        </a>
-                        <button class="drive-action-btn secondary" onclick="refreshDrive()">
-                            <i class="fas fa-sync-alt"></i>
-                            Refresh
-                        </button>
+                    <!-- Drive Features Info -->
+                    <div class="drive-features">
+                        <div class="feature-item">
+                            <i class="fas fa-search"></i>
+                            <span>Search files</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-download"></i>
+                            <span>Download files</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-eye"></i>
+                            <span>Preview files</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-folder"></i>
+                            <span>Browse folders</span>
+                        </div>
                     </div>
                 </div>
-                
+            </div>
+
+            <!-- Folder Structure Guide -->
+            <div class="content-section folder-guide">
+                <h2 class="section-title">
+                    <i class="fas fa-folder-tree"></i>
+                    What You'll Find
+                </h2>
+                <div class="folder-grid">
+                    <div class="folder-card research-papers">
+                        <div class="folder-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="folder-info">
+                            <h4>Research Papers</h4>
+                            <p>Academic papers, preprints, peer-reviewed studies, and research publications from leading journals.</p>
+                        </div>
+                    </div>
+                    <div class="folder-card articles">
+                        <div class="folder-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="folder-info">
+                            <h4>Articles</h4>
+                            <p>Popular science articles, news stories, educational content, and physics explanations.</p>
+                        </div>
+                    </div>
+                    <div class="folder-card videos">
+                        <div class="folder-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="folder-info">
+                            <h4>Videos</h4>
+                            <p>Educational videos, lectures, demonstrations, documentaries, and physics simulations.</p>
+                        </div>
+                    </div>
+                    <div class="folder-card websites">
+                        <div class="folder-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="folder-info">
+                            <h4>General Websites</h4>
+                            <p>Useful physics websites, online calculators, simulation tools, and reference materials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- External Links -->
+            <div class="content-section external-links">
+                <h2 class="section-title">
+                    <i class="fas fa-external-link-alt"></i>
+                    Popular Physics Sites
+                </h2>
+                <div class="external-grid">
+                    <a href="https://arxiv.org/list/physics/recent" target="_blank" class="external-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>arXiv Physics</h4>
+                        <p>Latest physics preprints and research papers</p>
+                    </a>
+                    <a href="https://www.nature.com/nphys/" target="_blank" class="external-card">
+                        <i class="fas fa-journal-whills"></i>
+                        <h4>Nature Physics</h4>
+                        <p>Premier physics journal with cutting-edge research</p>
+                    </a>
+                    <a href="https://www.feynmanlectures.caltech.edu/" target="_blank" class="external-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Feynman Lectures</h4>
+                        <p>Classic physics lectures by Richard Feynman</p>
+                    </a>
+                    <a href="https://phet.colorado.edu/en/simulations/category/physics" target="_blank" class="external-card">
+                        <i class="fas fa-flask"></i>
+                        <h4>PhET Simulations</h4>
+                        <p>Interactive physics simulations and experiments</p>
+                    </a>
+                </div>
             </div>
         </div>
     </main>
@@ -215,52 +249,9 @@
 
     <script>
         // Global functions
-        window.submitResource = submitResource;
-        window.filterResources = filterResources;
-        window.setView = setView;
         window.toggleDropdown = toggleDropdown;
-        window.openDriveUpload = openDriveUpload;
+        window.filterResources = filterResources;
         window.refreshDrive = refreshDrive;
-
-        // Sample data - replace with your actual data source
-        const sampleResources = [
-            {
-                id: 1,
-                title: "Quantum Mechanics Fundamentals",
-                url: "https://arxiv.org/abs/example",
-                category: "research-papers",
-                description: "Comprehensive review of quantum mechanical principles and applications.",
-                submitter: "Dr. Alice Smith",
-                timestamp: new Date().toISOString()
-            },
-            {
-                id: 2,
-                title: "Einstein's Relativity Explained",
-                url: "https://example.com/relativity-article",
-                category: "articles",
-                description: "Popular science explanation of special and general relativity.",
-                submitter: "Physics Today",
-                timestamp: new Date().toISOString()
-            },
-            {
-                id: 3,
-                title: "MIT Physics Lectures",
-                url: "https://youtube.com/playlist/physics-lectures",
-                category: "videos",
-                description: "Complete physics lecture series from MIT OpenCourseWare.",
-                submitter: "MIT OCW",
-                timestamp: new Date().toISOString()
-            },
-            {
-                id: 4,
-                title: "Wolfram Physics Calculator",
-                url: "https://www.wolframalpha.com/",
-                category: "websites",
-                description: "Powerful computational engine for physics calculations and analysis.",
-                submitter: "Community",
-                timestamp: new Date().toISOString()
-            }
-        ];
 
         // Dropdown functionality
         function toggleDropdown() {
@@ -282,168 +273,67 @@
             }
         });
 
-        // Load and display resources
-        function loadResources() {
-            setTimeout(() => {
-                document.getElementById('loadingMessage').style.display = 'none';
-                displayResources(sampleResources);
-            }, 1000);
-        }
-
-        function displayResources(resources) {
-            const resourcesList = document.getElementById('resourcesList');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (resources.length === 0) {
-                resourcesList.style.display = 'none';
-                emptyState.style.display = 'block';
-                return;
-            }
-
-            resourcesList.style.display = 'grid';
-            emptyState.style.display = 'none';
-
-            resourcesList.innerHTML = resources.map(resource => `
-                <div class="resource-card" data-category="${resource.category}">
-                    <div class="resource-header">
-                        <div class="resource-category ${resource.category}">${getCategoryName(resource.category)}</div>
-                        <div class="resource-submitter">by ${resource.submitter}</div>
-                    </div>
-                    <h3 class="resource-title">${resource.title}</h3>
-                    <p class="resource-description">${resource.description}</p>
-                    <div class="resource-footer">
-                        <a href="${resource.url}" target="_blank" class="resource-link" rel="noopener noreferrer">
-                            <i class="fas fa-external-link-alt"></i>
-                            Open Resource
-                        </a>
-                        <span class="resource-date">${formatDate(resource.timestamp)}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getCategoryName(category) {
-            const categories = {
-                'research-papers': 'Research Paper',
-                'articles': 'Article',
-                'videos': 'Video',
-                'websites': 'Website'
-            };
-            return categories[category] || category;
-        }
-
-        function formatDate(timestamp) {
-            try {
-                return new Date(timestamp).toLocaleDateString();
-            } catch {
-                return 'Unknown date';
-            }
-        }
-
-        // Filter resources
+        // Filter resources (placeholder)
         function filterResources(category) {
-            const cards = document.querySelectorAll('.resource-card');
             const buttons = document.querySelectorAll('.filter-btn');
-
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Toggle between list and drive view
-        function setView(viewType) {
-            const listView = document.getElementById('listView');
-            const driveView = document.getElementById('driveView');
-            const buttons = document.querySelectorAll('.view-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-view="${viewType}"]`).classList.add('active');
-
-            if (viewType === 'list') {
-                listView.classList.add('active');
-                driveView.classList.remove('active');
-            } else {
-                listView.classList.remove('active');
-                driveView.classList.add('active');
-            }
-        }
-
-        // Submit resource
-        function submitResource() {
-            const title = document.getElementById('resourceTitle').value.trim();
-            const url = document.getElementById('resourceUrl').value.trim();
-            const category = document.getElementById('resourceCategory').value;
-            const description = document.getElementById('resourceDescription').value.trim();
-            const submitter = document.getElementById('submitterName').value.trim() || 'Anonymous';
-
-            if (!title || !url || !category || !description) {
-                showNotification('Please fill in all required fields', 'error');
-                return;
-            }
-
-            try {
-                new URL(url);
-            } catch {
-                showNotification('Please enter a valid URL', 'error');
-                return;
-            }
-
-            // Add to sample data (in real implementation, this would save to your backend)
-            const newResource = {
-                id: Date.now(),
-                title,
-                url,
-                category,
-                description,
-                submitter,
-                timestamp: new Date().toISOString()
-            };
-
-            sampleResources.unshift(newResource);
-            displayResources(sampleResources);
-            clearForm();
-            showNotification('Resource submitted successfully!');
-        }
-
-        function clearForm() {
-            document.getElementById('resourceTitle').value = '';
-            document.getElementById('resourceUrl').value = '';
-            document.getElementById('resourceCategory').value = '';
-            document.getElementById('resourceDescription').value = '';
-            document.getElementById('submitterName').value = '';
-        }
-
-        // Open Google Drive for upload
-        function openDriveUpload() {
-            // 📝 REPLACE 'YOUR_MAIN_FOLDER_ID' with your actual Google Drive folder ID
-            window.open('https://drive.google.com/drive/folders/1A9Ho_M3g0sEHrbgWebm7B7kC7JAudp4T', '_blank');
-            showNotification('Google Drive opened in new tab. Upload your files there!', 'info');
+            
+            // In a real implementation, this would filter the Drive contents
+            showNotification(`Showing ${category === 'all' ? 'all' : category} resources`, 'info');
         }
 
         // Refresh drive embed
         function refreshDrive() {
-            const iframe = document.querySelector('.embedded-drive');
+            const iframe = document.querySelector('.drive-iframe');
             const refreshBtn = document.querySelector('[onclick="refreshDrive()"]');
+            const overlay = document.getElementById('driveOverlay');
             
             if (iframe && refreshBtn) {
+                // Show loading overlay
+                overlay.style.display = 'flex';
                 refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
                 refreshBtn.disabled = true;
                 
+                // Reload iframe
                 iframe.src = iframe.src;
                 
+                // Hide overlay and reset button after iframe loads
                 setTimeout(() => {
+                    overlay.style.display = 'none';
                     refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
                     refreshBtn.disabled = false;
                 }, 2000);
             }
         }
+
+        // Hide loading overlay once iframe loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.querySelector('.drive-iframe');
+            const overlay = document.getElementById('driveOverlay');
+            
+            iframe.addEventListener('load', function() {
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 1000);
+            });
+            
+            // Mobile navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }));
+            }
+        });
 
         // Notification system
         function showNotification(message, type = 'success') {
@@ -480,28 +370,8 @@
                         document.body.removeChild(notification);
                     }
                 }, 300);
-            }, 5000);
+            }, 3000);
         }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadResources();
-            
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-
-            if (hamburger && navMenu) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                });
-
-                document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }));
-            }
-        });
     </script>
 
     <style>
@@ -581,87 +451,6 @@
             text-align: center;
         }
 
-        /* Add Resource Section */
-        .add-resource {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
-            border: 2px solid var(--primary-blue);
-        }
-
-        .resource-form {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            background: var(--accent-bg);
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 0.75rem;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .add-resource-btn, .upload-drive-btn {
-            flex: 1;
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 1rem 2rem;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .upload-drive-btn {
-            background: linear-gradient(135deg, #4285f4, #34a853);
-        }
-
-        .add-resource-btn:hover:not(:disabled),
-        .upload-drive-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .submit-note {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
         /* Filter Section */
         .filter-section {
             background: var(--accent-bg);
@@ -671,34 +460,11 @@
         .filter-tabs {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1rem;
             flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 0.5rem 1rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 0.5rem;
             justify-content: center;
         }
 
-        .view-btn {
+        .filter-btn {
             background: var(--secondary-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
@@ -706,167 +472,82 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             font-weight: 500;
         }
 
-        .view-btn:hover, .view-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--primary-blue);
             color: white;
             border-color: var(--primary-blue);
-        }
-
-        /* Resources Display */
-        .resources-display {
-            position: relative;
-        }
-
-        .list-view, .drive-view {
-            display: none;
-        }
-
-        .list-view.active, .drive-view.active {
-            display: block;
-        }
-
-        /* List View Styles (Your Original) */
-        .loading-message {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .resource-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .resource-card:hover {
-            border-color: var(--primary-blue);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
         }
 
-        .resource-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .resource-category {
-            font-size: 0.8rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .resource-category.research-papers { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .resource-category.articles { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
-        .resource-category.videos { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
-        .resource-category.websites { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-
-        .resource-submitter {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .resource-title {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .resource-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .resource-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .resource-link:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        .resource-date {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-muted);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        /* Drive View Styles */
-        .drive-container {
+        /* Enhanced Drive Section */
+        .drive-section {
+            background: var(--secondary-bg);
+            border: 2px solid var(--primary-blue);
             position: relative;
-            width: 100%;
-            height: 800px;
-            border-radius: var(--border-radius);
             overflow: hidden;
-            border: 2px solid var(--border-color);
-            background: white;
-            margin-bottom: 2rem;
         }
 
-        .embedded-drive {
+        .drive-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            height: 100%;
-            border: none;
+            height: 4px;
+            background: var(--gradient-primary);
+            transition: left 0.8s;
         }
 
-        .drive-actions {
+        .drive-section:hover::before {
+            left: 100%;
+        }
+
+        .drive-header {
+            background: linear-gradient(135deg, var(--accent-bg), var(--secondary-bg));
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        .drive-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .drive-info {
+            flex: 1;
+        }
+
+        .drive-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .drive-title i {
+            color: #4285f4;
+            font-size: 1.3rem;
+        }
+
+        .drive-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .drive-controls {
             display: flex;
             gap: 1rem;
-            justify-content: center;
         }
 
-        .drive-action-btn {
+        .drive-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -877,33 +558,228 @@
             text-decoration: none;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
-        .drive-action-btn:not(.secondary) {
+        .drive-btn.primary {
             background: var(--gradient-primary);
             color: white;
         }
 
-        .drive-action-btn.secondary {
+        .drive-btn.secondary {
             background: var(--accent-bg);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
         }
 
-        .drive-action-btn:hover:not(:disabled) {
+        .drive-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
         }
 
-        .drive-action-btn.secondary:hover:not(:disabled) {
+        .drive-btn.secondary:hover:not(:disabled) {
             color: var(--primary-blue);
             border-color: var(--primary-blue);
         }
 
-        .drive-action-btn:disabled {
+        .drive-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+        }
+
+        /* Enhanced Drive Embed */
+        .drive-embed-wrapper {
+            padding: 0;
+        }
+
+        .drive-embed-container {
+            position: relative;
+            height: 700px;
+            background: var(--primary-bg);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            overflow: hidden;
+        }
+
+        .drive-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+            filter: contrast(0.95) brightness(0.95);
+        }
+
+        .drive-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .drive-loading {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .drive-loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .drive-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: var(--accent-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--primary-blue);
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Folder Guide */
+        .folder-guide {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .folder-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .folder-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .folder-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .folder-card.research-papers .folder-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .folder-card.articles .folder-icon {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .folder-card.videos .folder-icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .folder-card.websites .folder-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .folder-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .folder-info p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* External Links */
+        .external-links {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .external-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .external-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .external-card:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .external-card i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .external-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .external-card p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.4;
         }
 
         /* Mobile Responsive */
@@ -928,81 +804,54 @@
                 margin: 0.5rem 0;
             }
 
-            .resources-grid {
-                grid-template-columns: 1fr;
+            .drive-header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .drive-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .drive-btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .drive-embed-container {
+                height: 500px;
+            }
+
+            .drive-features {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .folder-card {
+                flex-direction: column;
+                text-align: center;
             }
 
             .filter-tabs {
-                justify-content: center;
-            }
-
-            .view-toggle {
                 flex-direction: column;
-                align-items: center;
-            }
-
-            .view-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-
-            .resource-footer {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .resource-link {
-                justify-content: center;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .drive-container {
-                height: 600px;
-            }
-
-            .drive-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .drive-action-btn {
-                width: 100%;
-                justify-content: center;
-                max-width: 300px;
             }
         }
 
         @media (max-width: 480px) {
-            .drive-container {
+            .drive-embed-container {
                 height: 400px;
             }
 
-            .filter-tabs {
+            .drive-controls {
                 flex-direction: column;
             }
 
-            .filter-btn {
-                text-align: center;
+            .external-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </body>
-</html> {
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .resource-link
+</html>
