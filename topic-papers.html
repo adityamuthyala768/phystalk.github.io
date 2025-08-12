@@ -57,149 +57,203 @@
                 <p class="page-subtitle">Organized collection of physics papers by research category</p>
             </div>
 
-            <!-- Submit Paper Section -->
-            <div class="content-section submit-section">
+            <!-- Instructions Section -->
+            <div class="content-section instructions-section">
                 <h2 class="section-title">
-                    <i class="fas fa-plus-circle"></i>
-                    Submit New Paper
+                    <i class="fas fa-info-circle"></i>
+                    How to Contribute Papers
                 </h2>
-                <div class="submit-form">
-                    <div class="form-group">
-                        <input type="text" id="paperTitle" class="form-input" placeholder="Paper Title">
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Organize by Category</h4>
+                            <p>Upload your papers to the appropriate category folder below. Each folder corresponds to a physics topic.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="url" id="paperUrl" class="form-input" placeholder="https://example.com/paper.pdf">
+                    <div class="instruction-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Name Your Files</h4>
+                            <p>Use descriptive filenames like "Quantum_Tunneling_Nature_2023.pdf" for easy identification.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <select id="paperCategory" class="form-select">
-                            <option value="">Select Category</option>
-                            <option value="nuclear">Nuclear Physics</option>
-                            <option value="electromagnetic">Electromagnetism</option>
-                            <option value="quantum">Quantum Mechanics</option>
-                            <option value="thermal">Thermodynamics</option>
-                            <option value="cosmology">Cosmology</option>
-                            <option value="solid-state">Solid State Physics</option>
-                        </select>
+                    <div class="instruction-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Access Control</h4>
+                            <p>Anyone with the link can view and download papers. Contact admins for upload permissions.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <textarea id="paperDescription" class="form-textarea" placeholder="Brief description of the paper..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="submitterName" class="form-input" placeholder="Your name (optional)">
-                    </div>
-                    <button class="submit-paper-btn" onclick="submitPaper()">
-                        <i class="fas fa-paper-plane"></i>
-                        Submit Paper
-                    </button>
-                    <p class="submit-note">
-                        <i class="fas fa-info-circle"></i>
-                        Papers are organized by category and will appear after review.
-                    </p>
                 </div>
             </div>
 
-            <!-- Papers by Category -->
-            <div class="papers-container">
+            <!-- Category Navigation -->
+            <div class="content-section category-nav-section">
+                <h2 class="section-title">
+                    <i class="fas fa-folder-tree"></i>
+                    Quick Navigation
+                </h2>
+                <div class="category-nav-grid">
+                    <a href="#nuclear" class="nav-category-btn nuclear" onclick="switchCategory('nuclear')">
+                        <i class="fas fa-atom"></i>
+                        <span>Nuclear Physics</span>
+                    </a>
+                    <a href="#electromagnetic" class="nav-category-btn electromagnetic" onclick="switchCategory('electromagnetic')">
+                        <i class="fas fa-bolt"></i>
+                        <span>Electromagnetism</span>
+                    </a>
+                    <a href="#quantum" class="nav-category-btn quantum" onclick="switchCategory('quantum')">
+                        <i class="fas fa-wave-square"></i>
+                        <span>Quantum Mechanics</span>
+                    </a>
+                    <a href="#thermal" class="nav-category-btn thermal" onclick="switchCategory('thermal')">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span>Thermodynamics</span>
+                    </a>
+                    <a href="#cosmology" class="nav-category-btn cosmology" onclick="switchCategory('cosmology')">
+                        <i class="fas fa-globe"></i>
+                        <span>Cosmology</span>
+                    </a>
+                    <a href="#solid-state" class="nav-category-btn solid-state" onclick="switchCategory('solid-state')">
+                        <i class="fas fa-cube"></i>
+                        <span>Solid State Physics</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Google Drive Folders Section -->
+            <div class="drive-folders-container">
                 
                 <!-- Nuclear Physics -->
-                <div class="category-section" id="nuclear">
-                    <div class="category-header nuclear">
+                <div class="drive-section active" id="nuclear" data-category="nuclear">
+                    <div class="drive-header nuclear">
                         <div class="category-info">
                             <i class="fas fa-atom"></i>
                             <h2>Nuclear Physics</h2>
-                            <span class="paper-count" id="nuclear-count">0 papers</span>
+                            <p>Nuclear reactions, radioactivity, and nuclear structure</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('nuclear')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/NUCLEAR_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="nuclear-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'NUCLEAR_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=NUCLEAR_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <!-- Electromagnetism -->
-                <div class="category-section" id="electromagnetic">
-                    <div class="category-header electromagnetic">
+                <div class="drive-section" id="electromagnetic" data-category="electromagnetic">
+                    <div class="drive-header electromagnetic">
                         <div class="category-info">
                             <i class="fas fa-bolt"></i>
                             <h2>Electromagnetism</h2>
-                            <span class="paper-count" id="electromagnetic-count">0 papers</span>
+                            <p>Electric and magnetic fields, Maxwell's equations</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('electromagnetic')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/ELECTROMAGNETIC_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="electromagnetic-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'ELECTROMAGNETIC_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=ELECTROMAGNETIC_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <!-- Quantum Mechanics -->
-                <div class="category-section" id="quantum">
-                    <div class="category-header quantum">
+                <div class="drive-section" id="quantum" data-category="quantum">
+                    <div class="drive-header quantum">
                         <div class="category-info">
                             <i class="fas fa-wave-square"></i>
                             <h2>Quantum Mechanics</h2>
-                            <span class="paper-count" id="quantum-count">0 papers</span>
+                            <p>Quantum states, operators, and quantum phenomena</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('quantum')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/QUANTUM_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="quantum-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'QUANTUM_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=QUANTUM_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <!-- Thermodynamics -->
-                <div class="category-section" id="thermal">
-                    <div class="category-header thermal">
+                <div class="drive-section" id="thermal" data-category="thermal">
+                    <div class="drive-header thermal">
                         <div class="category-info">
                             <i class="fas fa-thermometer-half"></i>
                             <h2>Thermodynamics</h2>
-                            <span class="paper-count" id="thermal-count">0 papers</span>
+                            <p>Heat, temperature, and statistical mechanics</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('thermal')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/THERMAL_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="thermal-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'THERMAL_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=THERMAL_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <!-- Cosmology -->
-                <div class="category-section" id="cosmology">
-                    <div class="category-header cosmology">
+                <div class="drive-section" id="cosmology" data-category="cosmology">
+                    <div class="drive-header cosmology">
                         <div class="category-info">
                             <i class="fas fa-globe"></i>
                             <h2>Cosmology</h2>
-                            <span class="paper-count" id="cosmology-count">0 papers</span>
+                            <p>Universe structure, dark matter, and cosmic evolution</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('cosmology')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/COSMOLOGY_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="cosmology-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'COSMOLOGY_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=COSMOLOGY_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <!-- Solid State Physics -->
-                <div class="category-section" id="solid-state">
-                    <div class="category-header solid-state">
+                <div class="drive-section" id="solid-state" data-category="solid-state">
+                    <div class="drive-header solid-state">
                         <div class="category-info">
                             <i class="fas fa-cube"></i>
                             <h2>Solid State Physics</h2>
-                            <span class="paper-count" id="solid-state-count">0 papers</span>
+                            <p>Crystal structures, band theory, and material properties</p>
                         </div>
-                        <button class="collapse-btn" onclick="toggleCategory('solid-state')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
+                        <a href="https://drive.google.com/drive/folders/SOLID_STATE_FOLDER_ID" target="_blank" class="open-drive-btn">
+                            <i class="fab fa-google-drive"></i>
+                            Open in Drive
+                        </a>
                     </div>
-                    <div class="papers-list" id="solid-state-papers">
-                        <div class="loading-message">Loading papers...</div>
+                    <div class="drive-embed-container">
+                        <!-- 📝 REPLACE 'SOLID_STATE_FOLDER_ID' with your actual Google Drive folder ID -->
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=SOLID_STATE_FOLDER_ID#grid" 
+                                class="drive-iframe" 
+                                frameborder="0">
+                        </iframe>
                     </div>
                 </div>
 
@@ -244,31 +298,8 @@
 
     <script>
         // Global functions
-        window.submitPaper = submitPaper;
-        window.toggleCategory = toggleCategory;
         window.toggleDropdown = toggleDropdown;
-
-        // ================================
-        // GOOGLE SHEETS CONFIGURATION
-        // ================================
-        
-        // 📝 REPLACE THESE WITH YOUR ACTUAL VALUES:
-        const SHEET_ID = '1G8NLS9vsE7CRakgkf3tpWKVF36cyQ1-rp3KvhtGCOdA'; // Get from Google Sheets URL
-        const API_KEY = 'AIzaSyCG6ENXkrucOUyeILu65EBqQwH_WRWsyCE';   // Get from Google Cloud Console
-        const PAPERS_SHEET_NAME = 'TopicPapers';                      // Name of your sheet tab for papers
-        
-        // Form submission endpoint (Google Apps Script)
-        const PAPERS_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzs7-JiAA7ApH9gmX_lKAltXzl3rCz6MrvrFX6fe1SNeUHC0mWrWD_6mvsAU7YhYsbh/exec';
-
-        // Categories configuration
-        const CATEGORIES = {
-            'nuclear': { name: 'Nuclear Physics', icon: 'fas fa-atom', color: '#f59e0b' },
-            'electromagnetic': { name: 'Electromagnetism', icon: 'fas fa-bolt', color: '#3b82f6' },
-            'quantum': { name: 'Quantum Mechanics', icon: 'fas fa-wave-square', color: '#8b5cf6' },
-            'thermal': { name: 'Thermodynamics', icon: 'fas fa-thermometer-half', color: '#ef4444' },
-            'cosmology': { name: 'Cosmology', icon: 'fas fa-globe', color: '#10b981' },
-            'solid-state': { name: 'Solid State Physics', icon: 'fas fa-cube', color: '#6366f1' }
-        };
+        window.switchCategory = switchCategory;
 
         // Dropdown functionality
         function toggleDropdown() {
@@ -290,285 +321,51 @@
             }
         });
 
-        // ================================
-        // LOAD PAPERS FROM GOOGLE SHEETS
-        // ================================
-        
-        async function loadPapers() {
-            try {
-                const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${PAPERS_SHEET_NAME}?key=${API_KEY}`
-                );
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch papers');
-                }
-                
-                const data = await response.json();
-                const rows = data.values || [];
-                
-                if (rows.length <= 1) { // Only header row or empty
-                    showEmptyStatesForAllCategories();
-                    return;
-                }
-                
-                // Skip header row and parse data
-                const papers = rows.slice(1).map((row, index) => ({
-                    id: index,
-                    title: row[0] || 'Untitled',
-                    url: row[1] || '#',
-                    category: row[2] || 'nuclear',
-                    description: row[3] || 'No description',
-                    submitter: row[4] || 'Anonymous',
-                    timestamp: row[5] || new Date().toISOString()
-                }));
-                
-                displayPapersByCategory(papers);
-                
-            } catch (error) {
-                console.error('Error loading papers:', error);
-                showErrorStatesForAllCategories();
-            }
-        }
-
-        function displayPapersByCategory(papers) {
-            // Group papers by category
-            const papersByCategory = {};
-            Object.keys(CATEGORIES).forEach(cat => {
-                papersByCategory[cat] = papers.filter(paper => paper.category === cat);
+        // Switch between category sections
+        function switchCategory(categoryId) {
+            // Hide all sections
+            document.querySelectorAll('.drive-section').forEach(section => {
+                section.classList.remove('active');
             });
-
-            // Display papers for each category
-            Object.keys(CATEGORIES).forEach(category => {
-                const categoryPapers = papersByCategory[category] || [];
-                const papersList = document.getElementById(`${category}-papers`);
-                const countElement = document.getElementById(`${category}-count`);
+            
+            // Remove active state from nav buttons
+            document.querySelectorAll('.nav-category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(categoryId);
+            if (targetSection) {
+                targetSection.classList.add('active');
                 
-                // Update count
-                if (countElement) {
-                    countElement.textContent = `${categoryPapers.length} paper${categoryPapers.length !== 1 ? 's' : ''}`;
+                // Add active state to corresponding nav button
+                const navBtn = document.querySelector(`.nav-category-btn.${categoryId}`);
+                if (navBtn) {
+                    navBtn.classList.add('active');
                 }
                 
-                if (categoryPapers.length === 0) {
-                    papersList.innerHTML = `
-                        <div class="empty-category">
-                            <i class="fas fa-folder-open"></i>
-                            <p>No papers in this category yet</p>
-                        </div>
-                    `;
-                } else {
-                    papersList.innerHTML = categoryPapers.map(paper => `
-                        <div class="paper-item">
-                            <div class="paper-info">
-                                <h4 class="paper-title">${paper.title}</h4>
-                                <p class="paper-description">${paper.description}</p>
-                                <div class="paper-meta">
-                                    <span class="paper-submitter">by ${paper.submitter}</span>
-                                    <span class="paper-date">${formatDate(paper.timestamp)}</span>
-                                </div>
-                            </div>
-                            <div class="paper-actions">
-                                <a href="${paper.url}" target="_blank" class="paper-link" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    View Paper
-                                </a>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-            });
-        }
-
-        function showEmptyStatesForAllCategories() {
-            Object.keys(CATEGORIES).forEach(category => {
-                const papersList = document.getElementById(`${category}-papers`);
-                const countElement = document.getElementById(`${category}-count`);
-                
-                if (countElement) {
-                    countElement.textContent = '0 papers';
-                }
-                
-                papersList.innerHTML = `
-                    <div class="empty-category">
-                        <i class="fas fa-folder-open"></i>
-                        <p>No papers in this category yet</p>
-                    </div>
-                `;
-            });
-        }
-
-        function showErrorStatesForAllCategories() {
-            Object.keys(CATEGORIES).forEach(category => {
-                const papersList = document.getElementById(`${category}-papers`);
-                papersList.innerHTML = `
-                    <div class="error-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading papers. Please try again.</p>
-                    </div>
-                `;
-            });
-        }
-
-        // ================================
-        // SUBMIT NEW PAPER
-        // ================================
-        
-        async function submitPaper() {
-            const title = document.getElementById('paperTitle').value.trim();
-            const url = document.getElementById('paperUrl').value.trim();
-            const category = document.getElementById('paperCategory').value;
-            const description = document.getElementById('paperDescription').value.trim();
-            const submitter = document.getElementById('submitterName').value.trim() || 'Anonymous';
-
-            // Validation
-            if (!title || !url || !category || !description) {
-                showNotification('Please fill in all required fields', 'error');
-                return;
-            }
-
-            // Validate URL
-            try {
-                new URL(url);
-            } catch {
-                showNotification('Please enter a valid URL', 'error');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = document.querySelector('.submit-paper-btn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-            submitBtn.disabled = true;
-
-            try {
-                const formData = new FormData();
-                formData.append('title', title);
-                formData.append('url', url);
-                formData.append('category', category);
-                formData.append('description', description);
-                formData.append('submitter', submitter);
-                formData.append('timestamp', new Date().toISOString());
-                formData.append('type', 'paper'); // Distinguish from resources
-
-                const response = await fetch(PAPERS_FORM_ENDPOINT, {
-                    method: 'POST',
-                    body: formData
+                // Scroll to section
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-
-                if (response.ok) {
-                    showNotification('Paper submitted successfully! It will appear after review.', 'success');
-                    clearForm();
-                    // Reload papers to show updates
-                    setTimeout(() => {
-                        loadPapers();
-                    }, 2000);
-                } else {
-                    throw new Error('Submission failed');
-                }
-
-            } catch (error) {
-                console.error('Error submitting paper:', error);
-                showNotification('Failed to submit paper. Please try again.', 'error');
-            } finally {
-                // Restore button state
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
             }
         }
 
-        function clearForm() {
-            document.getElementById('paperTitle').value = '';
-            document.getElementById('paperUrl').value = '';
-            document.getElementById('paperCategory').value = '';
-            document.getElementById('paperDescription').value = '';
-            document.getElementById('submitterName').value = '';
-        }
-
-        // ================================
-        // CATEGORY COLLAPSE/EXPAND
-        // ================================
-        
-        function toggleCategory(categoryId) {
-            const papersList = document.getElementById(`${categoryId}-papers`);
-            const collapseBtn = document.querySelector(`#${categoryId} .collapse-btn i`);
-            
-            if (papersList.style.display === 'none') {
-                papersList.style.display = 'block';
-                collapseBtn.style.transform = 'rotate(0deg)';
-            } else {
-                papersList.style.display = 'none';
-                collapseBtn.style.transform = 'rotate(-90deg)';
-            }
-        }
-
-        // ================================
-        // UTILITY FUNCTIONS
-        // ================================
-        
-        function formatDate(timestamp) {
-            try {
-                return new Date(timestamp).toLocaleDateString();
-            } catch {
-                return 'Unknown date';
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'error' ? '#ef4444' : '#10b981'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                z-index: 1001;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                font-weight: 500;
-                max-width: 350px;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            requestAnimationFrame(() => {
-                notification.style.transform = 'translateX(0)';
-            });
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 5000);
-        }
-
-        // ================================
-        // INITIALIZATION
-        // ================================
-        
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Load papers on page load
-            loadPapers();
-            
             // Handle URL hash navigation
             if (window.location.hash) {
                 const targetCategory = window.location.hash.substring(1);
-                if (CATEGORIES[targetCategory]) {
+                const validCategories = ['nuclear', 'electromagnetic', 'quantum', 'thermal', 'cosmology', 'solid-state'];
+                if (validCategories.includes(targetCategory)) {
                     setTimeout(() => {
-                        document.getElementById(targetCategory).scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        switchCategory(targetCategory);
                     }, 500);
                 }
+            } else {
+                // Default to first category
+                switchCategory('nuclear');
             }
             
             // Mobile navigation
@@ -666,103 +463,121 @@
             text-align: center;
         }
 
-        /* Submit Section Styles */
-        .submit-section {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
-            border: 2px solid var(--primary-blue);
+        /* Instructions Section */
+        .instructions-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 2px solid #10b981;
         }
 
-        .submit-form {
+        .instructions-content {
             display: grid;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
             gap: 1rem;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            background: var(--accent-bg);
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 0.75rem;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .submit-paper-btn {
+        .step-number {
             background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 1rem 2rem;
             color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
         }
 
-        .submit-paper-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        .step-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .submit-paper-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .submit-note {
+        .step-content p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Category Navigation */
+        .category-nav-section {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .category-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .nav-category-btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        /* GitHub-style Papers List */
-        .papers-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .nav-category-btn:hover,
+        .nav-category-btn.active {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
         }
 
-        .category-section {
+        .nav-category-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Category-specific colors for nav buttons */
+        .nav-category-btn.nuclear i { color: #f59e0b; }
+        .nav-category-btn.electromagnetic i { color: #3b82f6; }
+        .nav-category-btn.quantum i { color: #8b5cf6; }
+        .nav-category-btn.thermal i { color: #ef4444; }
+        .nav-category-btn.cosmology i { color: #10b981; }
+        .nav-category-btn.solid-state i { color: #6366f1; }
+
+        /* Drive Folders Container */
+        .drive-folders-container {
+            margin-top: 2rem;
+        }
+
+        .drive-section {
+            display: none;
             background: var(--secondary-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
             overflow: hidden;
+            margin-bottom: 2rem;
         }
 
-        .category-header {
+        .drive-section.active {
+            display: block;
+        }
+
+        .drive-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 1.5rem;
+            padding: 1.5rem;
             background: var(--accent-bg);
             border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
         }
 
         .category-info {
@@ -772,143 +587,63 @@
         }
 
         .category-info i {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
 
         .category-info h2 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .category-info p {
+            color: var(--text-secondary);
             margin: 0;
-        }
-
-        .paper-count {
             font-size: 0.9rem;
-            color: var(--text-secondary);
-            background: var(--secondary-bg);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
         }
 
-        .collapse-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
+        /* Category-specific colors for headers */
+        .drive-header.nuclear .category-info i { color: #f59e0b; }
+        .drive-header.electromagnetic .category-info i { color: #3b82f6; }
+        .drive-header.quantum .category-info i { color: #8b5cf6; }
+        .drive-header.thermal .category-info i { color: #ef4444; }
+        .drive-header.cosmology .category-info i { color: #10b981; }
+        .drive-header.solid-state .category-info i { color: #6366f1; }
 
-        .collapse-btn:hover {
-            background: var(--secondary-bg);
-            color: var(--primary-blue);
-        }
-
-        .collapse-btn i {
-            transition: transform 0.3s ease;
-        }
-
-        /* Category-specific colors */
-        .category-header.nuclear .category-info i { color: #f59e0b; }
-        .category-header.electromagnetic .category-info i { color: #3b82f6; }
-        .category-header.quantum .category-info i { color: #8b5cf6; }
-        .category-header.thermal .category-info i { color: #ef4444; }
-        .category-header.cosmology .category-info i { color: #10b981; }
-        .category-header.solid-state .category-info i { color: #6366f1; }
-
-        .papers-list {
-            padding: 0;
-        }
-
-        .paper-item {
+        .open-drive-btn {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .paper-item:last-child {
-            border-bottom: none;
-        }
-
-        .paper-item:hover {
-            background: var(--accent-bg);
-        }
-
-        .paper-info {
-            flex: 1;
-        }
-
-        .paper-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .paper-description {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .paper-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .paper-actions {
-            margin-left: 1rem;
-        }
-
-        .paper-link {
-            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             background: var(--gradient-primary);
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--border-radius);
             font-weight: 500;
             transition: var(--transition);
-            font-size: 0.9rem;
         }
 
-        .paper-link:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        .open-drive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
         }
 
-        .loading-message {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            font-style: italic;
+        /* Drive Embed Container */
+        .drive-embed-container {
+            height: 600px;
+            background: var(--primary-bg);
+            position: relative;
         }
 
-        .empty-category,
-        .error-state {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
+        .drive-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
         }
 
-        .empty-category i,
-        .error-state i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.5;
-        }
-
-                    /* Mobile Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .dropdown-menu {
                 left: -50px;
@@ -930,48 +665,59 @@
                 margin: 0.5rem 0;
             }
 
-            .paper-item {
+            .category-nav-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .drive-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .category-info {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
+                gap: 0.5rem;
             }
 
-            .paper-actions {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .paper-link {
+            .open-drive-btn {
                 width: 100%;
                 justify-content: center;
             }
 
-            .category-info {
-                flex-wrap: wrap;
-                gap: 0.5rem;
+            .drive-embed-container {
+                height: 400px;
             }
 
-            .category-info h2 {
-                font-size: 1.1rem;
+            .instructions-content {
+                gap: 1rem;
+            }
+
+            .instruction-item {
+                gap: 0.75rem;
+            }
+
+            .step-number {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
             }
         }
 
         @media (max-width: 480px) {
-            .category-header {
-                padding: 0.75rem 1rem;
+            .drive-embed-container {
+                height: 300px;
             }
 
-            .paper-item {
-                padding: 0.75rem 1rem;
+            .category-info i {
+                font-size: 1.5rem;
             }
 
-            .category-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.25rem;
-            }
-
-            .paper-count {
-                font-size: 0.8rem;
+            .category-info h2 {
+                font-size: 1.2rem;
             }
         }
+    </style>
+</body>
+</html>
