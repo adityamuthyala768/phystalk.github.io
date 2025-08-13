@@ -320,61 +320,6 @@
             border-color: rgba(59, 130, 246, 0.4);
         }
 
-        /* Subtle space elements for other sections */
-        .features {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            right: 5%;
-            width: 30px;
-            height: 30px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: floatingPlanet 8s ease-in-out infinite;
-        }
-
-        .about {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about::after {
-            content: '';
-            position: absolute;
-            bottom: 10%;
-            left: 5%;
-            width: 100px;
-            height: 60px;
-            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: nebulaPulse 10s ease-in-out infinite;
-        }
-
-        /* Comet trails for empty spaces */
-        .comet {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .comet::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 30px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
-            transform: translateX(-30px);
-        }
-
         /* Animation Keyframes */
         @keyframes galaxyRotate {
             0% { transform: rotate(-30deg); }
@@ -426,11 +371,6 @@
         @keyframes statGlow {
             0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
             50% { transform: translate(-50%, -50%) rotate(180deg); }
-        }
-
-        @keyframes floatingPlanet {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.1); }
         }
 
         @keyframes twinkle {
@@ -548,7 +488,7 @@
                     </a>
                 </div>
                 
-                <!-- Updated Stats - Removed "500 Tools Used Daily" -->
+                <!-- Updated Stats - Only two stats now -->
                 <div class="hero-stats" aria-label="Community statistics">
                     <div class="stat-badge">
                         <span class="stat-number" data-count="1000">0</span>
