@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Hub - Phystalk</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -50,10 +47,8 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="page-container">
-            <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Research Hub</h1>
                 <p class="page-subtitle">Collaborative research documents, experiments, and physics resources</p>
@@ -83,7 +78,6 @@
                         <span class="topic-text">No research topic set yet</span>
                     </div>
                     <div class="topic-links">
-                        <!-- 📚 SHARED GOOGLE DOC LINK: Replace with your shared Google Doc URL -->
                         <a href="https://docs.google.com/document/d/1V5bIyM00HeLeLMN8QJ1i-wfAYpoiGPikJ9Lx5IYgERA/edit?usp=sharing" target="_blank" class="collaborate-btn">
                             <i class="fab fa-google-drive"></i>
                             Collaborate on Current Topic
@@ -92,6 +86,79 @@
                             <i class="fas fa-info-circle"></i>
                             Anyone can contribute, owner approves changes
                         </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Drive Instructions Section -->
+            <div class="content-section drive-instructions">
+                <h2 class="section-title">
+                    <i class="fas fa-question-circle"></i>
+                    How to Add Google Docs to Drive Folders
+                </h2>
+                <div class="instructions-container">
+                    <div class="instructions-grid">
+                        <div class="instruction-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Create Your Google Doc</h3>
+                                <p>Go to <a href="https://docs.google.com" target="_blank">docs.google.com</a> and create a new document with your research content.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Set Sharing Permissions</h3>
+                                <p>Click "Share" → "General access" → Change to "Anyone with the link" → "Viewer" or "Editor" as needed.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Move to Specific Folder</h3>
+                                <p>In your Google Doc, click the folder icon → "Move" → Navigate to the desired physics category folder.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Organize by Category</h3>
+                                <p>Place your document in the appropriate folder: Nuclear Physics, Quantum Mechanics, Electromagnetism, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-links">
+                        <h3>Quick Access Links</h3>
+                        <div class="link-grid">
+                            <a href="https://drive.google.com/drive/folders/1w2QcI3glcjbgWvlNnOvhKG529SfI2Z77" target="_blank" class="folder-link nuclear">
+                                <i class="fas fa-atom"></i>
+                                <span>Nuclear Physics</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1-qqnULLwBJTkQuywyAgHa0TaQbqkxy4H" target="_blank" class="folder-link electromagnetic">
+                                <i class="fas fa-bolt"></i>
+                                <span>Electromagnetism</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1cPU33qaAQ9ey9v7lOy6Yni132CiXsIY6" target="_blank" class="folder-link quantum">
+                                <i class="fas fa-wave-square"></i>
+                                <span>Quantum Mechanics</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1CNjOjncA6JhzxoRtds-Q9cjc7Uu4cb6o" target="_blank" class="folder-link thermal">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span>Thermodynamics</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/14r4vciKEZPI0dmcrFwrtmAdPYwWE2Vrn" target="_blank" class="folder-link cosmology">
+                                <i class="fas fa-globe"></i>
+                                <span>Cosmology</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/13xcTz7L4-hOADhGDiU1BXmvQrf_lvwJH" target="_blank" class="folder-link solid-state">
+                                <i class="fas fa-cube"></i>
+                                <span>Solid State Physics</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +246,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -380,386 +446,174 @@
     </script>
 
     <style>
-        /* Navigation Dropdown Styles */
-        .nav-dropdown {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .dropdown-arrow {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 0.5rem;
-            margin-left: -0.5rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
-
-        .dropdown-arrow:hover {
-            color: var(--primary-blue);
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .dropdown-arrow i {
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            min-width: 200px;
-            z-index: 1000;
-            margin-top: 0.5rem;
-        }
-
-        .dropdown-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: var(--accent-bg);
-            color: var(--primary-blue);
-        }
-
-        .dropdown-item i {
-            width: 16px;
-            text-align: center;
-        }
-
-        /* Current Research Topic Styles */
-        .current-research {
+        /* Drive Instructions Section */
+        .drive-instructions {
             background: var(--secondary-bg);
             border: 2px solid var(--primary-blue);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
         }
 
-        .current-research::before {
+        .drive-instructions::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            height: 4px;
+            background: var(--gradient-primary);
             transition: left 0.8s;
         }
 
-        .current-research:hover::before {
+        .drive-instructions:hover::before {
             left: 100%;
         }
 
-        .research-topic-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .topic-input-group {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            align-items: stretch;
-        }
-
-        .topic-input {
-            flex: 1;
-            background: var(--accent-bg);
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .topic-input:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .topic-input::placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .topic-save-btn {
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 1rem 1.5rem;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-            font-size: 1rem;
-        }
-
-        .topic-save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .topic-display {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .topic-display.has-topic {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
-            border-color: var(--primary-blue);
-        }
-
-        .topic-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: block;
-        }
-
-        .topic-display:not(.has-topic) .topic-text {
-            color: var(--text-muted);
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        .topic-links {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .collaborate-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            padding: 1.25rem 2.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-
-        .collaborate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            background: var(--hover-blue);
-        }
-
-        .collaborate-btn i {
-            font-size: 1.2rem;
-        }
-
-        .link-note {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-style: italic;
-        }
-
-        /* Categories Section Styles */
-        .categories-section {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-        }
-
-        .categories-grid {
+        .instructions-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin-top: 1.5rem;
         }
 
-        .category-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+        .instruction-step {
+            display: flex;
+            gap: 1rem;
             padding: 1.5rem;
-            text-align: center;
+            background: var(--accent-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
 
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: left 0.6s;
-        }
-
-        .category-card:hover::before {
-            left: 100%;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
+        .instruction-step:hover {
+            transform: translateY(-3px);
             border-color: var(--primary-blue);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
         }
 
-        .category-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            transition: var(--transition);
-        }
-
-        .category-card:hover .category-icon {
-            transform: scale(1.1);
-        }
-
-        /* Category-specific colors */
-        .category-card.nuclear .category-icon { color: #f59e0b; }
-        .category-card.electromagnetic .category-icon { color: #3b82f6; }
-        .category-card.quantum .category-icon { color: #8b5cf6; }
-        .category-card.thermal .category-icon { color: #ef4444; }
-        .category-card.cosmology .category-icon { color: #10b981; }
-        .category-card.solid-state .category-icon { color: #6366f1; }
-
-        .category-title {
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
             font-size: 1.2rem;
-            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
             color: var(--text-primary);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
-        .category-description {
+        .step-content p {
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
             line-height: 1.5;
             font-size: 0.9rem;
         }
 
-        .view-papers-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--gradient-primary);
-            color: white;
+        .step-content a {
+            color: var(--primary-blue);
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: var(--transition);
-            font-size: 0.9rem;
         }
 
-        .view-papers-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        .step-content a:hover {
+            text-decoration: underline;
         }
+
+        .quick-links {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+        }
+
+        .quick-links h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .folder-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--secondary-bg);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .folder-link:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .folder-link i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Category-specific colors for folder links */
+        .folder-link.nuclear:hover i { color: #f59e0b; }
+        .folder-link.electromagnetic:hover i { color: #3b82f6; }
+        .folder-link.quantum:hover i { color: #8b5cf6; }
+        .folder-link.thermal:hover i { color: #ef4444; }
+        .folder-link.cosmology:hover i { color: #10b981; }
+        .folder-link.solid-state:hover i { color: #6366f1; }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .topic-input-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .topic-save-btn {
-                justify-content: center;
-            }
-
-            .collaborate-btn {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
-            .categories-grid {
+            .instructions-grid {
                 grid-template-columns: 1fr;
             }
 
-            .dropdown-menu {
-                left: -50px;
-                right: 0;
+            .instruction-step {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .nav-dropdown {
-                position: static;
+            .step-number {
+                align-self: center;
             }
 
-            .nav-menu.active .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                background: var(--accent-bg);
-                border: none;
-                box-shadow: none;
-                margin: 0.5rem 0;
+            .link-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .current-research {
+            .drive-instructions {
                 padding: 1.5rem;
             }
 
-            .topic-input {
-                font-size: 0.95rem;
-            }
-
-            .categories-grid {
-                gap: 1rem;
-            }
-
-            .category-card {
-                padding: 1.25rem;
+            .instruction-step {
+                padding: 1rem;
             }
         }
     </style>

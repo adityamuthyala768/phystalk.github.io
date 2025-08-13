@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -48,28 +47,11 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="page-container">
-            <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Physics Resources</h1>
                 <p class="page-subtitle">Community collection of research papers, articles, videos, and useful websites</p>
-            </div>
-
-            <!-- Filter Section -->
-            <div class="content-section filter-section">
-                <h2 class="section-title">
-                    <i class="fas fa-filter"></i>
-                    Browse Resources
-                </h2>
-                <div class="filter-tabs">
-                    <button class="filter-btn active" onclick="filterResources('all')">All Resources</button>
-                    <button class="filter-btn" onclick="filterResources('research-papers')">Research Papers</button>
-                    <button class="filter-btn" onclick="filterResources('articles')">Articles</button>
-                    <button class="filter-btn" onclick="filterResources('videos')">Videos</button>
-                    <button class="filter-btn" onclick="filterResources('websites')">General Websites</button>
-                </div>
             </div>
 
             <!-- Styled Google Drive Section -->
@@ -112,7 +94,6 @@
                         </div>
                     </div>
                     
-                    <!-- Drive Features Info -->
                     <div class="drive-features">
                         <div class="feature-item">
                             <i class="fas fa-search"></i>
@@ -212,7 +193,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -248,12 +228,9 @@
     </footer>
 
     <script>
-        // Global functions
         window.toggleDropdown = toggleDropdown;
-        window.filterResources = filterResources;
         window.refreshDrive = refreshDrive;
 
-        // Dropdown functionality
         function toggleDropdown() {
             const dropdown = document.getElementById('researchDropdown');
             const arrow = document.querySelector('.dropdown-arrow i');
@@ -262,7 +239,6 @@
             arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             const dropdown = document.getElementById('researchDropdown');
             const navDropdown = document.querySelector('.nav-dropdown');
@@ -273,32 +249,18 @@
             }
         });
 
-        // Filter resources (placeholder)
-        function filterResources(category) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // In a real implementation, this would filter the Drive contents
-            showNotification(`Showing ${category === 'all' ? 'all' : category} resources`, 'info');
-        }
-
-        // Refresh drive embed
         function refreshDrive() {
             const iframe = document.querySelector('.drive-iframe');
             const refreshBtn = document.querySelector('[onclick="refreshDrive()"]');
             const overlay = document.getElementById('driveOverlay');
             
-            if (iframe && refreshBtn) {
-                // Show loading overlay
+            if (iframe && refreshBtn && overlay) {
                 overlay.style.display = 'flex';
                 refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
                 refreshBtn.disabled = true;
                 
-                // Reload iframe
                 iframe.src = iframe.src;
                 
-                // Hide overlay and reset button after iframe loads
                 setTimeout(() => {
                     overlay.style.display = 'none';
                     refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
@@ -307,7 +269,6 @@
             }
         }
 
-        // Hide loading overlay once iframe loads
         document.addEventListener('DOMContentLoaded', function() {
             const iframe = document.querySelector('.drive-iframe');
             const overlay = document.getElementById('driveOverlay');
@@ -318,7 +279,6 @@
                 }, 1000);
             });
             
-            // Mobile navigation
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
 
@@ -334,44 +294,6 @@
                 }));
             }
         });
-
-        // Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'error' ? '#ef4444' : type === 'info' ? '#3b82f6' : '#10b981'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                z-index: 1001;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                font-weight: 500;
-                max-width: 350px;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            requestAnimationFrame(() => {
-                notification.style.transform = 'translateX(0)';
-            });
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
     </script>
 
     <style>
@@ -449,37 +371,6 @@
         .dropdown-item i {
             width: 16px;
             text-align: center;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-        }
-
-        .filter-tabs {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 0.75rem 1.5rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-            transform: translateY(-2px);
         }
 
         /* Enhanced Drive Section */
@@ -587,7 +478,6 @@
             cursor: not-allowed;
         }
 
-        /* Enhanced Drive Embed */
         .drive-embed-wrapper {
             padding: 0;
         }
@@ -832,10 +722,6 @@
             .folder-card {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .filter-tabs {
-                flex-direction: column;
             }
         }
 

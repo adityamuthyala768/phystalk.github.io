@@ -47,12 +47,55 @@
                 
                 <div class="calendar-container">
                     <iframe 
-                        src="https://calendar.google.com/calendar/embed?height=800&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&src=en-indian%23holiday%40group.calendar.google.com&color=%234285F4&mode=MONTH" 
+                        src="https://calendar.google.com/calendar/embed?src=a91b6d00c7f3529f357def666170c75d8c372d4f2b663aafb987019a72ea65d1%40group.calendar.google.com&ctz=Asia%2FKolkata&bgcolor=%23242424&color=%233b82f6&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&showTitle=0&mode=MONTH"
                         class="embedded-calendar"
                         frameborder="0" 
                         scrolling="no" 
                         title="Physics Events Calendar">
                     </iframe>
+                </div>
+
+                <div class="calendar-info">
+                    <div class="calendar-features">
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span>Study Sessions</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-video"></i>
+                            <span>Google Meet Presentations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-flask"></i>
+                            <span>Research Deadlines</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Community Events</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="content-section quick-actions">
+                <h2 class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h2>
+                <div class="actions-grid">
+                    <a href="https://calendar.google.com/calendar/u/0?cid=YTkxYjZkMDBjN2YzNTI5ZjM1N2RlZjY2NjE3MGM3NWQ4YzM3MmQ0ZjJiNjYzYWFmYjk4NzAxOWE3MmVhNjVkMUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" class="action-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Subscribe to Calendar</span>
+                    </a>
+                    <a href="https://meet.google.com/qzt-byha-obn" target="_blank" class="action-btn">
+                        <i class="fas fa-video"></i>
+                        <span>Join Weekly Meet</span>
+                    </a>
+                    <a href="discord.html" class="action-btn">
+                        <i class="fab fa-discord"></i>
+                        <span>Discord Reminders</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -117,19 +160,102 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             border: 2px solid var(--border-color);
-            background: white;
+            background: #242424;
             margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
         }
 
         .embedded-calendar {
             width: 100%;
             height: 100%;
             border: none;
+            background: #242424;
+        }
+
+        .calendar-info {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .calendar-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.75rem;
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .feature-item i {
+            color: var(--primary-blue);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .quick-actions {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .action-btn i {
+            font-size: 1.2rem;
         }
 
         @media (max-width: 768px) {
             .calendar-container {
                 height: 700px;
+            }
+
+            .calendar-features {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
             }
         }
 

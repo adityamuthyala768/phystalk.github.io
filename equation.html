@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- MathJax Configuration -->
     <script>
         window.MathJax = {
@@ -27,6 +28,7 @@
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -136,25 +138,29 @@ F = ma
                     <div class="output-header">
                         <h3>Rendered Equation</h3>
                         <div class="output-controls">
+                            <button class="control-btn" onclick="toggleDarkMode()" title="Toggle Dark/Light Mode" id="darkModeBtn">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <button class="control-btn" onclick="saveEquationImage()" title="Save as Image">
+                                <i class="fas fa-download"></i>
+                            </button>
                             <button class="control-btn" onclick="copyLatexInput()" title="Copy LaTeX Code">
                                 <i class="fas fa-code"></i>
                             </button>
-                            <button class="control-btn" onclick="copyRenderedEquation()" title="Copy as Text (E = mc²)">
+                            <button class="control-btn" onclick="copyRenderedEquation()" title="Copy as Text">
                                 <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="control-btn" onclick="shareEquation()" title="Share Equation">
-                                <i class="fas fa-share"></i>
                             </button>
                         </div>
                     </div>
-                    <div id="renderedEquation" class="equation-output">$$E = mc^2$$</div>
+                    <div id="renderedEquation" class="equation-output light-mode">$$E = mc^2$$</div>
                     <div class="copy-options">
                         <div class="copy-info">
-                            <h4>Copy Options:</h4>
+                            <h4>Options:</h4>
                             <ul>
-                                <li><strong>LaTeX Code:</strong> Copy raw LaTeX for use in other editors</li>
-                                <li><strong>Text Copy:</strong> Copy as Unicode text (E = mc²) for documents</li>
-                                <li><strong>Share:</strong> Get a shareable link to this equation</li>
+                                <li><strong>Dark Mode:</strong> Toggle for Google Docs compatibility</li>
+                                <li><strong>Save Image:</strong> Download equation as PNG file</li>
+                                <li><strong>Copy LaTeX:</strong> Copy raw LaTeX code</li>
+                                <li><strong>Copy Text:</strong> Copy as Unicode text (E = mc²)</li>
                             </ul>
                         </div>
                     </div>
@@ -270,15 +276,17 @@ F = ma
     <script>
         // Store the current LaTeX input for copying
         let currentLatexInput = 'E = mc^2';
+        let isDarkMode = false;
 
         // Make functions globally available
         window.renderLatex = renderLatex;
         window.clearInput = clearInput;
         window.copyLatexInput = copyLatexInput;
         window.copyRenderedEquation = copyRenderedEquation;
-        window.shareEquation = shareEquation;
         window.insertTemplate = insertTemplate;
         window.loadTemplate = loadTemplate;
+        window.toggleDarkMode = toggleDarkMode;
+        window.saveEquationImage = saveEquationImage;
 
         // Enhanced LaTeX rendering
         function renderLatex() {
@@ -293,10 +301,8 @@ F = ma
             const inputValue = input.value.trim();
             
             if (inputValue) {
-                // Store current input for copying
                 currentLatexInput = inputValue;
                 
-                // Check if input contains display math delimiters
                 let displayValue;
                 if (inputValue.includes('$') || inputValue.includes('\\[')) {
                     displayValue = inputValue;
@@ -306,7 +312,6 @@ F = ma
                 
                 output.innerHTML = displayValue;
                 
-                // Re-render MathJax
                 if (window.MathJax) {
                     MathJax.typesetPromise([output]).then(() => {
                         showNotification('Equation rendered successfully!');
@@ -333,7 +338,6 @@ F = ma
             showNotification('Input cleared');
         }
 
-        // Copy the actual LaTeX input (not the rendered HTML)
         function copyLatexInput() {
             const input = document.getElementById('latexInput');
             const latexCode = input ? input.value.trim() : currentLatexInput;
@@ -355,7 +359,6 @@ F = ma
             }
         }
 
-        // Copy rendered equation as plain text with Unicode symbols
         function copyRenderedEquation() {
             const latexCode = document.getElementById('latexInput').value.trim();
             
@@ -364,7 +367,6 @@ F = ma
                 return;
             }
             
-            // Convert LaTeX to Unicode text
             const unicodeText = convertLatexToUnicode(latexCode);
             
             if (navigator.clipboard) {
@@ -377,6 +379,101 @@ F = ma
             } else {
                 fallbackCopy(unicodeText);
             }
+        }
+
+        // Toggle Dark/Light Mode for equation output
+        function toggleDarkMode() {
+            const output = document.getElementById('renderedEquation');
+            const btn = document.getElementById('darkModeBtn');
+            
+            isDarkMode = !isDarkMode;
+            
+            if (isDarkMode) {
+                output.classList.remove('light-mode');
+                output.classList.add('dark-mode');
+                btn.innerHTML = '<i class="fas fa-sun"></i>';
+                btn.title = 'Switch to Light Mode';
+                showNotification('Dark mode enabled - perfect for Google Docs!');
+            } else {
+                output.classList.remove('dark-mode');
+                output.classList.add('light-mode');
+                btn.innerHTML = '<i class="fas fa-moon"></i>';
+                btn.title = 'Switch to Dark Mode';
+                showNotification('Light mode enabled');
+            }
+        }
+
+        // Save equation as image
+        function saveEquationImage() {
+            const output = document.getElementById('renderedEquation');
+            
+            if (!output.innerHTML || output.innerHTML === 'Enter an equation and click render') {
+                showNotification('Please render an equation first', 'error');
+                return;
+            }
+
+            showNotification('Generating image...', 'info');
+            
+            // Create a temporary container with proper styling
+            const tempContainer = document.createElement('div');
+            tempContainer.style.cssText = `
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+                background: ${isDarkMode ? '#1a1f35' : '#ffffff'};
+                color: ${isDarkMode ? '#e2e8f0' : '#000000'};
+                padding: 20px;
+                border-radius: 12px;
+                font-family: 'Inter', sans-serif;
+                min-width: 200px;
+                text-align: center;
+            `;
+            
+            tempContainer.innerHTML = output.innerHTML;
+            document.body.appendChild(tempContainer);
+            
+            // Wait for MathJax to render in the temporary container
+            if (window.MathJax) {
+                MathJax.typesetPromise([tempContainer]).then(() => {
+                    generateImage(tempContainer);
+                }).catch(() => {
+                    generateImage(tempContainer);
+                });
+            } else {
+                generateImage(tempContainer);
+            }
+        }
+
+        function generateImage(element) {
+            html2canvas(element, {
+                backgroundColor: isDarkMode ? '#1a1f35' : '#ffffff',
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                // Clean up temporary element
+                document.body.removeChild(element);
+                
+                // Create download link
+                const link = document.createElement('a');
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                link.download = `equation-${timestamp}.png`;
+                link.href = canvas.toDataURL('image/png');
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('Equation saved as image!');
+            }).catch(error => {
+                console.error('Error generating image:', error);
+                showNotification('Error saving image', 'error');
+                // Clean up on error
+                if (document.body.contains(element)) {
+                    document.body.removeChild(element);
+                }
+            });
         }
 
         // Convert LaTeX to Unicode symbols
@@ -393,42 +490,13 @@ F = ma
                 '\\sigma': 'σ', '\\tau': 'τ', '\\upsilon': 'υ', '\\phi': 'φ',
                 '\\chi': 'χ', '\\psi': 'ψ', '\\omega': 'ω',
                 
-                // Capital Greek letters
-                '\\Alpha': 'Α', '\\Beta': 'Β', '\\Gamma': 'Γ', '\\Delta': 'Δ',
-                '\\Epsilon': 'Ε', '\\Zeta': 'Ζ', '\\Eta': 'Η', '\\Theta': 'Θ',
-                '\\Iota': 'Ι', '\\Kappa': 'Κ', '\\Lambda': 'Λ', '\\Mu': 'Μ',
-                '\\Nu': 'Ν', '\\Xi': 'Ξ', '\\Pi': 'Π', '\\Rho': 'Ρ',
-                '\\Sigma': 'Σ', '\\Tau': 'Τ', '\\Upsilon': 'Υ', '\\Phi': 'Φ',
-                '\\Chi': 'Χ', '\\Psi': 'Ψ', '\\Omega': 'Ω',
-                
                 // Mathematical symbols
                 '\\pm': '±', '\\mp': '∓', '\\times': '×', '\\div': '÷',
                 '\\cdot': '·', '\\bullet': '•', '\\circ': '∘',
                 '\\leq': '≤', '\\geq': '≥', '\\neq': '≠', '\\approx': '≈',
                 '\\equiv': '≡', '\\propto': '∝', '\\infty': '∞',
                 '\\partial': '∂', '\\nabla': '∇', '\\sum': '∑', '\\prod': '∏',
-                '\\int': '∫', '\\oint': '∮', '\\sqrt': '√',
-                
-                // Arrows
-                '\\rightarrow': '→', '\\leftarrow': '←', '\\leftrightarrow': '↔',
-                '\\Rightarrow': '⇒', '\\Leftarrow': '⇐', '\\Leftrightarrow': '⇔',
-                
-                // Set theory
-                '\\in': '∈', '\\notin': '∉', '\\subset': '⊂', '\\supset': '⊃',
-                '\\subseteq': '⊆', '\\supseteq': '⊇', '\\cup': '∪', '\\cap': '∩',
-                '\\emptyset': '∅', '\\forall': '∀', '\\exists': '∃',
-                
-                // Logic
-                '\\land': '∧', '\\lor': '∨', '\\neg': '¬',
-                
-                // Physics symbols
-                '\\hbar': 'ℏ', '\\ell': 'ℓ',
-                
-                // Remove LaTeX formatting
-                '\\\\': '\n', // Line breaks
-                '\\text{': '', '\\mathrm{': '', '\\mathbf{': '', '\\mathit{': '',
-                '\\left(': '(', '\\right)': ')', '\\left[': '[', '\\right]': ']',
-                '\\left\\{': '{', '\\right\\}': '}', '\\left|': '|', '\\right|': '|'
+                '\\int': '∫', '\\oint': '∮', '\\sqrt': '√'
             };
             
             // Apply basic conversions
@@ -436,98 +504,47 @@ F = ma
                 result = result.replace(new RegExp(latex.replace(/\\/g, '\\\\'), 'g'), unicode);
             }
             
-            // Handle superscripts (^{})
+            // Handle superscripts and subscripts
             result = result.replace(/\^{([^}]+)}/g, (match, content) => {
                 return convertToSuperscript(content);
             });
-            
-            // Handle simple superscripts (^2, ^3, etc.)
             result = result.replace(/\^(\d)/g, (match, digit) => {
                 return convertToSuperscript(digit);
             });
-            
-            // Handle subscripts (_{})
             result = result.replace(/_{([^}]+)}/g, (match, content) => {
                 return convertToSubscript(content);
             });
-            
-            // Handle simple subscripts (_2, _3, etc.)
             result = result.replace(/_(\d)/g, (match, digit) => {
                 return convertToSubscript(digit);
             });
             
-            // Handle fractions \frac{a}{b} -> a/b
+            // Handle fractions
             result = result.replace(/\\frac{([^}]+)}{([^}]+)}/g, '($1)/($2)');
             
-            // Clean up remaining braces and LaTeX commands
+            // Clean up
             result = result.replace(/[{}]/g, '');
-            result = result.replace(/\\\w+/g, ''); // Remove remaining LaTeX commands
-            
-            // Clean up extra spaces
+            result = result.replace(/\\\w+/g, '');
             result = result.replace(/\s+/g, ' ').trim();
             
             return result;
         }
         
-        // Convert to superscript Unicode
         function convertToSuperscript(text) {
             const superscriptMap = {
                 '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
                 '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
-                '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾',
-                'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ',
-                'f': 'ᶠ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ',
-                'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ',
-                'p': 'ᵖ', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ',
-                'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ'
+                '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾'
             };
-            
             return text.split('').map(char => superscriptMap[char] || char).join('');
         }
         
-        // Convert to subscript Unicode
         function convertToSubscript(text) {
             const subscriptMap = {
                 '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
                 '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
-                '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎',
-                'a': 'ₐ', 'e': 'ₑ', 'h': 'ₕ', 'i': 'ᵢ', 'j': 'ⱼ',
-                'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ', 'n': 'ₙ', 'o': 'ₒ',
-                'p': 'ₚ', 'r': 'ᵣ', 's': 'ₛ', 't': 'ₜ', 'u': 'ᵤ',
-                'v': 'ᵥ', 'x': 'ₓ'
+                '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎'
             };
-            
             return text.split('').map(char => subscriptMap[char] || char).join('');
-        }
-
-        // Share equation functionality
-        function shareEquation() {
-            const latexCode = document.getElementById('latexInput').value.trim();
-            
-            if (!latexCode) {
-                showNotification('No equation to share', 'error');
-                return;
-            }
-            
-            // Create shareable URL with equation as parameter
-            const shareUrl = `${window.location.origin}${window.location.pathname}?eq=${encodeURIComponent(latexCode)}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'LaTeX Equation - Phystalk',
-                    text: `Check out this equation: ${latexCode}`,
-                    url: shareUrl
-                });
-            } else {
-                // Fallback: copy URL to clipboard
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(shareUrl).then(() => {
-                        showNotification('Share URL copied to clipboard!');
-                    });
-                } else {
-                    fallbackCopy(shareUrl);
-                }
-            }
         }
 
         function fallbackCopy(text) {
@@ -544,7 +561,7 @@ F = ma
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    showNotification('LaTeX code copied to clipboard!');
+                    showNotification('Copied to clipboard!');
                 } else {
                     showNotification('Copy failed', 'error');
                 }
@@ -647,6 +664,7 @@ F = ma
             
             input.value = template;
             currentLatexInput = template;
+            renderLatex();
             showNotification('Template loaded: ' + subject);
         }
 
@@ -855,7 +873,6 @@ F = ma
         }
 
         .equation-output {
-            background: var(--primary-bg);
             border: 2px solid var(--border-color);
             border-radius: var(--border-radius);
             padding: 2rem;
@@ -866,6 +883,17 @@ F = ma
             font-size: 1.2rem;
             overflow-x: auto;
             margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .equation-output.light-mode {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .equation-output.dark-mode {
+            background: #1a1f35;
+            color: #e2e8f0;
         }
 
         .copy-options {

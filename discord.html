@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord Community - Phystalk</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -35,10 +32,8 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="page-container">
-            <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Discord Community</h1>
                 <p class="page-subtitle">Join our vibrant physics community for real-time discussions and collaboration</p>
@@ -54,7 +49,6 @@
                         <h2>Join Our Physics Discord Server</h2>
                         <p>Connect with fellow physics enthusiasts, get homework help, discuss recent discoveries, and participate in live study sessions. Our active community is here to support your physics journey.</p>
                         
-                        <!-- Discord Invite Link -->
                         <a href="https://discord.gg/YBfekhhZ" target="_blank" class="discord-btn-large">
                             <i class="fab fa-discord"></i>
                             Join Discord Server
@@ -65,10 +59,6 @@
                             <div class="stat-item">
                                 <div class="stat-number">Growing</div>
                                 <div class="stat-label">Members</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">15+</div>
-                                <div class="stat-label">Channels</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-number">24/7</div>
@@ -105,7 +95,6 @@
                         </div>
                     </div>
                     <div class="meet-actions">
-                        <!-- Replace this URL with your actual Google Meet link -->
                         <a href="https://meet.google.com/qzt-byha-obn" target="_blank" class="meet-btn-large">
                             <i class="fab fa-google"></i>
                             Join Google Meet
@@ -114,10 +103,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Community Features -->
+            <div class="content-section community-features">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Community Features
+                </h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Real-time Discussions</h3>
+                        <p>Get instant help with physics problems and engage in meaningful conversations about scientific discoveries.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3>Study Sessions</h3>
+                        <p>Join collaborative study sessions and voice channels for group learning and exam preparation.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>Resource Sharing</h3>
+                        <p>Share and discover physics resources, papers, and educational content with the community.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Weekly Challenges</h3>
+                        <p>Participate in physics challenges and problem-solving competitions to test your knowledge.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -153,7 +179,6 @@
     </footer>
 
     <script>
-        // Mobile navigation toggle
         document.addEventListener('DOMContentLoaded', function() {
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
@@ -348,6 +373,59 @@
             opacity: 0.8;
         }
 
+        .community-features {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-item h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .discord-content h2 {
@@ -358,14 +436,13 @@
                 gap: 2rem;
             }
 
-            .meet-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
             .discord-btn-large, .meet-btn-large {
                 padding: 2rem 3rem;
                 font-size: 1.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -382,6 +459,10 @@
             .discord-btn-large, .meet-btn-large {
                 width: 100%;
                 padding: 1.5rem 2rem;
+            }
+
+            .feature-item {
+                padding: 1.5rem;
             }
         }
     </style>
