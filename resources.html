@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Add space background elements to all pages -->
+    <div class="page-space-background">
+        <div class="floating-planet planet-1"></div>
+        <div class="floating-planet planet-2"></div>
+        <div class="floating-nebula nebula-1"></div>
+        <div class="floating-nebula nebula-2"></div>
+        <div class="cosmic-dust"></div>
+        <div class="distant-stars"></div>
+    </div>
+
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -91,25 +101,6 @@
                                 <i class="fas fa-spinner fa-spin"></i>
                                 <p>Loading Google Drive...</p>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="drive-features">
-                        <div class="feature-item">
-                            <i class="fas fa-search"></i>
-                            <span>Search files</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-download"></i>
-                            <span>Download files</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-eye"></i>
-                            <span>Preview files</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-folder"></i>
-                            <span>Browse folders</span>
                         </div>
                     </div>
                 </div>
@@ -297,6 +288,132 @@
     </script>
 
     <style>
+        /* Space background elements for all pages */
+        .page-space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-planet {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.8), rgba(255, 69, 0, 0.6), rgba(139, 69, 19, 0.4));
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.3);
+            animation: planetFloat 12s ease-in-out infinite;
+        }
+
+        .planet-1 {
+            width: 40px;
+            height: 40px;
+            top: 15%;
+            right: 8%;
+            animation-delay: 0s;
+        }
+
+        .planet-2 {
+            width: 25px;
+            height: 25px;
+            top: 70%;
+            left: 5%;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.6), rgba(55, 48, 163, 0.4));
+            animation-delay: -6s;
+        }
+
+        .floating-nebula {
+            position: absolute;
+            border-radius: 60% 40% 70% 30%;
+            filter: blur(1px);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
+        }
+
+        .nebula-1 {
+            width: 120px;
+            height: 80px;
+            top: 30%;
+            right: 15%;
+            background: radial-gradient(ellipse 60% 40% at 30% 70%, 
+                        rgba(139, 92, 246, 0.3) 0%, 
+                        rgba(99, 102, 241, 0.2) 50%, 
+                        transparent 75%);
+            animation-delay: 0s;
+        }
+
+        .nebula-2 {
+            width: 80px;
+            height: 50px;
+            bottom: 25%;
+            left: 10%;
+            background: radial-gradient(ellipse 50% 60% at 70% 30%, 
+                        rgba(16, 185, 129, 0.3) 0%, 
+                        rgba(5, 150, 105, 0.2) 50%, 
+                        transparent 75%);
+            animation-delay: -7s;
+        }
+
+        .cosmic-dust {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.08), transparent),
+                radial-gradient(0.5px 0.5px at 90px 40px, rgba(255, 255, 255, 0.06), transparent),
+                radial-gradient(0.5px 0.5px at 130px 80px, rgba(255, 255, 255, 0.04), transparent);
+            background-repeat: repeat;
+            background-size: 150px 120px;
+            animation: cosmicDrift 100s linear infinite;
+        }
+
+        .distant-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(0.5px 0.5px at 15% 25%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(0.5px 0.5px at 85% 15%, rgba(173, 216, 255, 0.6), transparent),
+                radial-gradient(0.5px 0.5px at 70% 80%, rgba(255, 223, 186, 0.7), transparent),
+                radial-gradient(0.5px 0.5px at 25% 60%, rgba(255, 255, 255, 0.5), transparent);
+            animation: twinkle 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes planetFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.05); 
+            }
+        }
+
+        @keyframes cosmicDrift {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-120px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.2; }
+        }
+
         /* Navigation Dropdown Styles */
         .nav-dropdown {
             position: relative;
@@ -522,29 +639,6 @@
             color: var(--primary-blue);
         }
 
-        .drive-features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 1rem;
-            background: var(--accent-bg);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .feature-item i {
-            color: var(--primary-blue);
-            width: 16px;
-            text-align: center;
-        }
-
         /* Folder Guide */
         .folder-guide {
             background: var(--accent-bg);
@@ -714,14 +808,13 @@
                 height: 500px;
             }
 
-            .drive-features {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-
             .folder-card {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .floating-planet, .floating-nebula {
+                display: none;
             }
         }
 
