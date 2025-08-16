@@ -64,38 +64,31 @@
                 <p class="page-subtitle">Collaborative research documents, experiments, and physics resources</p>
             </div>
 
-            <!-- Current Research Topic Section -->
+            <!-- Current Research Topic Section - Code Editable -->
             <div class="content-section current-research">
                 <h2 class="section-title">
                     <i class="fas fa-microscope"></i>
                     Current Research Topic
                 </h2>
-                <div class="research-topic-container">
-                    <div class="topic-input-group">
-                        <input 
-                            type="text" 
-                            id="researchTopic" 
-                            class="topic-input" 
-                            placeholder="Enter the current research topic..."
-                            maxlength="200"
-                        >
-                        <button class="topic-save-btn" onclick="saveResearchTopic()">
-                            <i class="fas fa-save"></i>
-                            Save Topic
-                        </button>
+                <div class="current-topic-container">
+                    <!-- Large Topic Display Box -->
+                    <div class="topic-display-box">
+                        <div class="topic-title">
+                            <!-- EDIT THIS: Change the topic title here -->
+                            <h3>Quantum Entanglement in Superconducting Systems</h3>
+                        </div>
+                        <div class="topic-description">
+                            <p>Investigating quantum entanglement phenomena in superconducting quantum circuits and their applications in quantum computing.</p>
+                        </div>
                     </div>
-                    <div class="topic-display" id="topicDisplay">
-                        <span class="topic-text">No research topic set yet</span>
-                    </div>
-                    <div class="topic-links">
-                        <a href="https://docs.google.com/document/d/1V5bIyM00HeLeLMN8QJ1i-wfAYpoiGPikJ9Lx5IYgERA/edit?usp=sharing" target="_blank" class="collaborate-btn">
+                    
+                    <!-- Collaboration Button -->
+                    <div class="collaboration-section">
+                        <a href="https://docs.google.com/document/d/1V5bIyM00HeLeLMN8QJ1i-wfAYpoiGPikJ9Lx5IYgERA/edit?usp=sharing" target="_blank" class="collaborate-btn-large">
                             <i class="fab fa-google-drive"></i>
-                            Collaborate on Current Topic
+                            <span class="btn-text">Collaborate on Google Docs</span>
+                            <span class="btn-subtitle">Anyone can contribute • Owner approves changes</span>
                         </a>
-                        <span class="link-note">
-                            <i class="fas fa-info-circle"></i>
-                            Anyone can contribute, owner approves changes
-                        </span>
                     </div>
                 </div>
             </div>
@@ -292,8 +285,6 @@
 
     <script>
         // Make functions globally accessible
-        window.saveResearchTopic = saveResearchTopic;
-        window.loadResearchTopic = loadResearchTopic;
         window.toggleDropdown = toggleDropdown;
 
         // Dropdown functionality
@@ -316,82 +307,8 @@
             }
         });
 
-        // Save research topic to localStorage and update display
-        function saveResearchTopic() {
-            const topicInput = document.getElementById('researchTopic');
-            const topicDisplay = document.getElementById('topicDisplay');
-            
-            if (!topicInput || !topicDisplay) {
-                console.error('Topic input or display element not found');
-                return;
-            }
-            
-            const topic = topicInput.value.trim();
-            console.log('Saving topic:', topic);
-            
-            if (topic) {
-                try {
-                    // Save to localStorage
-                    localStorage.setItem('currentResearchTopic', topic);
-                    
-                    // Update display
-                    topicDisplay.innerHTML = `<span class="topic-text">${topic}</span>`;
-                    topicDisplay.classList.add('has-topic');
-                    
-                    // Clear input
-                    topicInput.value = '';
-                    
-                    // Show success message
-                    showNotification('Research topic saved successfully!');
-                    console.log('Topic saved to localStorage');
-                } catch (error) {
-                    console.error('Error saving topic:', error);
-                    showNotification('Error saving topic', 'error');
-                }
-            } else {
-                showNotification('Please enter a research topic', 'error');
-            }
-        }
-
-        // Load saved research topic on page load
-        function loadResearchTopic() {
-            try {
-                const savedTopic = localStorage.getItem('currentResearchTopic');
-                const topicDisplay = document.getElementById('topicDisplay');
-                
-                console.log('Loading saved topic:', savedTopic);
-                
-                if (savedTopic && topicDisplay) {
-                    topicDisplay.innerHTML = `<span class="topic-text">${savedTopic}</span>`;
-                    topicDisplay.classList.add('has-topic');
-                    console.log('Topic loaded successfully');
-                }
-            } catch (error) {
-                console.error('Error loading topic:', error);
-            }
-        }
-
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Research page loaded, initializing...');
-            
-            // Handle Enter key in topic input
-            const topicInput = document.getElementById('researchTopic');
-            if (topicInput) {
-                topicInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        saveResearchTopic();
-                    }
-                });
-                console.log('Enter key handler added');
-            } else {
-                console.error('Topic input not found');
-            }
-            
-            // Load saved topic
-            loadResearchTopic();
-            
             // Mobile navigation
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
@@ -409,50 +326,6 @@
                 }));
             }
         });
-
-        // Simple notification system
-        function showNotification(message, type = 'success') {
-            // Remove existing notifications
-            const existing = document.querySelectorAll('.notification');
-            existing.forEach(n => n.remove());
-            
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                z-index: 1001;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                font-weight: 500;
-                max-width: 350px;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Trigger entrance animation
-            requestAnimationFrame(() => {
-                notification.style.transform = 'translateX(0)';
-            });
-            
-            // Auto-remove notification
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
     </script>
 
     <style>
@@ -471,7 +344,7 @@
         .floating-planet {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.8), rgba(255, 69, 0, 0.6), rgba(139, 69, 19, 0.4));
+            background: radial-gradient(circle at 30% 30%, rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.6), rgba(71, 85, 105, 0.4));
             box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.3);
             animation: planetFloat 12s ease-in-out infinite;
         }
@@ -489,7 +362,7 @@
             height: 25px;
             top: 70%;
             left: 5%;
-            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.6), rgba(55, 48, 163, 0.4));
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8), rgba(37, 99, 235, 0.6), rgba(29, 78, 216, 0.4));
             animation-delay: -6s;
         }
 
@@ -506,7 +379,7 @@
             top: 30%;
             right: 15%;
             background: radial-gradient(ellipse 60% 40% at 30% 70%, 
-                        rgba(139, 92, 246, 0.3) 0%, 
+                        rgba(59, 130, 246, 0.3) 0%, 
                         rgba(99, 102, 241, 0.2) 50%, 
                         transparent 75%);
             animation-delay: 0s;
@@ -518,8 +391,8 @@
             bottom: 25%;
             left: 10%;
             background: radial-gradient(ellipse 50% 60% at 70% 30%, 
-                        rgba(16, 185, 129, 0.3) 0%, 
-                        rgba(5, 150, 105, 0.2) 50%, 
+                        rgba(147, 197, 253, 0.3) 0%, 
+                        rgba(59, 130, 246, 0.2) 50%, 
                         transparent 75%);
             animation-delay: -7s;
         }
@@ -545,7 +418,7 @@
             background-image: 
                 radial-gradient(0.5px 0.5px at 15% 25%, rgba(255, 255, 255, 0.8), transparent),
                 radial-gradient(0.5px 0.5px at 85% 15%, rgba(173, 216, 255, 0.6), transparent),
-                radial-gradient(0.5px 0.5px at 70% 80%, rgba(255, 223, 186, 0.7), transparent),
+                radial-gradient(0.5px 0.5px at 70% 80%, rgba(147, 197, 253, 0.7), transparent),
                 radial-gradient(0.5px 0.5px at 25% 60%, rgba(255, 255, 255, 0.5), transparent);
             animation: twinkle 8s ease-in-out infinite alternate;
         }
@@ -582,7 +455,7 @@
             50% { opacity: 0.2; }
         }
 
-        /* Navigation Dropdown Styles */
+        /* Navigation Dropdown Styles - FIXED Z-INDEX */
         .nav-dropdown {
             position: relative;
             display: flex;
@@ -622,7 +495,7 @@
             transform: translateY(-10px);
             transition: var(--transition);
             min-width: 200px;
-            z-index: 1000;
+            z-index: 9999; /* HIGH Z-INDEX TO FIX VISIBILITY */
             margin-top: 0.5rem;
         }
 
@@ -656,6 +529,141 @@
         .dropdown-item i {
             width: 16px;
             text-align: center;
+        }
+
+        /* Enhanced Current Research Topic Section */
+        .current-research {
+            background: var(--secondary-bg);
+            border: 2px solid var(--primary-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .current-research::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transition: left 0.8s;
+        }
+
+        .current-research:hover::before {
+            left: 100%;
+        }
+
+        .current-topic-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .topic-display-box {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-display-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            animation: topicGlow 8s linear infinite;
+        }
+
+        .topic-title h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .topic-description {
+            position: relative;
+            z-index: 2;
+        }
+
+        .topic-description p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .collaboration-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .collaborate-btn-large {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            padding: 2rem 3rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collaborate-btn-large::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .collaborate-btn-large:hover::before {
+            left: 100%;
+        }
+
+        .collaborate-btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .collaborate-btn-large i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        @keyframes topicGlow {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
         }
 
         /* Drive Instructions Section */
@@ -840,6 +848,20 @@
                 border: none;
                 box-shadow: none;
                 margin: 0.5rem 0;
+                z-index: 1;
+            }
+
+            .topic-display-box {
+                padding: 1.5rem;
+            }
+
+            .topic-title h3 {
+                font-size: 1.5rem;
+            }
+
+            .collaborate-btn-large {
+                padding: 1.5rem 2rem;
+                width: 100%;
             }
         }
 
@@ -850,6 +872,14 @@
 
             .instruction-step {
                 padding: 1rem;
+            }
+
+            .topic-title h3 {
+                font-size: 1.3rem;
+            }
+
+            .topic-description p {
+                font-size: 1rem;
             }
         }
     </style>
