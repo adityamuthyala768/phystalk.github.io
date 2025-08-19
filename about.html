@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Phystalk</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Add space background elements to all pages -->
+    <div class="page-space-background">
+        <div class="floating-planet planet-1"></div>
+        <div class="floating-planet planet-2"></div>
+        <div class="floating-nebula nebula-1"></div>
+        <div class="floating-nebula nebula-2"></div>
+        <div class="cosmic-dust"></div>
+        <div class="distant-stars"></div>
+    </div>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <span class="logo-text">Phystalk</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="equation.html" class="nav-link">Calculator</a></li>
+                <li><a href="desmos.html" class="nav-link">Graphing</a></li>
+                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+                <li class="nav-dropdown">
+                    <a href="research.html" class="nav-link">Research</a>
+                    <button class="dropdown-arrow" onclick="toggleDropdown()">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="researchDropdown">
+                        <a href="research.html" class="dropdown-item">
+                            <i class="fas fa-microscope"></i>
+                            Current Topics
+                        </a>
+                        <a href="topic-papers.html" class="dropdown-item">
+                            <i class="fas fa-file-alt"></i>
+                            Topic-wise Papers
+                        </a>
+                    </div>
+                </li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="discord.html" class="nav-link">Community</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <div class="page-header">
+                <h1 class="page-title">About Phystalk</h1>
+                <p class="page-subtitle">Learn more about our mission, team, and vision for physics education</p>
+            </div>
+
+            <!-- About Us Section -->
+            <div class="content-section about-us-section">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    About Us
+                </h2>
+                <div class="about-us-content">
+                    <!-- 
+                    =============================================
+                    🔥 EDIT THIS SECTION - ABOUT US TEXT
+                    =============================================
+                    Add your about us paragraphs between the <div class="about-text"> tags below.
+                    You can add multiple paragraphs like:
+                    <p>Your first paragraph here...</p>
+                    <p>Your second paragraph here...</p>
+                    -->
+                    <div class="about-text">
+                        <!-- Add your about us content here -->
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meet the Team Section -->
+            <div class="content-section team-section">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Meet the Team
+                </h2>
+                
+                <div class="team-carousel-container">
+                    <div class="team-carousel" id="teamCarousel">
+                        
+                        <!-- Team Member 1 - TEMPLATE -->
+                        <div class="team-member">
+                            <div class="member-card">
+                                <div class="member-image-container">
+                                    <!-- Replace src with actual image path -->
+                                    <img src="https://via.placeholder.com/200x200/334155/60a5fa?text=Team+Member" alt="Team Member" class="member-image">
+                                    <div class="member-image-overlay">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">John Doe</h3>
+                                    <p class="member-position">Founder & Lead Researcher</p>
+                                    <div class="member-details">
+                                        <div class="member-hobbies">
+                                            <h4><i class="fas fa-heart"></i> Hobbies & Interests</h4>
+                                            <p>Quantum mechanics, stargazing, and building physics simulations</p>
+                                        </div>
+                                        <div class="member-passion">
+                                            <h4><i class="fas fa-star"></i> Why I Love Phystalk</h4>
+                                            <p>I love how Phystalk brings together passionate physics enthusiasts to explore the mysteries of the universe together.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 2 - TEMPLATE -->
+                        <div class="team-member">
+                            <div class="member-card">
+                                <div class="member-image-container">
+                                    <!-- Replace src with actual image path -->
+                                    <img src="https://via.placeholder.com/200x200/334155/60a5fa?text=Team+Member" alt="Team Member" class="member-image">
+                                    <div class="member-image-overlay">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Jane Smith</h3>
+                                    <p class="member-position">Community Manager</p>
+                                    <div class="member-details">
+                                        <div class="member-hobbies">
+                                            <h4><i class="fas fa-heart"></i> Hobbies & Interests</h4>
+                                            <p>Astrophysics, science communication, and organizing study groups</p>
+                                        </div>
+                                        <div class="member-passion">
+                                            <h4><i class="fas fa-star"></i> Why I Love Phystalk</h4>
+                                            <p>Phystalk creates an amazing space where curious minds can collaborate and push the boundaries of physics knowledge.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 3 - TEMPLATE -->
+                        <div class="team-member">
+                            <div class="member-card">
+                                <div class="member-image-container">
+                                    <!-- Replace src with actual image path -->
+                                    <img src="https://via.placeholder.com/200x200/334155/60a5fa?text=Team+Member" alt="Team Member" class="member-image">
+                                    <div class="member-image-overlay">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Alex Johnson</h3>
+                                    <p class="member-position">Research Coordinator</p>
+                                    <div class="member-details">
+                                        <div class="member-hobbies">
+                                            <h4><i class="fas fa-heart"></i> Hobbies & Interests</h4>
+                                            <p>Particle physics, mathematical modeling, and science outreach</p>
+                                        </div>
+                                        <div class="member-passion">
+                                            <h4><i class="fas fa-star"></i> Why I Love Phystalk</h4>
+                                            <p>The collaborative research environment at Phystalk makes complex physics concepts accessible and exciting for everyone.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add more team members by copying the team-member div structure above -->
+
+                    </div>
+                    
+                    <!-- Carousel Navigation -->
+                    <div class="carousel-navigation">
+                        <button class="carousel-btn prev-btn" onclick="previousSlide()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-dots" id="carouselDots">
+                            <!-- Dots will be generated by JavaScript -->
+                        </div>
+                        <button class="carousel-btn next-btn" onclick="nextSlide()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Goal Section -->
+            <div class="content-section goal-section">
+                <h2 class="section-title">
+                    <i class="fas fa-bullseye"></i>
+                    Our Goal
+                </h2>
+                <div class="goal-content">
+                    <!-- 
+                    =============================================
+                    🔥 EDIT THIS SECTION - OUR GOAL TEXT
+                    =============================================
+                    Add your goal/mission paragraphs between the <div class="goal-text"> tags below.
+                    You can add multiple paragraphs like:
+                    <p>Your first goal paragraph here...</p>
+                    <p>Your second goal paragraph here...</p>
+                    -->
+                    <div class="goal-text">
+                        <!-- Add your goal/mission content here -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <span class="logo-text">Phystalk</span>
+                    </div>
+                    <p>Advancing physics education through collaboration and innovation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="equation.html">Calculator</a></li>
+                        <li><a href="desmos.html">Graphing</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Phystalk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global functions
+        window.toggleDropdown = toggleDropdown;
+        window.nextSlide = nextSlide;
+        window.previousSlide = previousSlide;
+        window.goToSlide = goToSlide;
+
+        // Dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('researchDropdown');
+            const arrow = document.querySelector('.dropdown-arrow i');
+            
+            dropdown.classList.toggle('active');
+            arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('researchDropdown');
+            const navDropdown = document.querySelector('.nav-dropdown');
+            
+            if (!navDropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+                document.querySelector('.dropdown-arrow i').style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Team Carousel Functionality
+        let currentSlide = 0;
+        let totalSlides = 0;
+
+        function initializeCarousel() {
+            const carousel = document.getElementById('teamCarousel');
+            const members = carousel.querySelectorAll('.team-member');
+            const dotsContainer = document.getElementById('carouselDots');
+            
+            totalSlides = members.length;
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const carousel = document.getElementById('teamCarousel');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            // Move carousel
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel (optional)
+        function startAutoCarousel() {
+            setInterval(() => {
+                nextSlide();
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize carousel
+            initializeCarousel();
+            
+            // Start auto-advance (uncomment if you want auto-sliding)
+            // startAutoCarousel();
+            
+            // Mobile navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }));
+            }
+        });
+    </script>
+
+    <style>
+        /* About Page Specific Styles */
+        
+        /* About Us Section */
+        .about-us-section {
+            background: var(--secondary-bg);
+            border: 2px solid var(--primary-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-us-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transition: left 0.8s;
+        }
+
+        .about-us-section:hover::before {
+            left: 100%;
+        }
+
+        .about-us-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .team-carousel {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            width: 100%;
+        }
+
+        .team-member {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .member-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .member-card:hover::before {
+            left: 100%;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 40px rgba(96, 165, 250, 0.2);
+        }
+
+        .member-image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        .member-image-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(96, 165, 250, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        .member-image-overlay i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .member-image-container:hover .member-image-overlay {
+            opacity: 1;
+        }
+
+        .member-info {
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-position {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .member-details {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .member-hobbies,
+        .member-passion {
+            background: var(--accent-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .member-hobbies h4,
+        .member-passion h4 {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .member-hobbies p,
+        .member-passion p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Carousel Navigation */
+        .carousel-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .carousel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.3);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-blue);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background: var(--light-blue);
+        }
+
+        /* Goal Section */
+        .goal-section {
+            background: var(--secondary-bg);
+            border: 2px solid #34d399;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #34d399, #10b981);
+            transition: left 0.8s;
+        }
+
+        .goal-section:hover::before {
+            left: 100%;
+        }
+
+        .goal-section .section-title i {
+            color: #34d399;
+        }
+
+        .goal-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .goal-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .goal-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .member-card {
+                padding: 1.5rem;
+            }
+
+            .member-image-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .member-details {
+                gap: 1rem;
+            }
+
+            .carousel-navigation {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .floating-planet, .floating-nebula {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .member-card {
+                padding: 1rem;
+            }
+
+            .member-image-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            .member-name {
+                font-size: 1.3rem;
+            }
+
+            .member-position {
+                font-size: 1rem;
+            }
+
+            .about-text,
+            .goal-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>
