@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Phystalk - Phystalk</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Add space background elements to all pages -->
+    <div class="page-space-background">
+        <div class="floating-planet planet-1"></div>
+        <div class="floating-planet planet-2"></div>
+        <div class="floating-nebula nebula-1"></div>
+        <div class="floating-nebula nebula-2"></div>
+        <div class="cosmic-dust"></div>
+        <div class="distant-stars"></div>
+    </div>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                <span class="logo-text">Phystalk</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="equation.html" class="nav-link">Calculator</a></li>
+                <li><a href="desmos.html" class="nav-link">Graphing</a></li>
+                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+                <li class="nav-dropdown">
+                    <a href="research.html" class="nav-link">Research</a>
+                    <button class="dropdown-arrow" onclick="toggleDropdown()">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="researchDropdown">
+                        <a href="research.html" class="dropdown-item">
+                            <i class="fas fa-microscope"></i>
+                            Current Topics
+                        </a>
+                        <a href="topic-papers.html" class="dropdown-item">
+                            <i class="fas fa-file-alt"></i>
+                            Topic-wise Papers
+                        </a>
+                    </div>
+                </li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="discord.html" class="nav-link">Community</a></li>
+                <li><a href="join.html" class="nav-link active">Join</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-container">
+            <div class="page-header">
+                <h1 class="page-title">Join Phystalk</h1>
+                <p class="page-subtitle">Become part of our physics community and start your journey</p>
+            </div>
+
+            <!-- Welcome Section -->
+            <div class="content-section welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h2>Ready to Join?</h2>
+                    <p>Fill out the form below to become an official member of the Phystalk community. Get access to exclusive research content, collaborative projects, and connect with fellow physics enthusiasts!</p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Access to Research Hub</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Discord Community Access</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Weekly Study Sessions</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Collaborative Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Form Section -->
+            <div class="content-section form-section">
+                <div class="form-header">
+                    <div class="form-header-content">
+                        <div class="form-info">
+                            <h2 class="form-title">
+                                <i class="fab fa-google"></i>
+                                Membership Application
+                            </h2>
+                            <p class="form-description">Please fill out all required fields. Your information helps us create a better community experience.</p>
+                        </div>
+                        <div class="form-controls">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjEnwltGJOLnHgiNvHWCuHuKUnEqyNIlF7uiBx8nynleuJbw/viewform?usp=dialog" target="_blank" class="form-btn primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                Open in New Tab
+                            </a>
+                            <button class="form-btn secondary" onclick="refreshForm()">
+                                <i class="fas fa-sync-alt"></i>
+                                Refresh Form
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-embed-wrapper">
+                    <div class="form-embed-container">
+                        <iframe 
+                            id="joinForm"
+                            src="https://docs.google.com/forms/d/e/1FAIpQLSdjEnwltGJOLnHgiNvHWCuHuKUnEqyNIlF7uiBx8nynleuJbw/viewform?embedded=true"
+                            class="form-iframe"
+                            frameborder="0" 
+                            marginheight="0" 
+                            marginwidth="0"
+                            title="Phystalk Membership Form">
+                            Loading…
+                        </iframe>
+                        <div class="form-overlay" id="formOverlay">
+                            <div class="form-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading membership form...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Tips -->
+                <div class="form-tips">
+                    <h3><i class="fas fa-lightbulb"></i> Tips for Application</h3>
+                    <ul>
+                        <li><strong>Be Honest:</strong> Share your genuine interests and experience level</li>
+                        <li><strong>Check Email:</strong> Make sure to provide a valid email address</li>
+                        <li><strong>Take Your Time:</strong> Fill out the form thoughtfully</li>
+                        <li><strong>Join Discord:</strong> After submitting, don't forget to join our Discord server</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Next Steps Section -->
+            <div class="content-section next-steps-section">
+                <h2 class="section-title">
+                    <i class="fas fa-tasks"></i>
+                    What Happens Next?
+                </h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Submit Your Application</h3>
+                            <p>Complete the form above with your information and interests in physics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Join Our Discord</h3>
+                            <p>Head over to our <a href="discord.html">Discord community</a> and introduce yourself!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Get Confirmation</h3>
+                            <p>You'll receive a welcome email with next steps and access information.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Start Exploring</h3>
+                            <p>Access our research hub, join study sessions, and start collaborating!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="content-section quick-links-section">
+                <h2 class="section-title">
+                    <i class="fas fa-link"></i>
+                    Explore More
+                </h2>
+                <div class="quick-links-grid">
+                    <a href="discord.html" class="quick-link-card">
+                        <i class="fab fa-discord"></i>
+                        <h4>Join Discord</h4>
+                        <p>Connect with the community</p>
+                    </a>
+                    <a href="research.html" class="quick-link-card">
+                        <i class="fas fa-microscope"></i>
+                        <h4>Research Hub</h4>
+                        <p>Explore physics research</p>
+                    </a>
+                    <a href="calendar.html" class="quick-link-card">
+                        <i class="fas fa-calendar"></i>
+                        <h4>Event Calendar</h4>
+                        <p>See upcoming events</p>
+                    </a>
+                    <a href="about.html" class="quick-link-card">
+                        <i class="fas fa-users"></i>
+                        <h4>About Us</h4>
+                        <p>Learn about our team</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo-psi.png" alt="Phystalk Logo" class="logo-img">
+                        <span class="logo-text">Phystalk</span>
+                    </div>
+                    <p>Advancing physics education through collaboration and innovation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="equation.html">Calculator</a></li>
+                        <li><a href="desmos.html">Graphing</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="discord.html" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Phystalk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global functions
+        window.toggleDropdown = toggleDropdown;
+        window.refreshForm = refreshForm;
+
+        // Dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('researchDropdown');
+            const arrow = document.querySelector('.dropdown-arrow i');
+            
+            dropdown.classList.toggle('active');
+            arrow.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('researchDropdown');
+            const navDropdown = document.querySelector('.nav-dropdown');
+            
+            if (!navDropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+                document.querySelector('.dropdown-arrow i').style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Refresh form
+        function refreshForm() {
+            const iframe = document.getElementById('joinForm');
+            const refreshBtn = document.querySelector('[onclick="refreshForm()"]');
+            const overlay = document.getElementById('formOverlay');
+            
+            if (iframe && refreshBtn && overlay) {
+                overlay.style.display = 'flex';
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                refreshBtn.disabled = true;
+                
+                iframe.src = iframe.src;
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Form';
+                    refreshBtn.disabled = false;
+                }, 2000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('joinForm');
+            const overlay = document.getElementById('formOverlay');
+            
+            // Hide loading overlay when iframe loads
+            iframe.addEventListener('load', function() {
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 1000);
+            });
+            
+            // Mobile navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }));
+            }
+        });
+    </script>
+
+    <style>
+        /* Space background elements for all pages */
+        .page-space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-planet {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.8), rgba(255, 69, 0, 0.6), rgba(139, 69, 19, 0.4));
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.3);
+            animation: planetFloat 12s ease-in-out infinite;
+        }
+
+        .planet-1 {
+            width: 40px;
+            height: 40px;
+            top: 15%;
+            right: 8%;
+            animation-delay: 0s;
+        }
+
+        .planet-2 {
+            width: 25px;
+            height: 25px;
+            top: 70%;
+            left: 5%;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.6), rgba(55, 48, 163, 0.4));
+            animation-delay: -6s;
+        }
+
+        .floating-nebula {
+            position: absolute;
+            border-radius: 60% 40% 70% 30%;
+            filter: blur(1px);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
+        }
+
+        .nebula-1 {
+            width: 120px;
+            height: 80px;
+            top: 30%;
+            right: 15%;
+            background: radial-gradient(ellipse 60% 40% at 30% 70%, 
+                        rgba(139, 92, 246, 0.3) 0%, 
+                        rgba(99, 102, 241, 0.2) 50%, 
+                        transparent 75%);
+            animation-delay: 0s;
+        }
+
+        .nebula-2 {
+            width: 80px;
+            height: 50px;
+            bottom: 25%;
+            left: 10%;
+            background: radial-gradient(ellipse 50% 60% at 70% 30%, 
+                        rgba(16, 185, 129, 0.3) 0%, 
+                        rgba(5, 150, 105, 0.2) 50%, 
+                        transparent 75%);
+            animation-delay: -7s;
+        }
+
+        .cosmic-dust {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.08), transparent),
+                radial-gradient(0.5px 0.5px at 90px 40px, rgba(255, 255, 255, 0.06), transparent),
+                radial-gradient(0.5px 0.5px at 130px 80px, rgba(255, 255, 255, 0.04), transparent);
+            background-repeat: repeat;
+            background-size: 150px 120px;
+            animation: cosmicDrift 100s linear infinite;
+        }
+
+        .distant-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(0.5px 0.5px at 15% 25%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(0.5px 0.5px at 85% 15%, rgba(173, 216, 255, 0.6), transparent),
+                radial-gradient(0.5px 0.5px at 70% 80%, rgba(255, 223, 186, 0.7), transparent),
+                radial-gradient(0.5px 0.5px at 25% 60%, rgba(255, 255, 255, 0.5), transparent);
+            animation: twinkle 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes planetFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.05); 
+            }
+        }
+
+        @keyframes cosmicDrift {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-120px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.2; }
+        }
+
+        /* Navigation Dropdown Styles */
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-arrow {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: -0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .dropdown-arrow:hover {
+            color: var(--primary-blue);
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .dropdown-arrow i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            min-width: 200px;
+            z-index: 9999;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item.active {
+            background: var(--accent-bg);
+            color: var(--primary-blue);
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(59, 130, 246, 0.05));
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+        }
+
+        .welcome-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-content h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .welcome-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .benefit-item:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .benefit-item i {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .benefit-item span {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--secondary-bg);
+            border: 2px solid var(--primary-blue);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--accent-bg), var(--secondary-bg));
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        .form-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .form-info {
+            flex: 1;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-title i {
+            color: #4285f4;
+            font-size: 1.3rem;
+        }
+
+        .form-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .form-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .form-btn.primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .form-btn.secondary {
+            background: var(--accent-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(96, 165, 250, 0.3);
+        }
+
+        .form-btn.secondary:hover:not(:disabled) {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .form-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-embed-wrapper {
+            padding: 0;
+        }
+
+        .form-embed-container {
+            position: relative;
+            height: 1200px;
+            background: var(--primary-bg);
+        }
+
+        .form-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .form-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .form-loading {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .form-loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .form-tips {
+            padding: 1.5rem;
+            background: var(--accent-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .form-tips h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-tips h3 i {
+            color: #f59e0b;
+        }
+
+        .form-tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .form-tips li {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .form-tips li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .form-tips strong {
+            color: var(--text-primary);
+        }
+
+        /* Next Steps Section */
+        .next-steps-section {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .step-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.2);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .step-content a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .step-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Quick Links Section */
+        .quick-links-section {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quick-link-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .quick-link-card:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.2);
+        }
+
+        .quick-link-card i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .quick-link-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .quick-link-card p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                left: -50px;
+                right: 0;
+            }
+
+            .nav-dropdown {
+                position: static;
+            }
+
+            .nav-menu.active .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: var(--accent-bg);
+                border: none;
+                box-shadow: none;
+                margin: 0.5rem 0;
+                z-index: 1;
+            }
+
+            .form-header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .form-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .form-embed-container {
+                height: 1000px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .floating-planet, .floating-nebula {
+                display: none;
+            }
+
+            .welcome-icon {
+                font-size: 3rem;
+            }
+
+            .welcome-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-embed-container {
+                height: 900px;
+            }
+
+            .form-controls {
+                flex-direction: column;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                align-self: center;
+            }
+
+            .welcome-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>
