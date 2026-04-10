@@ -112,6 +112,21 @@
                         <input type="range" id="scaleSlider" min="0.5" max="3" value="1.5" step="0.1">
                         <span id="scaleValue">1.5x</span>
                     </div>
+                    <div class="input-group">
+                        <label>Zoom Level</label>
+                        <div class="zoom-controls">
+                            <button class="zoom-btn" onclick="zoomOut()">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <span id="zoomValue">100%</span>
+                            <button class="zoom-btn" onclick="zoomIn()">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn-reset" onclick="resetView()">
+                        <i class="fas fa-undo"></i> Reset View
+                    </button>
                 </div>
 
                 <!-- Actions -->
@@ -139,7 +154,7 @@
                 <canvas id="simulatorCanvas"></canvas>
                 <div class="canvas-info">
                     <div class="info-text">
-                        <i class="fas fa-mouse-pointer"></i> Click to add charges • Drag to move • Right-click to delete
+                        <i class="fas fa-mouse-pointer"></i> <strong>Left-click & drag</strong> to move charges • <strong>Right-click</strong> to place new charge • <strong>Delete/Backspace</strong> to remove selected • <strong>Mouse wheel</strong> to zoom
                     </div>
                     <div class="probe-info" id="probeInfo" style="display: none;">
                         <strong>Probe:</strong> <span id="probeData"></span>
@@ -232,6 +247,10 @@
         const canvas = document.getElementById('simulatorCanvas');
         const ctx = canvas.getContext('2d');
         
+        let scale = 1.0;
+        let offsetX = 0;
+        let offsetY = 0;
+        
         function resizeCanvas() {
             const container = canvas.parentElement;
             const header = container.querySelector('.canvas-header');
@@ -239,10 +258,18 @@
             
             const headerHeight = header ? header.offsetHeight : 0;
             const infoHeight = info ? info.offsetHeight : 0;
-            const padding = 32; // Account for container padding
+            const padding = 32;
             
-            canvas.width = container.clientWidth - padding;
-            canvas.height = container.clientHeight - headerHeight - infoHeight - padding - 16;
+            const width = container.clientWidth - padding;
+            const height = container.clientHeight - headerHeight - infoHeight - padding - 16;
+            
+            // Store the aspect ratio
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Set canvas display size to match
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
         }
         
         resizeCanvas();
@@ -258,7 +285,9 @@
             }
 
             draw(ctx, selected = false) {
-                // Draw charge
+                ctx.save();
+                
+                // Draw charge circle
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = this.charge > 0 ? '#ef4444' : '#3b82f6';
@@ -280,6 +309,8 @@
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(this.charge > 0 ? '+' : '−', this.x, this.y);
+                
+                ctx.restore();
             }
 
             contains(x, y) {
@@ -376,10 +407,12 @@
             const numLines = 16;
             
             for (const charge of state.charges) {
+                const startRadius = charge.radius + 5;
+                
                 for (let i = 0; i < numLines; i++) {
                     const angle = (i / numLines) * 2 * Math.PI;
-                    const startX = charge.x + Math.cos(angle) * (charge.radius + 5);
-                    const startY = charge.y + Math.sin(angle) * (charge.radius + 5);
+                    const startX = charge.x + Math.cos(angle) * startRadius;
+                    const startY = charge.y + Math.sin(angle) * startRadius;
                     
                     traceFieldLine(startX, startY, charge.charge > 0);
                 }
@@ -390,7 +423,7 @@
             const points = [];
             let x = startX, y = startY;
             const maxSteps = 500;
-            const stepSize = 3;
+            const stepSize = 2;
             
             for (let step = 0; step < maxSteps; step++) {
                 points.push({ x, y });
@@ -406,62 +439,56 @@
                 x += dx;
                 y += dy;
                 
+                // Check bounds
                 if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) break;
                 
                 // Check if hit a charge
+                let hitCharge = false;
                 for (const charge of state.charges) {
                     if (charge.contains(x, y)) {
-                        step = maxSteps;
+                        hitCharge = true;
                         break;
                     }
                 }
+                if (hitCharge) break;
             }
             
             // Draw the line
-            if (points.length > 2) {
+            if (points.length > 5) {
                 ctx.beginPath();
                 ctx.moveTo(points[0].x, points[0].y);
                 for (let i = 1; i < points.length; i++) {
                     ctx.lineTo(points[i].x, points[i].y);
                 }
-                ctx.strokeStyle = 'rgba(147, 197, 253, 0.6)';
-                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = 'rgba(147, 197, 253, 0.7)';
+                ctx.lineWidth = 2;
                 ctx.stroke();
             }
         }
 
         function drawDivergenceHeatmap() {
-            const imageData = ctx.createImageData(canvas.width, canvas.height);
-            const data = imageData.data;
+            const step = 4; // Sample every 4 pixels for performance
             
-            for (let y = 0; y < canvas.height; y++) {
-                for (let x = 0; x < canvas.width; x++) {
-                    const field = calculateField(x, y);
+            for (let y = 0; y < canvas.height; y += step) {
+                for (let x = 0; x < canvas.width; x += step) {
                     const div = calculateDivergence(x, y);
                     
-                    const idx = (y * canvas.width + x) * 4;
+                    // Scale divergence for visibility
+                    const scaledDiv = div * 10000;
                     
-                    // Map divergence to color
-                    if (div > 0) {
-                        // Red for positive divergence (source)
-                        data[idx] = Math.min(255, div * 5000);
-                        data[idx + 1] = 0;
-                        data[idx + 2] = 0;
-                    } else {
-                        // Blue for negative divergence (sink)
-                        data[idx] = 0;
-                        data[idx + 1] = 0;
-                        data[idx + 2] = Math.min(255, -div * 5000);
+                    if (Math.abs(scaledDiv) > 0.1) {
+                        ctx.fillStyle = scaledDiv > 0 
+                            ? `rgba(239, 68, 68, ${Math.min(Math.abs(scaledDiv) / 50, 0.8)})`
+                            : `rgba(59, 130, 246, ${Math.min(Math.abs(scaledDiv) / 50, 0.8)})`;
+                        
+                        ctx.fillRect(x, y, step, step);
                     }
-                    data[idx + 3] = 100; // Alpha
                 }
             }
-            
-            ctx.putImageData(imageData, 0, 0);
         }
 
         function calculateDivergence(x, y) {
-            const h = 2;
+            const h = 3;
             const f_right = calculateField(x + h, y);
             const f_left = calculateField(x - h, y);
             const f_up = calculateField(x, y - h);
@@ -477,26 +504,39 @@
         function render() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
+            // Save context and apply transformations
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(scale, scale);
+            
             // Background
             ctx.fillStyle = '#0f1629';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(-offsetX/scale, -offsetY/scale, canvas.width/scale, canvas.height/scale);
             
             // Grid
             ctx.strokeStyle = 'rgba(96, 165, 250, 0.1)';
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 1/scale;
             const gridSize = 50;
-            for (let x = 0; x <= canvas.width; x += gridSize) {
+            const startX = Math.floor(-offsetX/scale/gridSize) * gridSize;
+            const startY = Math.floor(-offsetY/scale/gridSize) * gridSize;
+            const endX = Math.ceil((canvas.width - offsetX)/scale/gridSize) * gridSize;
+            const endY = Math.ceil((canvas.height - offsetY)/scale/gridSize) * gridSize;
+            
+            for (let x = startX; x <= endX; x += gridSize) {
                 ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
+                ctx.moveTo(x, startY);
+                ctx.lineTo(x, endY);
                 ctx.stroke();
             }
-            for (let y = 0; y <= canvas.height; y += gridSize) {
+            for (let y = startY; y <= endY; y += gridSize) {
                 ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
+                ctx.moveTo(startX, y);
+                ctx.lineTo(endX, y);
                 ctx.stroke();
             }
+            
+            // Restore scale for field rendering (keep consistent size)
+            ctx.restore();
             
             // Render based on settings
             if (state.settings.showDivergence && state.charges.length > 0) {
@@ -511,16 +551,27 @@
                 drawVectorField();
             }
             
-            // Draw charges
+            // Draw charges (with scale applied)
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(scale, scale);
+            
             for (const charge of state.charges) {
                 charge.draw(ctx, charge === state.selectedCharge);
             }
+            
+            ctx.restore();
             
             requestAnimationFrame(render);
         }
 
         // Event handlers
-        canvas.addEventListener('click', (e) => {
+        let isDragging = false;
+        let draggedCharge = null;
+        
+        canvas.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return; // Only left mouse button
+            
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -529,13 +580,38 @@
             const clicked = state.charges.find(c => c.contains(x, y));
             
             if (clicked) {
+                isDragging = true;
+                draggedCharge = clicked;
                 state.selectedCharge = clicked;
                 updateSelectedInfo();
-            } else if (state.charges.length < 50) {
-                const charge = parseFloat(document.getElementById('chargeSlider').value);
-                state.charges.push(new PointCharge(x, y, charge));
-                updateChargeCount();
+                e.preventDefault();
             }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDragging || !draggedCharge) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Keep charge within bounds
+            draggedCharge.x = Math.max(draggedCharge.radius, Math.min(canvas.width - draggedCharge.radius, x));
+            draggedCharge.y = Math.max(draggedCharge.radius, Math.min(canvas.height - draggedCharge.radius, y));
+            
+            updateSelectedInfo();
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (e.button === 0) {
+                isDragging = false;
+                draggedCharge = null;
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            isDragging = false;
+            draggedCharge = null;
         });
 
         canvas.addEventListener('contextmenu', (e) => {
@@ -544,45 +620,43 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            const clicked = state.charges.find(c => c.contains(x, y));
-            if (clicked) {
-                state.charges = state.charges.filter(c => c !== clicked);
-                if (state.selectedCharge === clicked) {
-                    state.selectedCharge = null;
-                    updateSelectedInfo();
-                }
+            // Right-click to add charge
+            if (state.charges.length < 50) {
+                const charge = parseFloat(document.getElementById('chargeSlider').value);
+                state.charges.push(new PointCharge(x, y, charge));
                 updateChargeCount();
             }
         });
-
-        canvas.addEventListener('mousedown', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const clicked = state.charges.find(c => c.contains(x, y));
-            if (clicked) {
-                state.dragging = true;
-                state.draggedCharge = clicked;
-            }
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            if (state.dragging && state.draggedCharge) {
-                state.draggedCharge.x = x;
-                state.draggedCharge.y = y;
+        
+        // Delete charge on Delete/Backspace key
+        document.addEventListener('keydown', (e) => {
+            if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedCharge) {
+                state.charges = state.charges.filter(c => c !== state.selectedCharge);
+                state.selectedCharge = null;
                 updateSelectedInfo();
+                updateChargeCount();
+                e.preventDefault();
             }
         });
-
-        canvas.addEventListener('mouseup', () => {
-            state.dragging = false;
-            state.draggedCharge = null;
-        });
+        
+        // Zoom with mouse wheel
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const zoomDelta = e.deltaY > 0 ? 0.9 : 1.1;
+            const newScale = Math.max(0.5, Math.min(3, scale * zoomDelta));
+            
+            // Adjust offset to zoom towards mouse position
+            const scaleChange = newScale / scale;
+            offsetX = mouseX - (mouseX - offsetX) * scaleChange;
+            offsetY = mouseY - (mouseY - offsetY) * scaleChange;
+            
+            scale = newScale;
+        }, { passive: false });
 
         // UI Controls
         document.getElementById('showVectors').addEventListener('change', (e) => {
@@ -694,6 +768,28 @@
                 hamburger.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
+        }
+
+        // Zoom functions
+        window.zoomIn = function() {
+            scale = Math.min(3, scale * 1.2);
+            updateZoomDisplay();
+        };
+
+        window.zoomOut = function() {
+            scale = Math.max(0.5, scale / 1.2);
+            updateZoomDisplay();
+        };
+
+        window.resetView = function() {
+            scale = 1.0;
+            offsetX = 0;
+            offsetY = 0;
+            updateZoomDisplay();
+        };
+
+        function updateZoomDisplay() {
+            document.getElementById('zoomValue').textContent = Math.round(scale * 100) + '%';
         }
 
         // Start render loop
@@ -1016,6 +1112,63 @@
 
         .btn-danger-small:hover {
             background: #dc2626;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: space-between;
+        }
+
+        .zoom-btn {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        #zoomValue {
+            color: var(--primary-blue);
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-reset:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 1200px) {
