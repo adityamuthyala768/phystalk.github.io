@@ -154,7 +154,7 @@
                 <canvas id="simulatorCanvas"></canvas>
                 <div class="canvas-info">
                     <div class="info-text">
-                        <i class="fas fa-mouse-pointer"></i> <strong>Left-click & drag</strong> to move charges • <strong>Right-click</strong> to place new charge • <strong>Delete/Backspace</strong> to remove selected • <strong>Use zoom buttons</strong> to zoom in/out
+                        <i class="fas fa-mouse-pointer"></i> <strong>Right-click</strong> to place charge • <strong>Left-click & drag</strong> to move charges • <strong>Delete/Backspace</strong> to remove selected • <strong>Mouse wheel</strong> to zoom
                     </div>
                     <div class="probe-info" id="probeInfo" style="display: none;">
                         <strong>Probe:</strong> <span id="probeData"></span>
@@ -248,8 +248,8 @@
         const ctx = canvas.getContext('2d');
         
         let scale = 1.0;
-        let offsetX = 0;
-        let offsetY = 0;
+        let panX = 0;
+        let panY = 0;
         
         function resizeCanvas() {
             const container = canvas.parentElement;
@@ -263,13 +263,37 @@
             const width = container.clientWidth - padding;
             const height = container.clientHeight - headerHeight - infoHeight - padding - 16;
             
-            // Set canvas resolution
-            canvas.width = width;
-            canvas.height = height;
+            // Set internal canvas resolution
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            
+            // Set display size
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            
+            // Scale all drawing operations
+            ctx.scale(dpr, dpr);
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+        
+        // Transform screen coordinates to world coordinates
+        function screenToWorld(screenX, screenY) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (screenX - rect.left - panX) / scale;
+            const y = (screenY - rect.top - panY) / scale;
+            return { x, y };
+        }
+        
+        // Transform world coordinates to screen coordinates
+        function worldToScreen(worldX, worldY) {
+            return {
+                x: worldX * scale + panX,
+                y: worldY * scale + panY
+            };
+        }
 
         // Point Charge class
         class PointCharge {
@@ -345,48 +369,49 @@
             return { Ex, Ey, magnitude: Math.sqrt(Ex * Ex + Ey * Ey) };
         }
 
-        // Rendering functions
+        // Rendering functions - updated for world space
         function drawVectorField() {
-            const density = state.settings.vectorDensity;
-            const spacing = canvas.width / density;
-            const scale = state.settings.arrowScale * 30;
+            const rect = canvas.getBoundingClientRect();
+            const topLeft = screenToWorld(0, 0);
+            const bottomRight = screenToWorld(rect.width, rect.height);
             
-            for (let i = 0; i < density; i++) {
-                for (let j = 0; j < density; j++) {
-                    const x = spacing * (i + 0.5);
-                    const y = spacing * (j + 0.5);
-                    
+            const density = state.settings.vectorDensity;
+            const worldWidth = bottomRight.x - topLeft.x;
+            const worldHeight = bottomRight.y - topLeft.y;
+            const spacing = Math.max(worldWidth, worldHeight) / density;
+            const arrowScale = state.settings.arrowScale * 30;
+            
+            const startX = Math.floor(topLeft.x / spacing) * spacing;
+            const startY = Math.floor(topLeft.y / spacing) * spacing;
+            
+            for (let x = startX; x < bottomRight.x; x += spacing) {
+                for (let y = startY; y < bottomRight.y; y += spacing) {
                     const field = calculateField(x, y);
                     const mag = field.magnitude;
                     
                     if (mag < 0.001) continue;
                     
-                    // Normalize and scale
-                    const len = Math.min(mag * scale, spacing * 0.8);
+                    const len = Math.min(mag * arrowScale, spacing * 0.8);
                     const angle = Math.atan2(field.Ey, field.Ex);
                     
-                    // Color based on magnitude
                     const colorIntensity = Math.min(mag * 100, 255);
                     ctx.strokeStyle = `rgba(96, 165, 250, ${Math.min(colorIntensity / 255, 1)})`;
                     ctx.fillStyle = ctx.strokeStyle;
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = 2 / scale;
                     
-                    // Draw arrow
                     ctx.save();
                     ctx.translate(x, y);
                     ctx.rotate(angle);
                     
-                    // Arrow line
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
                     ctx.lineTo(len, 0);
                     ctx.stroke();
                     
-                    // Arrow head
                     ctx.beginPath();
                     ctx.moveTo(len, 0);
-                    ctx.lineTo(len - 8, -4);
-                    ctx.lineTo(len - 8, 4);
+                    ctx.lineTo(len - 8 / scale, -4 / scale);
+                    ctx.lineTo(len - 8 / scale, 4 / scale);
                     ctx.closePath();
                     ctx.fill();
                     
@@ -399,8 +424,8 @@
             if (state.charges.length === 0) return;
             
             const numLines = 16;
-            
-            ctx.save();
+            ctx.strokeStyle = 'rgba(147, 197, 253, 0.8)';
+            ctx.lineWidth = 2 / scale;
             
             for (const charge of state.charges) {
                 const startRadius = charge.radius + 5;
@@ -413,8 +438,6 @@
                     traceFieldLine(startX, startY, charge.charge > 0);
                 }
             }
-            
-            ctx.restore();
         }
 
         function traceFieldLine(startX, startY, forward) {
@@ -424,23 +447,24 @@
             const maxSteps = 300;
             const stepSize = 2;
             
+            const rect = canvas.getBoundingClientRect();
+            const topLeft = screenToWorld(0, 0);
+            const bottomRight = screenToWorld(rect.width, rect.height);
+            
             for (let step = 0; step < maxSteps; step++) {
                 const field = calculateField(x, y);
                 const mag = field.magnitude;
                 
                 if (mag < 0.00001) break;
                 
-                // Move in field direction
                 const dx = (forward ? field.Ex : -field.Ex) / mag * stepSize;
                 const dy = (forward ? field.Ey : -field.Ey) / mag * stepSize;
                 
                 x += dx;
                 y += dy;
                 
-                // Check bounds
-                if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) break;
+                if (x < topLeft.x || x > bottomRight.x || y < topLeft.y || y > bottomRight.y) break;
                 
-                // Check if hit a charge
                 let hitCharge = false;
                 for (const charge of state.charges) {
                     const dist = Math.sqrt((x - charge.x) ** 2 + (y - charge.y) ** 2);
@@ -454,15 +478,12 @@
                 points.push({ x, y });
             }
             
-            // Draw the line
             if (points.length > 3) {
                 ctx.beginPath();
                 ctx.moveTo(points[0].x, points[0].y);
                 for (let i = 1; i < points.length; i++) {
                     ctx.lineTo(points[i].x, points[i].y);
                 }
-                ctx.strokeStyle = 'rgba(147, 197, 253, 0.8)';
-                ctx.lineWidth = 2;
                 ctx.stroke();
             }
         }
@@ -470,24 +491,22 @@
         function drawDivergenceHeatmap() {
             if (state.charges.length === 0) return;
             
+            const rect = canvas.getBoundingClientRect();
+            const topLeft = screenToWorld(0, 0);
+            const bottomRight = screenToWorld(rect.width, rect.height);
+            
             const step = 5;
             
-            ctx.save();
-            
-            for (let y = 0; y < canvas.height; y += step) {
-                for (let x = 0; x < canvas.width; x += step) {
+            for (let y = topLeft.y; y < bottomRight.y; y += step) {
+                for (let x = topLeft.x; x < bottomRight.x; x += step) {
                     const div = calculateDivergence(x, y);
-                    
-                    // Amplify divergence for visibility
                     const scaledDiv = div * 50000;
                     
                     if (Math.abs(scaledDiv) > 0.5) {
                         if (scaledDiv > 0) {
-                            // Red for sources (positive charges)
                             const alpha = Math.min(Math.abs(scaledDiv) / 100, 0.7);
                             ctx.fillStyle = `rgba(239, 68, 68, ${alpha})`;
                         } else {
-                            // Blue for sinks (negative charges)
                             const alpha = Math.min(Math.abs(scaledDiv) / 100, 0.7);
                             ctx.fillStyle = `rgba(59, 130, 246, ${alpha})`;
                         }
@@ -495,15 +514,17 @@
                     }
                 }
             }
-            
-            ctx.restore();
         }
 
         function calculateDivergence(x, y) {
             const h = 5;
             
-            // Make sure we're not too close to edges
-            if (x < h || x > canvas.width - h || y < h || y > canvas.height - h) {
+            const rect = canvas.getBoundingClientRect();
+            const topLeft = screenToWorld(0, 0);
+            const bottomRight = screenToWorld(rect.width, rect.height);
+            
+            if (x < topLeft.x + h || x > bottomRight.x - h || 
+                y < topLeft.y + h || y > bottomRight.y - h) {
                 return 0;
             }
             
@@ -518,66 +539,99 @@
             return dEx_dx + dEy_dy;
         }
 
-        // Main render loop
+        // Main render loop - FIXED FOR PROPER SCALING
         function render() {
+            // Get display dimensions
+            const rect = canvas.getBoundingClientRect();
+            const displayWidth = rect.width;
+            const displayHeight = rect.height;
+            
+            // Clear with proper DPR scaling
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Apply DPR scaling
+            const dpr = window.devicePixelRatio || 1;
+            ctx.scale(dpr, dpr);
+            
+            // Apply pan and zoom
+            ctx.translate(panX, panY);
+            ctx.scale(scale, scale);
+            
+            // Calculate visible bounds in world space
+            const topLeft = screenToWorld(0, 0);
+            const bottomRight = screenToWorld(displayWidth, displayHeight);
+            const worldWidth = bottomRight.x - topLeft.x;
+            const worldHeight = bottomRight.y - topLeft.y;
             
             // Background
             ctx.fillStyle = '#0f1629';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(topLeft.x, topLeft.y, worldWidth, worldHeight);
             
             // Grid
             ctx.strokeStyle = 'rgba(96, 165, 250, 0.1)';
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 1 / scale;
             const gridSize = 50;
             
-            for (let x = 0; x <= canvas.width; x += gridSize) {
+            const startX = Math.floor(topLeft.x / gridSize) * gridSize;
+            const endX = Math.ceil(bottomRight.x / gridSize) * gridSize;
+            const startY = Math.floor(topLeft.y / gridSize) * gridSize;
+            const endY = Math.ceil(bottomRight.y / gridSize) * gridSize;
+            
+            for (let x = startX; x <= endX; x += gridSize) {
                 ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
+                ctx.moveTo(x, startY);
+                ctx.lineTo(x, endY);
                 ctx.stroke();
             }
-            for (let y = 0; y <= canvas.height; y += gridSize) {
+            for (let y = startY; y <= endY; y += gridSize) {
                 ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
+                ctx.moveTo(startX, y);
+                ctx.lineTo(endX, y);
                 ctx.stroke();
             }
             
-            // Render based on settings
+            // Render visualization layers in world space
             if (state.settings.showDivergence && state.charges.length > 0) {
+                ctx.save();
                 drawDivergenceHeatmap();
+                ctx.restore();
             }
             
             if (state.settings.showFieldLines && state.charges.length > 0) {
+                ctx.save();
                 drawFieldLines();
+                ctx.restore();
             }
             
             if (state.settings.showVectors && state.charges.length > 0) {
+                ctx.save();
                 drawVectorField();
+                ctx.restore();
             }
             
-            // Draw charges
+            // Draw charges - these maintain consistent size
             for (const charge of state.charges) {
+                ctx.save();
                 charge.draw(ctx, charge === state.selectedCharge);
+                ctx.restore();
             }
             
             requestAnimationFrame(render);
         }
 
-        // Event handlers
+        // Event handlers - FIXED INTERACTIONS
         let isDragging = false;
         let draggedCharge = null;
         
+        // LEFT-CLICK: Select and drag charges
         canvas.addEventListener('mousedown', (e) => {
             if (e.button !== 0) return; // Only left mouse button
             
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const world = screenToWorld(e.clientX, e.clientY);
             
             // Check if clicked on existing charge
-            const clicked = state.charges.find(c => c.contains(x, y));
+            const clicked = state.charges.find(c => c.contains(world.x, world.y));
             
             if (clicked) {
                 isDragging = true;
@@ -591,13 +645,18 @@
         canvas.addEventListener('mousemove', (e) => {
             if (!isDragging || !draggedCharge) return;
             
+            const world = screenToWorld(e.clientX, e.clientY);
+            
+            // Get canvas bounds in world space
             const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const topLeft = screenToWorld(rect.left, rect.top);
+            const bottomRight = screenToWorld(rect.right, rect.bottom);
             
             // Keep charge within bounds
-            draggedCharge.x = Math.max(draggedCharge.radius, Math.min(canvas.width - draggedCharge.radius, x));
-            draggedCharge.y = Math.max(draggedCharge.radius, Math.min(canvas.height - draggedCharge.radius, y));
+            draggedCharge.x = Math.max(topLeft.x + draggedCharge.radius, 
+                                       Math.min(bottomRight.x - draggedCharge.radius, world.x));
+            draggedCharge.y = Math.max(topLeft.y + draggedCharge.radius, 
+                                       Math.min(bottomRight.y - draggedCharge.radius, world.y));
             
             updateSelectedInfo();
         });
@@ -614,17 +673,20 @@
             draggedCharge = null;
         });
 
+        // RIGHT-CLICK: Place new charge
         canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            e.preventDefault(); // Prevent browser context menu
             
-            // Right-click to add charge
+            const world = screenToWorld(e.clientX, e.clientY);
+            
+            // Add new charge at click position
             if (state.charges.length < 50) {
                 const charge = parseFloat(document.getElementById('chargeSlider').value);
-                state.charges.push(new PointCharge(x, y, charge));
+                const newCharge = new PointCharge(world.x, world.y, charge);
+                state.charges.push(newCharge);
+                state.selectedCharge = newCharge;
                 updateChargeCount();
+                updateSelectedInfo();
             }
         });
         
@@ -638,6 +700,30 @@
                 e.preventDefault();
             }
         });
+        
+        // ZOOM with mouse wheel - FIXED
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Get world position before zoom
+            const worldBefore = screenToWorld(e.clientX, e.clientY);
+            
+            // Update scale
+            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+            const newScale = Math.max(0.5, Math.min(5, scale * zoomFactor));
+            
+            // Calculate new pan to keep mouse position fixed
+            const scaleChange = newScale / scale;
+            panX = mouseX - (mouseX - panX) * scaleChange;
+            panY = mouseY - (mouseY - panY) * scaleChange;
+            
+            scale = newScale;
+            updateZoomDisplay();
+        }, { passive: false });
 
         // UI Controls
         document.getElementById('showVectors').addEventListener('change', (e) => {
@@ -684,60 +770,119 @@
         });
 
         document.getElementById('exportBtn').addEventListener('click', () => {
-            // Create a temporary canvas to capture the full simulation
+            // Create temporary canvas for export
             const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
+            const rect = canvas.getBoundingClientRect();
+            
+            // Set export dimensions
+            const exportWidth = 1920;
+            const exportHeight = 1080;
+            tempCanvas.width = exportWidth;
+            tempCanvas.height = exportHeight;
             const tempCtx = tempCanvas.getContext('2d');
             
-            // Render everything to the temporary canvas
+            // Calculate bounds that include all charges
+            if (state.charges.length === 0) {
+                alert('Add some charges first!');
+                return;
+            }
+            
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            state.charges.forEach(charge => {
+                minX = Math.min(minX, charge.x - charge.radius - 50);
+                maxX = Math.max(maxX, charge.x + charge.radius + 50);
+                minY = Math.min(minY, charge.y - charge.radius - 50);
+                maxY = Math.max(maxY, charge.y + charge.radius + 50);
+            });
+            
+            const worldWidth = maxX - minX;
+            const worldHeight = maxY - minY;
+            
+            // Calculate scale to fit all charges
+            const scaleX = exportWidth / worldWidth;
+            const scaleY = exportHeight / worldHeight;
+            const exportScale = Math.min(scaleX, scaleY) * 0.9; // 90% to add padding
+            
+            // Center the view
+            const offsetX = (exportWidth - worldWidth * exportScale) / 2 - minX * exportScale;
+            const offsetY = (exportHeight - worldHeight * exportScale) / 2 - minY * exportScale;
+            
+            // Apply transform
+            tempCtx.translate(offsetX, offsetY);
+            tempCtx.scale(exportScale, exportScale);
+            
             // Background
             tempCtx.fillStyle = '#0f1629';
-            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+            tempCtx.fillRect(minX, minY, worldWidth, worldHeight);
             
             // Grid
             tempCtx.strokeStyle = 'rgba(96, 165, 250, 0.1)';
-            tempCtx.lineWidth = 1;
+            tempCtx.lineWidth = 1 / exportScale;
             const gridSize = 50;
-            for (let x = 0; x <= tempCanvas.width; x += gridSize) {
+            for (let x = Math.floor(minX / gridSize) * gridSize; x <= maxX; x += gridSize) {
                 tempCtx.beginPath();
-                tempCtx.moveTo(x, 0);
-                tempCtx.lineTo(x, tempCanvas.height);
+                tempCtx.moveTo(x, minY);
+                tempCtx.lineTo(x, maxY);
                 tempCtx.stroke();
             }
-            for (let y = 0; y <= tempCanvas.height; y += gridSize) {
+            for (let y = Math.floor(minY / gridSize) * gridSize; y <= maxY; y += gridSize) {
                 tempCtx.beginPath();
-                tempCtx.moveTo(0, y);
-                tempCtx.lineTo(tempCanvas.width, y);
+                tempCtx.moveTo(minX, y);
+                tempCtx.lineTo(maxX, y);
                 tempCtx.stroke();
             }
             
-            // Save current context and use temp context for rendering
-            const originalCtx = ctx;
+            // Temporarily swap contexts
+            const originalCtx = window.ctx;
+            const originalScale = scale;
             window.ctx = tempCtx;
+            scale = exportScale;
             
-            // Render all visualization layers
+            // Render all layers
             if (state.settings.showDivergence && state.charges.length > 0) {
-                drawDivergenceHeatmap();
+                // Render divergence for visible area
+                const step = 5;
+                for (let y = minY; y < maxY; y += step) {
+                    for (let x = minX; x < maxX; x += step) {
+                        const div = calculateDivergence(x, y);
+                        const scaledDiv = div * 50000;
+                        
+                        if (Math.abs(scaledDiv) > 0.5) {
+                            if (scaledDiv > 0) {
+                                const alpha = Math.min(Math.abs(scaledDiv) / 100, 0.7);
+                                tempCtx.fillStyle = `rgba(239, 68, 68, ${alpha})`;
+                            } else {
+                                const alpha = Math.min(Math.abs(scaledDiv) / 100, 0.7);
+                                tempCtx.fillStyle = `rgba(59, 130, 246, ${alpha})`;
+                            }
+                            tempCtx.fillRect(x, y, step, step);
+                        }
+                    }
+                }
             }
             
-            if (state.settings.showFieldLines && state.charges.length > 0) {
+            if (state.settings.showFieldLines) {
+                tempCtx.strokeStyle = 'rgba(147, 197, 253, 0.8)';
+                tempCtx.lineWidth = 2 / exportScale;
                 drawFieldLines();
             }
             
-            if (state.settings.showVectors && state.charges.length > 0) {
+            if (state.settings.showVectors) {
                 drawVectorField();
             }
             
-            // Draw all charges
+            // Draw charges
             for (const charge of state.charges) {
                 charge.draw(tempCtx, false);
             }
             
             // Restore original context
             window.ctx = originalCtx;
+            scale = originalScale;
             
-            // Export the temporary canvas
+            // Download
             const link = document.createElement('a');
             link.download = 'phystalk-field-simulation.png';
             link.href = tempCanvas.toDataURL('image/png');
@@ -805,21 +950,45 @@
             });
         }
 
-        // Zoom functions
+        // Zoom functions - FIXED
         window.zoomIn = function() {
-            scale = Math.min(3, scale * 1.2);
+            const rect = canvas.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const worldBefore = screenToWorld(rect.left + centerX, rect.top + centerY);
+            
+            scale = Math.min(5, scale * 1.2);
+            
+            // Adjust pan to keep center fixed
+            const worldAfter = screenToWorld(rect.left + centerX, rect.top + centerY);
+            panX += (worldAfter.x - worldBefore.x) * scale;
+            panY += (worldAfter.y - worldBefore.y) * scale;
+            
             updateZoomDisplay();
         };
 
         window.zoomOut = function() {
+            const rect = canvas.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const worldBefore = screenToWorld(rect.left + centerX, rect.top + centerY);
+            
             scale = Math.max(0.5, scale / 1.2);
+            
+            // Adjust pan to keep center fixed
+            const worldAfter = screenToWorld(rect.left + centerX, rect.top + centerY);
+            panX += (worldAfter.x - worldBefore.x) * scale;
+            panY += (worldAfter.y - worldBefore.y) * scale;
+            
             updateZoomDisplay();
         };
 
         window.resetView = function() {
             scale = 1.0;
-            offsetX = 0;
-            offsetY = 0;
+            panX = 0;
+            panY = 0;
             updateZoomDisplay();
         };
 
