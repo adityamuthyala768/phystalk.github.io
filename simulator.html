@@ -620,13 +620,39 @@
             requestAnimationFrame(render);
         }
 
-        // Event handlers - FIXED INTERACTIONS
+        // Event handlers - SWAPPED LEFT/RIGHT CLICK
         let isDragging = false;
         let draggedCharge = null;
         
-        // LEFT-CLICK: Select and drag charges
-        canvas.addEventListener('mousedown', (e) => {
+        // LEFT-CLICK: Place new charge
+        canvas.addEventListener('click', (e) => {
             if (e.button !== 0) return; // Only left mouse button
+            
+            // Don't place if we just finished dragging
+            if (isDragging) return;
+            
+            const world = screenToWorld(e.clientX, e.clientY);
+            
+            // Check if clicked on existing charge - if so, just select it
+            const clicked = state.charges.find(c => c.contains(world.x, world.y));
+            
+            if (clicked) {
+                state.selectedCharge = clicked;
+                updateSelectedInfo();
+            } else if (state.charges.length < 50) {
+                // Place new charge
+                const charge = parseFloat(document.getElementById('chargeSlider').value);
+                const newCharge = new PointCharge(world.x, world.y, charge);
+                state.charges.push(newCharge);
+                state.selectedCharge = newCharge;
+                updateChargeCount();
+                updateSelectedInfo();
+            }
+        });
+
+        // RIGHT-CLICK: Select and drag charges
+        canvas.addEventListener('mousedown', (e) => {
+            if (e.button !== 2) return; // Only right mouse button
             
             const world = screenToWorld(e.clientX, e.clientY);
             
@@ -662,7 +688,7 @@
         });
 
         canvas.addEventListener('mouseup', (e) => {
-            if (e.button === 0) {
+            if (e.button === 2) {
                 isDragging = false;
                 draggedCharge = null;
             }
@@ -673,21 +699,9 @@
             draggedCharge = null;
         });
 
-        // RIGHT-CLICK: Place new charge
+        // Prevent context menu on right-click
         canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault(); // Prevent browser context menu
-            
-            const world = screenToWorld(e.clientX, e.clientY);
-            
-            // Add new charge at click position
-            if (state.charges.length < 50) {
-                const charge = parseFloat(document.getElementById('chargeSlider').value);
-                const newCharge = new PointCharge(world.x, world.y, charge);
-                state.charges.push(newCharge);
-                state.selectedCharge = newCharge;
-                updateChargeCount();
-                updateSelectedInfo();
-            }
+            e.preventDefault();
         });
         
         // Delete charge on Delete/Backspace key
