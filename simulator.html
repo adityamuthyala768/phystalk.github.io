@@ -154,7 +154,7 @@
                 <canvas id="simulatorCanvas"></canvas>
                 <div class="canvas-info">
                     <div class="info-text">
-                        <i class="fas fa-mouse-pointer"></i> <strong>Right-click</strong> to place charge • <strong>Left-click & drag</strong> to move charges • <strong>Delete/Backspace</strong> to remove selected • <strong>Mouse wheel</strong> to zoom
+                        <i class="fas fa-mouse-pointer"></i> <strong>Left-click</strong> to place charge • <strong>Right-click & drag</strong> to move charges • <strong>Delete/Backspace</strong> to remove selected • <strong>Mouse wheel</strong> to zoom
                     </div>
                     <div class="probe-info" id="probeInfo" style="display: none;">
                         <strong>Probe:</strong> <span id="probeData"></span>
@@ -243,7 +243,7 @@
             }
         };
 
-        // Canvas setup
+        // Canvas setup - CENTERED AT ORIGIN
         const canvas = document.getElementById('simulatorCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -274,12 +274,16 @@
             
             // Scale all drawing operations
             ctx.scale(dpr, dpr);
+            
+            // Center the view at (0, 0) by default
+            panX = width / 2;
+            panY = height / 2;
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // Transform screen coordinates to world coordinates
+        // Transform screen coordinates to world coordinates (centered at origin)
         function screenToWorld(screenX, screenY) {
             const rect = canvas.getBoundingClientRect();
             const x = (screenX - rect.left - panX) / scale;
@@ -715,7 +719,7 @@
             }
         });
         
-        // ZOOM with mouse wheel - FIXED
+        // ZOOM with mouse wheel - REDUCED MAGNIFICATION
         canvas.addEventListener('wheel', (e) => {
             e.preventDefault();
             
@@ -726,9 +730,9 @@
             // Get world position before zoom
             const worldBefore = screenToWorld(e.clientX, e.clientY);
             
-            // Update scale
-            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
-            const newScale = Math.max(0.5, Math.min(5, scale * zoomFactor));
+            // Update scale - SMALLER increments for smoother zoom
+            const zoomFactor = e.deltaY > 0 ? 0.95 : 1.05; // Changed from 0.9/1.1 to 0.95/1.05
+            const newScale = Math.max(0.5, Math.min(2.5, scale * zoomFactor)); // Max zoom reduced from 5 to 2.5
             
             // Calculate new pan to keep mouse position fixed
             const scaleChange = newScale / scale;
@@ -964,7 +968,7 @@
             });
         }
 
-        // Zoom functions - FIXED
+        // Zoom functions - REDUCED MAGNIFICATION
         window.zoomIn = function() {
             const rect = canvas.getBoundingClientRect();
             const centerX = rect.width / 2;
@@ -972,7 +976,7 @@
             
             const worldBefore = screenToWorld(rect.left + centerX, rect.top + centerY);
             
-            scale = Math.min(5, scale * 1.2);
+            scale = Math.min(2.5, scale * 1.15); // Changed from 5 max and 1.2 increment
             
             // Adjust pan to keep center fixed
             const worldAfter = screenToWorld(rect.left + centerX, rect.top + centerY);
@@ -989,7 +993,7 @@
             
             const worldBefore = screenToWorld(rect.left + centerX, rect.top + centerY);
             
-            scale = Math.max(0.5, scale / 1.2);
+            scale = Math.max(0.5, scale / 1.15); // Changed from 1.2 decrement
             
             // Adjust pan to keep center fixed
             const worldAfter = screenToWorld(rect.left + centerX, rect.top + centerY);
